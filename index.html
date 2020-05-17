@@ -64,6 +64,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/17/javascript/" class="article-date">
+  <time datetime="2020-05-17T07:35:54.334Z" itemprop="datePublished">2020-05-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/17/javascript/">javascript</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript<br>date: 2020-05-17 15:35:54<br>tags: 闭包导致的内存溢出</p>
+<pre><code>函数执行完后，函数内的局部变量没有释放，占用内存时间变长，容易照成内存泄漏
+解决：尽量不用闭包，及时释放
+ function fn1() {
+     var arr = new Array[1000]
+
+     function fn2() {
+         console.log(arr.length)
+     }
+     return fn2
+ }
+ var f = fn1()
+ f()
+     //f=null及时释放</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wode.githup.io/2020/05/17/javascript/" data-id="ckaar0tgz00005wu62bgg2sxp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/05/17/hello-world/" class="article-date">
@@ -142,6 +192,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/05/17/javascript/">javascript</a>
+          </li>
         
           <li>
             <a href="/2020/05/17/hello-world/">Hello World</a>
