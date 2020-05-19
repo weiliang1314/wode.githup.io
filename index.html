@@ -88,7 +88,7 @@
       
         <hr>
 <p>title: javascript-二叉搜索树<br>date: 2020-05-19 16:43:17<br>tags: 利用javascript实现数据结构中的二叉搜索树，左边存较小的值，右边存较大的值,查找效率较高。          </p>
-<h2 id="代码封装它的基本结构"><a href="#代码封装它的基本结构" class="headerlink" title="代码封装它的基本结构"></a>代码封装它的基本结构</h2><pre><code>         right
+<h2 id="封装它的基本结构"><a href="#封装它的基本结构" class="headerlink" title="封装它的基本结构"></a>封装它的基本结构</h2><pre><code>         right
 root(根)→key(键值)
           left
  代码封装：function binarserach(){
@@ -98,7 +98,35 @@ root(根)→key(键值)
       this.right=null
     }
     this.root=null
-      }</code></pre>
+      }</code></pre><h3 id="插入操作的函数封装"><a href="#插入操作的函数封装" class="headerlink" title="插入操作的函数封装"></a>插入操作的函数封装</h3><pre><code>binarserach.prototype.insert = function(key) {
+        //创建节点
+        var newnode = new Node(key)
+            //判断根节点是否空
+        if (this.root = null) {
+            this.root = newnode
+        } else {
+            this.insertNode(this.root, newnode)
+        }
+    }
+   insertNode函数进行查找并判断插入左子树还是右子树，其中用到递归调用
+    binarserach.prototype.insertNode = function(node, newnode) {
+        if (newnode.key &lt; node.key) {
+            //向左查找
+            if (node.left == null) {
+                node.left = newnode
+            } else { //递归
+                this.insertNode(node.left, newnode)
+            }
+        } else {
+            //向右查找
+            if (node.right == null) {
+                node.right = newnode
+            } else {
+                this.insertNode(node.right, newnode)
+            }
+        }
+    }
+}</code></pre>
       
     </div>
     <footer class="article-footer">
