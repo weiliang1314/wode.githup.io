@@ -187,8 +187,11 @@ root(根)→key(键值)
             }
         }
     }
-}</code></pre><h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><p> //前序遍历<br>            binarserach.prototype.preorder = function(hander) {<br>                this.preordernode(this.root, hander)</p>
-<pre><code>    }
+}</code></pre><h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><pre><code>           //前序遍历
+           binarserach.prototype.preorder = function(hander) {
+           this.preordernode(this.root, hander)
+
+    }
     binarserach.prototype.preordernode = function(node, hander) {
             if (node !== null) {
                 //处理经过的节点
