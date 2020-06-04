@@ -163,7 +163,7 @@ root(根)→key(键值)
         //创建节点
         var newnode = new Node(key)
             //判断根节点是否空
-        if (this.root = null) {
+        if (this.root == null) {
             this.root = newnode
         } else {
             this.insertNode(this.root, newnode)
@@ -187,6 +187,46 @@ root(根)→key(键值)
             }
         }
     }
+}</code></pre><h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><p> //前序遍历<br>            binarserach.prototype.preorder = function(hander) {<br>                this.preordernode(this.root, hander)</p>
+<pre><code>    }
+    binarserach.prototype.preordernode = function(node, hander) {
+            if (node !== null) {
+                //处理经过的节点
+                hander(node.key) //在下面测试打印时进行处理
+                    //处理经过的节点的子节点
+                this.preordernode(node.left, hander)
+                this.preordernode(node.right, hander)
+
+
+            }
+
+        }
+        //中序遍历
+    binarserach.prototype.midorder = function(hander) {
+        this.midordernode(this.root, hander)
+    }
+    binarserach.prototype.midordernode = function(node, hander) {
+
+            if (node != null) {
+                this.midordernode(node.left, hander)
+                hander(node.key)
+                this.midordernode(node.right, hander)
+            }
+        }
+        //后序遍历
+    binarserach.prototype.houorder = function(hander) {
+        this.houordernode(this.root, hander)
+    }
+    binarserach.prototype.houordernode = function(node, hander) {
+
+        if (node != null) {
+            this.houordernode(node.left, hander)
+
+            this.houordernode(node.right, hander)
+            hander(node.key)
+        }
+    }
+
 }</code></pre>
       
     </div>
