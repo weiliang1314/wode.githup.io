@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>vue-js-父子组件通信 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: vue.js-父子组件通信date: 2020-06-17 19:22:35tags: 父传子通过props传递数据，子传父通过自定义事件 父传子 其中因为组件无法直接访问Vue实例对象，组件有自己存放数据属性data但其必须为函数，且返回一个对象，对象中存放数据  &lt;div id&#x3D;&quot;app&quot;&gt;     &lt;!--此处不支持驼峰命名，改为此形式-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-js-父子组件通信">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/06/17/vue-js-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="title: vue.js-父子组件通信date: 2020-06-17 19:22:35tags: 父传子通过props传递数据，子传父通过自定义事件 父传子 其中因为组件无法直接访问Vue实例对象，组件有自己存放数据属性data但其必须为函数，且返回一个对象，对象中存放数据  &lt;div id&#x3D;&quot;app&quot;&gt;     &lt;!--此处不支持驼峰命名，改为此形式-">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-17T11:22:35.724Z">
+<meta property="article:modified_time" content="2020-06-17T11:47:39.177Z">
+<meta property="article:author" content="weiliang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/wode.githup.io/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/wode.githup.io/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/wode.githup.io/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/">Home</a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/wode.githup.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/weiliang1314/wode.githup.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vue-js-父子组件通信" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/06/17/vue-js-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time datetime="2020-06-17T11:22:35.724Z" itemprop="datePublished">2020-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-js-父子组件通信
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: vue.js-父子组件通信<br>date: 2020-06-17 19:22:35<br>tags: 父传子通过props传递数据，子传父通过自定义事件</p>
+<h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><pre><code> 其中因为组件无法直接访问Vue实例对象，组件有自己存放数据属性data但其必须为函数，且返回一个对象，对象中存放数据
+ &lt;div id=&quot;app&quot;&gt;
+    &lt;!--此处不支持驼峰命名，改为此形式--&gt;
+    &lt;cpn :c-info=&apos;info&apos;&gt;&lt;/cpn&gt;
+&lt;/div&gt;
+&lt;template id=&quot;cpn&quot;&gt;</code></pre>   <h1></h1>
+    </template>
+    <script src='./vue.js'></script>
+    <script>
+        const cpn = {
+            template: '#cpn',
+            props: {
+                cInfo: {
+                    type: Object,
+                    default () {
+                        return {}
+                    }
+                }
+            },
+            data(){
+              return{}
+            }
+        }
+        const app = new Vue({
+            el: '#app', //挂载要管理的元素
+            data: {
+                info: {
+                    name: '我的',
+                    age: 19,
+                    sex: '男'
+                },
+            },
+            components: {
+                cpn
+            }
+
+<pre><code>    })
+&lt;/script&gt;</code></pre><h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><pre><code>   &lt;!--父组件模板--&gt;
+&lt;div id=&apos;app&apos;&gt;
+    &lt;!--监听子组件发射的事件--&gt;
+    &lt;cpn @itemclick=&apos;cpnclick&apos;&gt;&lt;/cpn&gt;
+&lt;/div&gt;
+&lt;!--子组件模板--&gt;
+&lt;template id=&quot;cpn&quot;&gt;
+  &lt;div&gt;
+&lt;button v-for=&quot;item in categories&quot; @click=&apos;btn(item)&apos;&gt;{{item.name}}&lt;/button&gt;&lt;/div&gt;
+ &lt;/template&gt;
+&lt;script src=&apos;./vue.js&apos;&gt;&lt;/script&gt;
+&lt;script&gt;
+    //子组件
+    const cpn = {
+            template: &apos;#cpn&apos;,
+            data() {
+                return {
+                    categories: [{
+                        id: &apos;aaa&apos;,
+                        name: &apos;热门&apos;
+                    }, {
+                        id: &apos;qqq&apos;,
+                        name: &apos;热搜&apos;
+                    }, {
+                        id: &apos;sss&apos;,
+                        name: &apos;搜狗&apos;
+                    }, {
+                        id: &apos;ooo&apos;,
+                        name: &apos;该带&apos;
+                    }, ]
+                }
+            },
+            methods: {
+                btn(item) {
+                    //console.log(item)
+                    //发射事件，自定义事件
+                    this.$emit(&apos;itemclick&apos;, item)
+                }
+            }
+
+        }
+        //父组件
+    const app = new Vue({
+        el: &apos;#app&apos;, //挂载要管理的元素
+        data: {
+            message: &apos;你电脑你打击违法&apos;,
+            movies: [&apos;好多&apos;, &apos;有点&apos;, &apos;大话西游&apos;, &apos;少年&apos;]
+        },
+        components: {
+            cpn
+        },
+        methods: {
+            cpnclick(item) {
+                console.log(&apos;cpnclick&apos;, item)
+
+            }
+        }
+    })
+&lt;/script&gt;</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/06/17/vue-js-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" data-id="ckbjakacb0000fwu6guea6s21" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javascript中for的作用域</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2020/06/17/vue-js-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">vue-js-父子组件通信</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">javascript中for的作用域</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">javascript-二叉搜索树</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/05/17/javascript/">javascript</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/05/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 weiliang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/wode.githup.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/wode.githup.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/wode.githup.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/wode.githup.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/wode.githup.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
