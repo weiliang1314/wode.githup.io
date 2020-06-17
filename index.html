@@ -93,38 +93,39 @@
     &lt;!--此处不支持驼峰命名，改为此形式--&gt;
     &lt;cpn :c-info=&apos;info&apos;&gt;&lt;/cpn&gt;
 &lt;/div&gt;
-&lt;template id=&quot;cpn&quot;&gt;</code></pre>   <h1></h1>
-    </template>
-    <script src='./vue.js'></script>
-    <script>
-        const cpn = {
-            template: '#cpn',
-            props: {
-                cInfo: {
-                    type: Object,
-                    default () {
-                        return {}
-                    }
+&lt;template id=&quot;cpn&quot;&gt;
+&lt;h1&gt;{{cInfo}}&lt;/h1&gt;
+&lt;/template&gt;
+&lt;script src=&apos;./vue.js&apos;&gt;&lt;/script&gt;
+&lt;script&gt;
+    const cpn = {
+        template: &apos;#cpn&apos;,
+        props: {
+            cInfo: {
+                type: Object,
+                default () {
+                    return {}
                 }
-            },
-            data(){
-              return{}
             }
+        },
+        data(){
+          return{}
         }
-        const app = new Vue({
-            el: '#app', //挂载要管理的元素
-            data: {
-                info: {
-                    name: '我的',
-                    age: 19,
-                    sex: '男'
-                },
+    }
+    const app = new Vue({
+        el: &apos;#app&apos;, //挂载要管理的元素
+        data: {
+            info: {
+                name: &apos;我的&apos;,
+                age: 19,
+                sex: &apos;男&apos;
             },
-            components: {
-                cpn
-            }
+        },
+        components: {
+            cpn
+        }
 
-<pre><code>    })
+    })
 &lt;/script&gt;</code></pre><h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><pre><code>   &lt;!--父组件模板--&gt;
 &lt;div id=&apos;app&apos;&gt;
     &lt;!--监听子组件发射的事件--&gt;
