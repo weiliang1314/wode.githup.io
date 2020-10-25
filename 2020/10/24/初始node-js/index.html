@@ -5,13 +5,17 @@
   
 
   
-  <title>Archives: 2020/7 | Weiweiliang的博客</title>
+  <title>初始node-js | Weiweiliang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Weiweiliang的博客">
-<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/archives/2020/07/index.html">
+  <meta name="description" content="title: 初始node.jsdate: 2020-10-24 12:50:52tags: node.js中模块的学习理解 模块化 commonjs规范模块导出 module.exportsmodule.exports &#x3D; {   name: &amp;apos;wei&amp;apos;,   age: 123     }     模块引入 requirevar varName &#x3D; require(&amp;apo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初始node-js">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/index.html">
 <meta property="og:site_name" content="Weiweiliang的博客">
+<meta property="og:description" content="title: 初始node.jsdate: 2020-10-24 12:50:52tags: node.js中模块的学习理解 模块化 commonjs规范模块导出 module.exportsmodule.exports &#x3D; {   name: &amp;apos;wei&amp;apos;,   age: 123     }     模块引入 requirevar varName &#x3D; require(&amp;apo">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-24T04:50:52.490Z">
+<meta property="article:modified_time" content="2020-10-25T12:45:06.525Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -62,59 +66,79 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/wode.githup.io/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  <time datetime="2020-07-22T10:46:43.616Z" itemprop="datePublished">Jul 22</time>
+        <section id="main"><article id="post-初始node-js" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" class="article-date">
+  <time datetime="2020-10-24T04:50:52.490Z" itemprop="datePublished">2020-10-24</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">axios网络请求</a>
+    <h1 class="article-title" itemprop="name">
+      初始node-js
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  <time datetime="2020-07-14T10:56:13.007Z" itemprop="datePublished">Jul 14</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/">vue-cli使用</a>
-    </h1>
-  
-
-    </header>
+        <hr>
+<p>title: 初始node.js<br>date: 2020-10-24 12:50:52<br>tags: node.js中模块的学习理解</p>
+<h3 id="模块化-commonjs规范"><a href="#模块化-commonjs规范" class="headerlink" title="模块化 commonjs规范"></a>模块化 commonjs规范</h3><h4 id="模块导出-module-exports"><a href="#模块导出-module-exports" class="headerlink" title="模块导出 module.exports"></a>模块导出 module.exports</h4><pre><code>module.exports = {
+  name: &apos;wei&apos;,
+  age: 123
+    }     </code></pre><h4 id="模块引入-require"><a href="#模块引入-require" class="headerlink" title="模块引入 require"></a>模块引入 require</h4><pre><code>var varName = require(&apos;模块名&apos;);         </code></pre><h3 id="系统模块"><a href="#系统模块" class="headerlink" title="系统模块"></a>系统模块</h3><h4 id="文件写入-fs模块"><a href="#文件写入-fs模块" class="headerlink" title="文件写入 fs模块"></a>文件写入 fs模块</h4><pre><code>const fs = require(&apos;fs&apos;)
+     const cont = &quot;成为那个&quot;
+   其中demo表示文件路径，cont表示写入的内容,err包含写入失败的信息
+  fs.writeFile(&apos;demo.txt&apos;, cont, err =&gt; {
+ if (err != null) {
+   console.log(err)
+   return;
+    }
+  console.log(&apos;写入成功&apos;)
+      })     </code></pre><h4 id="读取文件-fs模块"><a href="#读取文件-fs模块" class="headerlink" title="读取文件 fs模块"></a>读取文件 fs模块</h4><pre><code> //通过模块名字进行引用
+    const fs = require(&apos;fs&apos;);
+   //通过模块内部函数读取文件内容
+  fs.readFile(&apos;../b.js&apos;, &apos;utf-8&apos;, (err, doc) =&gt; {
+//如果读取时出现错误err包含错误信息，是一个对象
+   //doc是文件读取的结果
+ console.log(err);
+ console.log(doc)
+    })     </code></pre><h4 id="文件路径操作-path模块"><a href="#文件路径操作-path模块" class="headerlink" title="文件路径操作 path模块"></a>文件路径操作 path模块</h4><pre><code>const fs = require(&apos;fs&apos;)
+ const path = require(&apos;path&apos;)
+ 路径拼接
+ const f = path.join(&apos;p&apos;, &apos;u&apos;, &apos;a&apos;)
+ 获取文件绝对路径
+ path.join(__dirname,&apos;文件名&apos;)</code></pre><h3 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h3><pre><code>1、以js文件存在的的提供API接口
+2、以命令行工具形式存在的，用npm命令下载</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" data-id="ckgp3vlte0000x0u67x9t63r6" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">快速排序</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
