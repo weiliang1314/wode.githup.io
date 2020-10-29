@@ -64,6 +64,196 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-服务端基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2020-10-29T12:23:58.048Z" itemprop="datePublished">2020-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/">服务端基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 服务端基础<br>date: 2020-10-29 20:23:58<br>tags: 总结学习node.js中所需的一些服务端知识url及http</p>
+<h3 id="统一资源定位符URL"><a href="#统一资源定位符URL" class="headerlink" title="统一资源定位符URL"></a>统一资源定位符URL</h3><h6 id="组成：传输协议：-服务器IP：端口-资源所在位置"><a href="#组成：传输协议：-服务器IP：端口-资源所在位置" class="headerlink" title="组成：传输协议：//服务器IP：端口/资源所在位置"></a>组成：传输协议：//服务器IP：端口/资源所在位置</h6><h3 id="node创建web服务器"><a href="#node创建web服务器" class="headerlink" title="node创建web服务器"></a>node创建web服务器</h3><pre><code>//引用系统模块
+  const http = require(&apos;http&apos;)
+//创建web服务器
+ const app = http.createServer()
+ //当客户发送请求监听
+  app.on(&apos;request&apos;, (req, res) =&gt; {
+  //响应报文状态码
+   res.writeHead(200, {
+         //内容形式：文本，Html等,charset中文编码
+        &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
+        &apos;hello&apos;: &apos;world&apos;
+    })
+
+      //响应
+      res.end(&apos;&lt;h2&gt;user&lt;/h2&gt;&apos;)
+    })
+   //监听端口
+    app.listen(3000)
+    console.log(&apos;访问localhost:3000&apos;)</code></pre><h3 id="http请求与相应处理"><a href="#http请求与相应处理" class="headerlink" title="http请求与相应处理"></a>http请求与相应处理</h3><h4 id="get请求参数解析-url-parse-及路由访问"><a href="#get请求参数解析-url-parse-及路由访问" class="headerlink" title="get请求参数解析 url.parse()及路由访问"></a>get请求参数解析 url.parse()及路由访问</h4><pre><code> //引用系统模块
+  const http = require(&apos;http&apos;)
+
+  //创建web服务器
+const app = http.createServer()
+ const url = require(&apos;url&apos;)
+
+ //当客户发送请求监听
+ app.on(&apos;request&apos;, (req, res) =&gt; {
+    res.writeHead(200, {
+        //内容形式：文本，Html等,charset中文编码
+        &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
+        &apos;hello&apos;: &apos;world&apos;
+    })
+    //获取请求地址,转成小写
+   const method = req.method.toLowerCase()
+    //获取地址，解析路径
+  const { pathname } = url.parse(req.url, true)
+ if (method == &apos;get&apos;) {
+    if (pathname == &apos;/&apos; || pathname == &quot;/index&quot;) {
+        res.end(&apos;欢迎来到首页&apos;)
+    } else if (pathname == &apos;/list&apos;) {
+        res.end(&apos;欢迎来到列表&apos;)
+    } else(res.end(&apos;页面不存在的&apos;))
+       } else if (method == &apos;post&apos;) {
+
+      }</code></pre><h4 id="post参数-，参数通过事件的方式接受"><a href="#post参数-，参数通过事件的方式接受" class="headerlink" title="post参数 ，参数通过事件的方式接受"></a>post参数 ，参数通过事件的方式接受</h4><pre><code>  //引用系统模块
+ const http = require(&apos;http&apos;)
+ //用于处理请求参数
+
+const querystring = require(&apos;querystring&apos;)
+  //创建web服务器
+      const app = http.createServer()
+
+ //当客户发送请求监听
+ app.on(&apos;request&apos;, (req, res) =&gt; {
+  //post参数通过事件的方式接受
+ //data当请求参数传递的时候发出data事件
+  //end当参数传递完成的时候发出end事件
+let postparams = &apos;&apos;
+  req.on(&apos;data&apos;, (params) =&gt; {
+   postparams += params
+
+     })
+  req.on(&apos;end&apos;, () =&gt; {
+   //把参数转化成对象形式
+    let post = querystring.parse(postparams)
+    console.log(post)
+
+      })
+       res.end(&apos;ok&apos;)
+
+    })
+  //监听端口
+  app.listen(4000)
+  console.log(&apos;访问localhost:4000&apos;)</code></pre><h4 id="静态资源获取，服务器端不需要处理，可以直接给客户端的资源"><a href="#静态资源获取，服务器端不需要处理，可以直接给客户端的资源" class="headerlink" title="静态资源获取，服务器端不需要处理，可以直接给客户端的资源"></a>静态资源获取，服务器端不需要处理，可以直接给客户端的资源</h4><pre><code> //引用系统模块
+    const http = require(&apos;http&apos;)
+  const url = require(&apos;url&apos;)
+   const path = require(&apos;path&apos;)
+ const fs = require(&apos;fs&apos;)
+   const mime = require(&apos;mime&apos;)
+    //创建web服务器
+ const app = http.createServer()
+//当客户发送请求监听
+     app.on(&apos;request&apos;, (req, res) =&gt; {
+    let pathname = url.parse(req.url).pathname
+       pathname = pathname == &apos;/&apos; ? &apos;/form.html&apos; : pathname
+       //将用户的请求路径转化为实际硬盘路径
+        let paths = path.join(__dirname, pathname)
+       //返回资源类型
+        let types = mime.getType(paths)
+       //读取文件
+      fs.readFile(paths, (error, result) =&gt; {
+       if (error != null) {
+           //状态码，内容形式：文本，Html等,charset中文编码
+           res.writeHead(404, {
+               &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
+
+              })
+           res.end(&apos;文件读取失败&apos;)
+           return;
+                }
+            res.writeHead(200, {
+           &apos;content-type&apos;: types
+
+                 })
+         res.end(result)
+           })
+
+          })
+     //监听端口
+          app.listen(8080)
+           console.log(&apos;访问localhost:8080&apos;)</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" data-id="ckguuhdwu00014ku653qu2ure" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-node模块加载机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2020-10-29T12:20:02.380Z" itemprop="datePublished">2020-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: node模块加载机制<br>date: 2020-10-29 20:20:02<br>tags: node.js在加载模块时通过require在有无路径情况下的查找顺序</p>
+<h3 id="rquuire-在有路径的情况下的加载机制"><a href="#rquuire-在有路径的情况下的加载机制" class="headerlink" title="rquuire()在有路径的情况下的加载机制"></a>rquuire()在有路径的情况下的加载机制</h3><pre><code>若在require()中有完整的路径则按照路径顺序查找，若require中文件无后缀名先找在js文件；
+再找js文件夹，找到文件夹后再找index.js文件，若煤油index.js文件就去当前文件夹中找到
+package.json文件找到main选项中的入口文件。</code></pre><h3 id="require-在没有路径且没有后缀名情况下加载机制"><a href="#require-在没有路径且没有后缀名情况下加载机制" class="headerlink" title="require()在没有路径且没有后缀名情况下加载机制"></a>require()在没有路径且没有后缀名情况下加载机制</h3><pre><code>node会假设他是系统模块，去node_modules文件夹中找是否有该名字js文件，再看有无该名字文
+件 夹，如果没有该文件有文件夹则在文件夹中找index.js文件，如果没有index.js看文件夹中的 
+package.json文件找到main选项中的入口文件。</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" data-id="ckguuhdtx00004ku65l3lcway" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-初始node-js" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" class="article-date">
@@ -737,106 +927,12 @@ root(根)→key(键值)
 
 
   
-    <article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/05/17/javascript/" class="article-date">
-  <time datetime="2020-05-17T07:35:54.334Z" itemprop="datePublished">2020-05-17</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/05/17/javascript/">javascript</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: javascript<br>date: 2020-05-17 15:35:54<br>tags: 闭包导致的内存溢出</p>
-<pre><code>函数执行完后，函数内的局部变量没有释放，占用内存时间变长，容易照成内存泄漏
-解决：尽量不用闭包，及时释放
- function fn1() {
-     var arr = new Array[1000]
-
-     function fn2() {
-         console.log(arr.length)
-     }
-     return fn2
- }
- var f = fn1()
- f()
-     //f=null及时释放</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/javascript/" data-id="ckgp43z8t00029ou64voje327" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/05/17/hello-world/" class="article-date">
-  <time datetime="2020-05-17T07:02:30.828Z" itemprop="datePublished">2020-05-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/05/17/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/hello-world/" data-id="ckgp43z8z00059ou60dvm5mp0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/wode.githup.io/page/2/">2</a><a class="extend next" rel="next" href="/wode.githup.io/page/2/">Next &amp;raquo;</a>
+  </nav>
 
 </section>
         
@@ -867,6 +963,14 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/">服务端基础</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/">初始node-js</a>
           </li>
         
@@ -876,14 +980,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">axios网络请求</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/">vue-cli使用</a>
           </li>
         
       </ul>

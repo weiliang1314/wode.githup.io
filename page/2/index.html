@@ -5,17 +5,13 @@
   
 
   
-  <title>vue-cli使用 | Weiweiliang的博客</title>
+  <title>Weiweiliang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: vue&#x2F;cli使用date: 2020-07-14 18:56:12tags: 关于vue-cli2的一些基本使用 基于node.js与webpack的vue&#x2F;cli全局安装npm install -g @vue&#x2F;cli@版本号（可以不写选择默认安装新版本）安装完成后用来创建项目vue init webpack 项目名称项目初始化过程中的一些配置选择1、名称，项目描述，作者可以选择">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue-cli使用">
-<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Weiweiliang的博客">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/page/2/index.html">
 <meta property="og:site_name" content="Weiweiliang的博客">
-<meta property="og:description" content="title: vue&#x2F;cli使用date: 2020-07-14 18:56:12tags: 关于vue-cli2的一些基本使用 基于node.js与webpack的vue&#x2F;cli全局安装npm install -g @vue&#x2F;cli@版本号（可以不写选择默认安装新版本）安装完成后用来创建项目vue init webpack 项目名称项目初始化过程中的一些配置选择1、名称，项目描述，作者可以选择">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-14T10:56:13.007Z">
-<meta property="article:modified_time" content="2020-08-16T06:09:10.792Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +62,12 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-vue-cli使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main">
+  
+    <article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time datetime="2020-07-14T10:56:13.007Z" itemprop="datePublished">2020-07-14</time>
+    <a href="/wode.githup.io/2020/05/17/javascript/" class="article-date">
+  <time datetime="2020-05-17T07:35:54.334Z" itemprop="datePublished">2020-05-17</time>
 </a>
     
   </div>
@@ -79,8 +77,8 @@
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      vue-cli使用
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/05/17/javascript/">javascript</a>
     </h1>
   
 
@@ -89,63 +87,39 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>title: vue/cli使用<br>date: 2020-07-14 18:56:12<br>tags: 关于vue-cli2的一些基本使用</p>
-<h3 id="基于node-js与webpack的vue-cli全局安装"><a href="#基于node-js与webpack的vue-cli全局安装" class="headerlink" title="基于node.js与webpack的vue/cli全局安装"></a>基于node.js与webpack的vue/cli全局安装</h3><pre><code>npm install -g @vue/cli@版本号（可以不写选择默认安装新版本）</code></pre><h3 id="安装完成后用来创建项目"><a href="#安装完成后用来创建项目" class="headerlink" title="安装完成后用来创建项目"></a>安装完成后用来创建项目</h3><pre><code>vue init webpack 项目名称</code></pre><h3 id="项目初始化过程中的一些配置选择"><a href="#项目初始化过程中的一些配置选择" class="headerlink" title="项目初始化过程中的一些配置选择"></a>项目初始化过程中的一些配置选择</h3><pre><code>1、名称，项目描述，作者可以选择默认；
-2、runtime-compiler与runtime-only的选择：建议选择后者，相比前者性能更好,代码更少
-程序运行区别：
-runtime-complier
-template-&gt;ast-&gt;render-&gt;vdom-&gt;UI
-runtime-only
-render-&gt;vdom-&gt;UI
-代码区别：
-runtime-only
-new Vue({
-    el: &apos;#app&apos;,
-router,
-     render: h =&gt; h(App)
-   })
-runtime-complier
-new Vue({
-    el: &apos;#app&apos;,
-    components: { App },
-    template: &apos;&lt;App/&gt;&apos;
-    })
-3、选择安装路由：vue-router
-4、选择Eslint代码规范
-5、单元测试
-6、端到端测试
-7、项目管理工具：npm或yarn</code></pre>
+<p>title: javascript<br>date: 2020-05-17 15:35:54<br>tags: 闭包导致的内存溢出</p>
+<pre><code>函数执行完后，函数内的局部变量没有释放，占用内存时间变长，容易照成内存泄漏
+解决：尽量不用闭包，及时释放
+ function fn1() {
+     var arr = new Array[1000]
+
+     function fn2() {
+         console.log(arr.length)
+     }
+     return fn2
+ }
+ var f = fn1()
+ f()
+     //f=null及时释放</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" data-id="ckgp43z8r00019ou6224z8s75" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/javascript/" data-id="ckgp43z8t00029ou64voje327" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
-  
-    <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          axios网络请求
-        
-      </div>
-    </a>
-  
-  
-    <a href="/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">vue-父子组件通信</div>
-    </a>
-  
-</nav>
+</article>
+
 
   
-</article>
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/wode.githup.io/">&amp;laquo; Prev</a><a class="page-number" href="/wode.githup.io/">1</a><span class="page-number current">2</span>
+  </nav>
 
 </section>
         
