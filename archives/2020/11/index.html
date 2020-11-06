@@ -5,17 +5,13 @@
   
 
   
-  <title>希尔排序 | Weiweiliang的博客</title>
+  <title>Archives: 2020/11 | Weiweiliang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 希尔排序date: 2020-08-16 14:05:42tags: 插入排序改进，对数组选一个间隔再进行插入排序（多次） 希尔排序代码封装list.prototype.shell &#x3D; function() {              var length &#x3D; this.array.length                  &#x2F;&#x2F;初始化间隔增量              va">
-<meta property="og:type" content="article">
-<meta property="og:title" content="希尔排序">
-<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Weiweiliang的博客">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/archives/2020/11/index.html">
 <meta property="og:site_name" content="Weiweiliang的博客">
-<meta property="og:description" content="title: 希尔排序date: 2020-08-16 14:05:42tags: 插入排序改进，对数组选一个间隔再进行插入排序（多次） 希尔排序代码封装list.prototype.shell &#x3D; function() {              var length &#x3D; this.array.length                  &#x2F;&#x2F;初始化间隔增量              va">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-08-16T06:05:42.222Z">
-<meta property="article:modified_time" content="2020-08-16T06:09:21.754Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -66,80 +62,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="article-date">
-  <time datetime="2020-08-16T06:05:42.222Z" itemprop="datePublished">2020-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      希尔排序
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/wode.githup.io/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/wode.githup.io/2020/11/06/mongoDB/" class="archive-article-date">
+  <time datetime="2020-11-06T12:50:16.131Z" itemprop="datePublished">Nov 6</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 希尔排序<br>date: 2020-08-16 14:05:42<br>tags: 插入排序改进，对数组选一个间隔再进行插入排序（多次）</p>
-<h3 id="希尔排序代码封装"><a href="#希尔排序代码封装" class="headerlink" title="希尔排序代码封装"></a>希尔排序代码封装</h3><pre><code>list.prototype.shell = function() {
-             var length = this.array.length
-                 //初始化间隔增量
-             var geg = Math.floor(length / 2)
-                 //geg不断减小
-             while (geg &gt;= 1) {
-                 for (var i = geg; i &lt; length; i++) {
-                     var temp = this.array[i]
-                     var j = i
-                     while (this.array[j - geg] &gt; temp &amp;&amp; j &gt; geg - 1) {
-                         this.array[j] = this.array[j - geg]
-                         j -= geg
-                     }
-                     this.array[j] = temp
-                 }
-                 geg = Math.floor(geg / 2)
-
-             }
-         }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckgp43z9200079ou66lxu3eep" class="article-share-link">Share</a>
-      
-      
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          快速排序
-        
-      </div>
-    </a>
-  
-  
-    <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">axios网络请求</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         
