@@ -64,6 +64,91 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mongoDB操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2020-11-13T12:16:28.256Z" itemprop="datePublished">2020-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: mongoDB操作<br>date: 2020-11-13 20:16:28<br>tags: 使用node.js对mongoDB实现增、删、改、插操作</p>
+<h3 id="对创建的集合进行插入数据"><a href="#对创建的集合进行插入数据" class="headerlink" title="对创建的集合进行插入数据"></a>对创建的集合进行插入数据</h3><h5 id="1、普通方法"><a href="#1、普通方法" class="headerlink" title="1、普通方法"></a>1、普通方法</h5><pre><code>//创建集合,名字首字母大写，应用相应属性规则
+ const Course = mongoose.model(&apos;Course&apos;, course)
+  //插入数据
+ const cour = new Course({
+  name: &apos;小辣椒&apos;,
+  author: &apos;你写&apos;,
+  ispub: true
+
+   })
+  //保存到数据库
+  cour.save()</code></pre><h5 id="2、create-方法，返回promise对象"><a href="#2、create-方法，返回promise对象" class="headerlink" title="2、create()方法，返回promise对象"></a>2、create()方法，返回promise对象</h5><pre><code>Course.create({
+ name: &apos;javascript&apos;,
+ author: &apos;hahaha&apos;,
+ ispub: true
+   }, (err, doc) =&gt; {
+  //错误信息
+  console.log(err)
+     //插入的信息
+  console.log(doc)
+  })</code></pre><h3 id="对集合中的数据进行删除"><a href="#对集合中的数据进行删除" class="headerlink" title="对集合中的数据进行删除"></a>对集合中的数据进行删除</h3><h5 id="1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据"><a href="#1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据" class="headerlink" title="1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据"></a>1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据</h5><pre><code>Course.findOneAndDelete({ 条件}).then(res =&gt; { console.log(res) })</code></pre><h5 id="2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据"><a href="#2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据" class="headerlink" title="2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据"></a>2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据</h5><pre><code>Course.deleteMany({}).then(res =&gt; { console.log(res)})</code></pre><h3 id="对集合中数据进行修改"><a href="#对集合中数据进行修改" class="headerlink" title="对集合中数据进行修改"></a>对集合中数据进行修改</h3><h5 id="1、修改单条数据"><a href="#1、修改单条数据" class="headerlink" title="1、修改单条数据"></a>1、修改单条数据</h5><pre><code>Course.updateOne({ 条件}, { 要修改的数据}).then(res =&gt; { console.log(res) })</code></pre><h5 id="2、修改多条数据，若没有条件就是修改所有"><a href="#2、修改多条数据，若没有条件就是修改所有" class="headerlink" title="2、修改多条数据，若没有条件就是修改所有"></a>2、修改多条数据，若没有条件就是修改所有</h5><pre><code>Course.updateMany({}, {要修改的数据}).then(res =&gt; { console.log(res) })</code></pre><h3 id="对集合中的数据进行查询"><a href="#对集合中的数据进行查询" class="headerlink" title="对集合中的数据进行查询"></a>对集合中的数据进行查询</h3><h5 id="1、查询所有数据"><a href="#1、查询所有数据" class="headerlink" title="1、查询所有数据"></a>1、查询所有数据</h5><pre><code>Course.find().then(res =&gt; console.log(res))</code></pre><h5 id="2、按条件查询多条数据"><a href="#2、按条件查询多条数据" class="headerlink" title="2、按条件查询多条数据"></a>2、按条件查询多条数据</h5><pre><code>Course.find({条件}).then(res =&gt; console.log(res))</code></pre><h5 id="3、按条件查询单条数据"><a href="#3、按条件查询单条数据" class="headerlink" title="3、按条件查询单条数据"></a>3、按条件查询单条数据</h5><pre><code>Course.findOne({ 条件}).then(res =&gt; console.log(res))</code></pre><h5 id="4、按字段查询数据"><a href="#4、按字段查询数据" class="headerlink" title="4、按字段查询数据"></a>4、按字段查询数据</h5><pre><code>Course.find().select(&apos;字段1 字段2...&apos;).then(res =&gt; console.log(res))</code></pre><h5 id="5、skip-跳过多少条数据，limit-限制查询数据的数量"><a href="#5、skip-跳过多少条数据，limit-限制查询数据的数量" class="headerlink" title="5、skip()跳过多少条数据，limit()限制查询数据的数量"></a>5、skip()跳过多少条数据，limit()限制查询数据的数量</h5><pre><code> //跳过前两条数据，查询两条数据
+Course.find().skip(2).limit(2).then(res =&gt; console.log(res))</code></pre><h3 id="同一个数据库对两个数据集合进行关联"><a href="#同一个数据库对两个数据集合进行关联" class="headerlink" title="同一个数据库对两个数据集合进行关联"></a>同一个数据库对两个数据集合进行关联</h3><h4 id="连接好数据库后，建立两个数据集合及其规则"><a href="#连接好数据库后，建立两个数据集合及其规则" class="headerlink" title="连接好数据库后，建立两个数据集合及其规则"></a>连接好数据库后，建立两个数据集合及其规则</h4><pre><code>const user = new mongoose.Schema({
+ name: {
+    type: String,
+    required: true
+}
+   })
+ const post = new mongoose.Schema({
+    title: {
+       type: String
+     },
+  //对两个表进行关联
+      author: {
+    type: mongoose.Schema.Types.ObjectId,
+   ref: &apos;Users&apos;
+     }
+    })
+ const Users = mongoose.model(&apos;Users&apos;, user)
+ const Posts = mongoose.model(&apos;Posts&apos;, post)</code></pre><h4 id="插入数据时把关联的字段上写被关联字段数据的id"><a href="#插入数据时把关联的字段上写被关联字段数据的id" class="headerlink" title="插入数据时把关联的字段上写被关联字段数据的id"></a>插入数据时把关联的字段上写被关联字段数据的id</h4><pre><code>Users.create({
+ name: &apos;朱自清&apos;
+  }, ).then(doc =&gt; console.log(doc)).catch(err =&gt; {
+ console.log(err)
+})
+Posts.create({
+title: &apos;荷塘月色 背影&apos;,
+ author: &apos;5fa698057b04462b6031e4f7&apos;//name的id
+  }, ).then(doc =&gt; console.log(doc)).catch(err =&gt; {
+  console.log(err)
+   })</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" data-id="ckhhb25wh0000owu6gbewbttx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-mongoDB" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/11/06/mongoDB/" class="article-date">
@@ -803,67 +888,6 @@ new Vue({
 
 
   
-    <article id="post-javascript中for的作用域" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2020-05-23T04:16:41.696Z" itemprop="datePublished">2020-05-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">javascript中for的作用域</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: ‘’javascript中for的作用域’’<br>date: 2020-05-23 12:16:41<br>tags: 在ES5前if与for没有块级作用域的概念，在ES6中添加let这一定义变量的关键字，使其在块级作用域有效</p>
-<h3 id="使用var定义变量"><a href="#使用var定义变量" class="headerlink" title="使用var定义变量"></a>使用var定义变量</h3><pre><code>&lt;button&gt;按钮1&lt;/button&gt;
-&lt;button&gt;按钮2&lt;/button&gt;
-&lt;button&gt;按钮3&lt;/button&gt;
-&lt;button&gt;按钮4&lt;/button&gt;
-&lt;button&gt;按钮5&lt;/button&gt;
-&lt;script&gt;
-因为没有块级作用域，按钮点击后函数执行当i找到是i的值已经被改变
-var btn = document.getElementsByTagName(&quot;button&quot;);
-                  for (var i = 0; i &lt; btn.length; i++) {
-                      btn[i].addEventListener(&apos;click&apos;, function() {
-                          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
-                      })&lt;/script&gt;</code></pre><h3 id="使用闭包解决"><a href="#使用闭包解决" class="headerlink" title="使用闭包解决"></a>使用闭包解决</h3><pre><code>当匿名函数执行时，函数中有块级作用域，每次i就会被传入，但外面i的改变不会影响函数里面的i
-var btn = document.getElementsByTagName(&quot;button&quot;);
-     for (var i = 0; i &lt; btn.length; i++) {
-         (function(num) {
-             btn[i].addEventListener(&apos;click&apos;, function() {
-                 console.log(&quot;第&quot; + num + &quot;个按钮点击&quot;)
-             })
-         })(i)</code></pre><h3 id="使用ES6中let解决"><a href="#使用ES6中let解决" class="headerlink" title="使用ES6中let解决"></a>使用ES6中let解决</h3><pre><code>const btn = document.getElementsByTagName(&quot;button&quot;);
-  for (let i = 0; i &lt; btn.length; i++) {
-      btn[i].addEventListener(&apos;click&apos;, function() {
-          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
-      })
-  }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckgp43z9e00099ou63s6j7lih" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -900,6 +924,10 @@ var btn = document.getElementsByTagName(&quot;button&quot;);
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
           </li>
         
@@ -913,10 +941,6 @@ var btn = document.getElementsByTagName(&quot;button&quot;);
         
           <li>
             <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/">初始node-js</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a>
           </li>
         
       </ul>
