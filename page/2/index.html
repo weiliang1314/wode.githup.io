@@ -64,6 +64,140 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-父子组件通信" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="article-date">
+  <time datetime="2020-06-17T12:02:36.763Z" itemprop="datePublished">2020-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/">vue-父子组件通信</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: vue.js-父子组件通信<br>date: 2020-06-17 19:22:35<br>tags: 父传子通过props传递数据，子传父通过自定义事件</p>
+<h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><pre><code> 其中因为组件无法直接访问Vue实例对象，组件有自己存放数据属性data但其必须为函数，且返回一个对象，对象中存放数据
+ &lt;div id=&quot;app&quot;&gt;
+    &lt;!--此处不支持驼峰命名，改为此形式--&gt;
+    &lt;cpn :c-info=&apos;info&apos;&gt;&lt;/cpn&gt;
+&lt;/div&gt;
+&lt;template id=&quot;cpn&quot;&gt;
+&lt;h1&gt;{{cInfo}}&lt;/h1&gt;
+&lt;/template&gt;
+&lt;script src=&apos;./vue.js&apos;&gt;&lt;/script&gt;
+&lt;script&gt;
+    const cpn = {
+        template: &apos;#cpn&apos;,
+        props: {
+            cInfo: {
+                type: Object,
+                default () {
+                    return {}
+                }
+            }
+        },
+        data(){
+          return{}
+        }
+    }
+    const app = new Vue({
+        el: &apos;#app&apos;, //挂载要管理的元素
+        data: {
+            info: {
+                name: &apos;我的&apos;,
+                age: 19,
+                sex: &apos;男&apos;
+            },
+        },
+        components: {
+            cpn
+        }
+
+    })
+&lt;/script&gt;</code></pre><h3 id="子传父"><a href="#子传父" class="headerlink" title="子传父"></a>子传父</h3><pre><code>   &lt;!--父组件模板--&gt;
+&lt;div id=&apos;app&apos;&gt;
+    &lt;!--监听子组件发射的事件--&gt;
+    &lt;cpn @itemclick=&apos;cpnclick&apos;&gt;&lt;/cpn&gt;
+&lt;/div&gt;
+&lt;!--子组件模板--&gt;
+&lt;template id=&quot;cpn&quot;&gt;
+  &lt;div&gt;
+&lt;button v-for=&quot;item in categories&quot; @click=&apos;btn(item)&apos;&gt;{{item.name}}&lt;/button&gt;&lt;/div&gt;
+ &lt;/template&gt;
+&lt;script src=&apos;./vue.js&apos;&gt;&lt;/script&gt;
+&lt;script&gt;
+    //子组件
+    const cpn = {
+            template: &apos;#cpn&apos;,
+            data() {
+                return {
+                    categories: [{
+                        id: &apos;aaa&apos;,
+                        name: &apos;热门&apos;
+                    }, {
+                        id: &apos;qqq&apos;,
+                        name: &apos;热搜&apos;
+                    }, {
+                        id: &apos;sss&apos;,
+                        name: &apos;搜狗&apos;
+                    }, {
+                        id: &apos;ooo&apos;,
+                        name: &apos;该带&apos;
+                    }, ]
+                }
+            },
+            methods: {
+                btn(item) {
+                    //console.log(item)
+                    //发射事件，自定义事件
+                    this.$emit(&apos;itemclick&apos;, item)
+                }
+            }
+
+        }
+        //父组件
+    const app = new Vue({
+        el: &apos;#app&apos;, //挂载要管理的元素
+        data: {
+            message: &apos;你电脑你打击违法&apos;,
+            movies: [&apos;好多&apos;, &apos;有点&apos;, &apos;大话西游&apos;, &apos;少年&apos;]
+        },
+        components: {
+            cpn
+        },
+        methods: {
+            cpnclick(item) {
+                console.log(&apos;cpnclick&apos;, item)
+
+            }
+        }
+    })
+&lt;/script&gt;</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" data-id="ckgp43z9000069ou61k0872co" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript中for的作用域" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
@@ -330,6 +464,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
           </li>
         
@@ -343,10 +481,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/">初始node-js</a>
           </li>
         
       </ul>
