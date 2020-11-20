@@ -64,6 +64,68 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-cli使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2020-07-14T10:56:13.007Z" itemprop="datePublished">2020-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/">vue-cli使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: vue/cli使用<br>date: 2020-07-14 18:56:12<br>tags: 关于vue-cli2的一些基本使用</p>
+<h3 id="基于node-js与webpack的vue-cli全局安装"><a href="#基于node-js与webpack的vue-cli全局安装" class="headerlink" title="基于node.js与webpack的vue/cli全局安装"></a>基于node.js与webpack的vue/cli全局安装</h3><pre><code>npm install -g @vue/cli@版本号（可以不写选择默认安装新版本）</code></pre><h3 id="安装完成后用来创建项目"><a href="#安装完成后用来创建项目" class="headerlink" title="安装完成后用来创建项目"></a>安装完成后用来创建项目</h3><pre><code>vue init webpack 项目名称</code></pre><h3 id="项目初始化过程中的一些配置选择"><a href="#项目初始化过程中的一些配置选择" class="headerlink" title="项目初始化过程中的一些配置选择"></a>项目初始化过程中的一些配置选择</h3><pre><code>1、名称，项目描述，作者可以选择默认；
+2、runtime-compiler与runtime-only的选择：建议选择后者，相比前者性能更好,代码更少
+程序运行区别：
+runtime-complier
+template-&gt;ast-&gt;render-&gt;vdom-&gt;UI
+runtime-only
+render-&gt;vdom-&gt;UI
+代码区别：
+runtime-only
+new Vue({
+    el: &apos;#app&apos;,
+router,
+     render: h =&gt; h(App)
+   })
+runtime-complier
+new Vue({
+    el: &apos;#app&apos;,
+    components: { App },
+    template: &apos;&lt;App/&gt;&apos;
+    })
+3、选择安装路由：vue-router
+4、选择Eslint代码规范
+5、单元测试
+6、端到端测试
+7、项目管理工具：npm或yarn</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" data-id="ckgp43z8r00019ou6224z8s75" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-父子组件通信" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" class="article-date">
@@ -464,6 +526,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
           </li>
         
@@ -477,10 +543,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/">服务端基础</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
           </li>
         
       </ul>
