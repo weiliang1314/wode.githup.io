@@ -15,7 +15,7 @@
 <meta property="og:description" content="title: node.js框架初识date: 2020-11-20 18:18:38tags: exoress框架基本使用及特点介绍 express介绍  Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。   使用 Express 可以快速地搭建一个完整功能的网站。 特性 设置中间件来响应 HTT">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-20T10:18:38.590Z">
-<meta property="article:modified_time" content="2020-11-20T11:36:21.317Z">
+<meta property="article:modified_time" content="2020-11-20T11:41:00.779Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -101,21 +101,43 @@
   const express = require(&#39;express&#39;)
   const app = express();
   (</code>)</p>
-<h4 id="中间件简单使用"><a href="#中间件简单使用" class="headerlink" title="中间件简单使用"></a>中间件简单使用</h4><p> <em>1、app.use放在首位,接收所有请求中间件,匹配所有路径，其中next()为继续向下执行。</em><br> (```)<br>   app.use((req, res, next) =&gt; {<br>        console.log(‘请求走了app.use中间件’)<br>        next()</p>
-<pre><code>})</code></pre><p> (<code>)
- *2、匹配指定的路径，当访问jun,走当前中间件。*
- (</code>)<br>  app.use(‘/jun’, (req, res, next) =&gt; {<br>        console.log(‘请求走了app.use中间件，/jun’)<br>        next()</p>
-<pre><code>})</code></pre><p> (<code>)
- *3、定义访问错误信息。*
- (</code>)<br>  app.use((req, res, next) =&gt; {<br>    //定义状态码<br>    res.status(404)<br>    res.send(‘当前页面内容不存在’)<br>   })<br> (<code>)
- *4、登录路由保护，判断登录状态。*
- (</code>)<br>   app.use(‘/admin’, (req, res, next) =&gt; {<br>    let lis = false;//true<br>    if (lis) {<br>        //请求继续向下<br>        next()<br>    } else {<br>        res.send(‘没有登录不能访问’)</p>
-<pre><code>}</code></pre><p>  })<br>   app.get(‘admin’, (req, res) =&gt; {<br>        res.send(‘已经登录可以看了’)<br>    })<br> (```)</p>
-<h4 id="捕获错误信息"><a href="#捕获错误信息" class="headerlink" title="捕获错误信息"></a>捕获错误信息</h4><p> <em>1、</em><br> (```)<br>  app.get(‘/index’, (req, res, next) =&gt; {<br>            //抛出一个错误<br>            throw new Error(‘未知错误’)<br>        })<br>        //错误处理信息<br>    app.use((err, req, res, next) =&gt; {<br>        //收到上面的错误信息<br>        res.status(500).send(err.message)</p>
-<pre><code>})</code></pre><p> (<code>)
- *2、捕获异步函数及同步代码在执行过程中的错误。*
- (</code>)<br> app.get(‘/index’, async(req, res, next) =&gt; {<br>    try { await readFile(‘错误的文件’) } catch (ex) {<br>        //传递错误信息到终端<br>        next(ex)<br>     }</p>
-<pre><code>})</code></pre><p> (```)</p>
+<h4 id="中间件简单使用"><a href="#中间件简单使用" class="headerlink" title="中间件简单使用"></a>中间件简单使用</h4><p> <em>1、app.use放在首位,接收所有请求中间件,匹配所有路径，其中next()为继续向下执行。</em><br> (<code>)
+   app.use((req, res, next) =&gt; {
+        console.log(&#39;请求走了app.use中间件&#39;)
+        next()})
+ (</code>)<br> <em>2、匹配指定的路径，当访问jun,走当前中间件。</em><br> (<code>)
+  app.use(&#39;/jun&#39;, (req, res, next) =&gt; {
+        console.log(&#39;请求走了app.use中间件，/jun&#39;)
+        next()   })
+ (</code>)<br> <em>3、定义访问错误信息。</em><br> (<code>)
+  app.use((req, res, next) =&gt; {
+    //定义状态码
+    res.status(404)
+    res.send(&#39;当前页面内容不存在&#39;)})
+ (</code>)<br> <em>4、登录路由保护，判断登录状态。</em><br> (<code>)
+   app.use(&#39;/admin&#39;, (req, res, next) =&gt; {
+    let lis = false;//true
+    if (lis) {
+        //请求继续向下
+        next()  } else {
+        res.send(&#39;没有登录不能访问&#39;) })
+   app.get(&#39;admin&#39;, (req, res) =&gt; {
+        res.send(&#39;已经登录可以看了&#39;) })
+ (</code>)</p>
+<h4 id="捕获错误信息"><a href="#捕获错误信息" class="headerlink" title="捕获错误信息"></a>捕获错误信息</h4><p> <em>1、</em><br> (<code>)
+  app.get(&#39;/index&#39;, (req, res, next) =&gt; {
+            //抛出一个错误
+            throw new Error(&#39;未知错误&#39;) })
+        //错误处理信息
+    app.use((err, req, res, next) =&gt; {
+        //收到上面的错误信息
+        res.status(500).send(err.message) })
+ (</code>)<br> <em>2、捕获异步函数及同步代码在执行过程中的错误。</em><br> (<code>)
+ app.get(&#39;/index&#39;, async(req, res, next) =&gt; {
+    try { await readFile(&#39;错误的文件&#39;) } catch (ex) {
+        //传递错误信息到终端
+        next(ex)  } })
+ (</code>)</p>
 <h4 id="模块化路由的构建"><a href="#模块化路由的构建" class="headerlink" title="模块化路由的构建"></a>模块化路由的构建</h4><p> <em>导入</em><br> (<code>)
  const admin = require(&#39;./routes&#39;)
  const home = express.Router()
@@ -123,16 +145,13 @@
  app.use(&#39;/home&#39;, home)
    //创建二级路由
  home.get(&#39;/index&#39;, (req, res) =&gt; {
-    res.send(&#39;欢迎访问&#39;)
-  })
+    res.send(&#39;欢迎访问&#39;) })
   (</code>)</p>
 <h4 id="express模板引擎-express-art-template"><a href="#express模板引擎-express-art-template" class="headerlink" title="express模板引擎 express-art-template"></a>express模板引擎 express-art-template</h4><p>  <em>第三方模块下载</em><br>  <code>npm install art-template express-art-template</code><br>  <em>导入</em><br>  <code>const expressArtTemplate = require(&#39;express-art-template&#39;)</code><br>  <em>使用express-art-template渲染后缀为art文件模板</em><br>  <code>app.engine(&#39;art&#39;, expressArtTemplate)</code><br>  <em>模板存放位置,第一个views告诉模板引擎模板位置，第二个是文件夹的位置</em><br>  <code>app.set(&#39;views&#39;, path.join(__dirname, &#39;views&#39;))</code><br>  <em>告诉框架模板默认后缀</em><br>  <code>app.set(&#39;view engine&#39;, &#39;art&#39;)</code><br>  <em>模板拼接</em><br>  (<code>)
    app.get(&#39;/index&#39;, (req, res) =&gt; {
     //要拼接的模板文件名，数据
      res.render(&#39;index&#39;, {
-        数据
-     })
-   })
+        数据})})
   (</code>)</p>
 
       
