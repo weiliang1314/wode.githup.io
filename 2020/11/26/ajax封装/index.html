@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ajax封装 | Weiweiliang的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: ajax封装date: 2020-11-26 21:00:39tags: 对AJAX的步骤进行封装，避免重复代码 ajax实现基本流程 创建ajax对象 告诉请求方式与地址 发送请求  获取服务器端给客户端的数据封装注意的问题    1、请求参数位置：将请求参数传递到ajax函数内部，在函数内部根据请求方式不同将请求参数的位置放在不同位置    get 放在请求地址后面，post放">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ajax封装">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/index.html">
+<meta property="og:site_name" content="Weiweiliang的博客">
+<meta property="og:description" content="title: ajax封装date: 2020-11-26 21:00:39tags: 对AJAX的步骤进行封装，避免重复代码 ajax实现基本流程 创建ajax对象 告诉请求方式与地址 发送请求  获取服务器端给客户端的数据封装注意的问题    1、请求参数位置：将请求参数传递到ajax函数内部，在函数内部根据请求方式不同将请求参数的位置放在不同位置    get 放在请求地址后面，post放">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-26T13:00:39.473Z">
+<meta property="article:modified_time" content="2020-11-26T13:26:12.403Z">
+<meta property="article:author" content="weiliang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/wode.githup.io/atom.xml" title="Weiweiliang的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/wode.githup.io/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/wode.githup.io/" id="logo">Weiweiliang的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/">Home</a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/wode.githup.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/weiliang1314/wode.githup.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ajax封装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" class="article-date">
+  <time datetime="2020-11-26T13:00:39.473Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ajax封装
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: ajax封装<br>date: 2020-11-26 21:00:39<br>tags: 对AJAX的步骤进行封装，避免重复代码</p>
+<h3 id="ajax实现基本流程"><a href="#ajax实现基本流程" class="headerlink" title="ajax实现基本流程"></a>ajax实现基本流程</h3><ol>
+<li>创建ajax对象</li>
+<li>告诉请求方式与地址</li>
+<li>发送请求 </li>
+<li>获取服务器端给客户端的数据<h3 id="封装注意的问题"><a href="#封装注意的问题" class="headerlink" title="封装注意的问题"></a>封装注意的问题</h3></li>
+</ol>
+<p>  <em>1、请求参数位置：将请求参数传递到ajax函数内部，在函数内部根据请求方式不同将请求参数的位置放在不同位置<br>    get 放在请求地址后面，post放在send()里面</em><br>  <em>2、请求参数格式 ：application/x-www-form-urlencoded（默认）,application/json 传递对象数据类型对于函数的调用者更加友好</em><br>  <em>3、如果请求方式是post，则需要在发送请求之前对请求的参数类型进行设置xhr.setRequestHeader(‘Content-Type’, contentType)  json格式，需要把对象转换为json字符串</em><br>  <em>4、使用Object.assign()对设定默认值进行覆盖</em></p>
+<h3 id="封装代码"><a href="#封装代码" class="headerlink" title="封装代码"></a>封装代码</h3><pre><code>function ajax(options) {
+     //默认值设置
+     let defaults = {
+             type: &apos;get&apos;,
+             url: &apos;&apos;,
+             data: {},
+             header: {
+                 &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;
+             },
+             success: function() {},
+             error: function() {}
+
+         }
+         //如果使用ajax时没有自定义，就使用默认值，如果使用了options就会覆盖默认值defults
+         //对象覆盖方法
+     Object.assign(defaults, options)
+
+     //创建ajax对象
+     let xhr = new XMLHttpRequest();
+     //拼接请求参数的变量
+     let params = &apos;&apos;;
+     for (let attr in defaults.data) {
+         //将参数转换成字符串
+         params += attr + &apos;=&apos; + defaults.data[attr] + &apos;&amp;&apos;
+     }
+     //截取字符串最后面&amp;
+     params = params.substr(0, params.length - 1)
+         //请求方式判断
+     if (defaults.type == &apos;get&apos;) {
+         defaults.url = defaults.url + &apos;?&apos; + params;
+     }
+     //配置对象
+     xhr.open(defaults.type, defaults.url);
+     //发送请求
+     if (options.type == &apos;post&apos;) {
+         let contentType = defaults.header[&apos;Content-Type&apos;]
+             //请求参数类型设置
+
+         xhr.setRequestHeader(&apos;Content-Type&apos;, contentType);
+         if (contentType == &apos;application/json&apos;) {
+             xhr.send(JSON.stringify(defaults.data))
+         } else {
+             xhr.send(params)
+         }
+     } else {
+         xhr.send();
+     }
+     //当xhr对象接收完响应数据后触发，服务器端传过来的数据
+     xhr.onload = function() {
+         //获取响应头的数据
+         let content = xhr.getResponseHeader(&apos;Content-Type&apos;)
+             //服务器端返回的数据
+         let responseText = xhr.responseText;
+         //判断字符串是否包含某个字符
+         if (content.includes(&apos;application/json&apos;)) {
+             responseText = JSON.parse(responseText)
+         }
+         //请求成功http状态码
+         if (xhr.status == 200) {
+             //请求成功
+             options.sucess(responseText, xhr);
+         } else {
+             //请求失败
+             options.error(responseText, xhr)
+         }
+     }
+   }</code></pre><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><pre><code>ajax({
+    type: &apos;get&apos;,
+    url: &apos;http://localhost:3000/&apos;,
+    data: {
+        name: &apos;小敏&apos;,
+        age: 23,
+    },
+    header: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;
+    },
+    sucess: function(data, xhr) {
+        console.log(data + &apos;这是成功的&apos;)
+        console.log(xhr)
+    },
+    error: function(data, xhr) {
+        console.log(data)
+        console.log(xhr)
+    }
+  })</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" data-id="ckhyvemnc0000r8u6ajh5gbfr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node-js框架初识</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 weiliang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/wode.githup.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/wode.githup.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/wode.githup.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/wode.githup.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/wode.githup.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -64,6 +64,135 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ajax封装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" class="article-date">
+  <time datetime="2020-11-26T13:00:39.473Z" itemprop="datePublished">2020-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: ajax封装<br>date: 2020-11-26 21:00:39<br>tags: 对AJAX的步骤进行封装，避免重复代码</p>
+<h3 id="ajax实现基本流程"><a href="#ajax实现基本流程" class="headerlink" title="ajax实现基本流程"></a>ajax实现基本流程</h3><ol>
+<li>创建ajax对象</li>
+<li>告诉请求方式与地址</li>
+<li>发送请求 </li>
+<li>获取服务器端给客户端的数据<h3 id="封装注意的问题"><a href="#封装注意的问题" class="headerlink" title="封装注意的问题"></a>封装注意的问题</h3></li>
+</ol>
+<p>  <em>1、请求参数位置：将请求参数传递到ajax函数内部，在函数内部根据请求方式不同将请求参数的位置放在不同位置<br>    get 放在请求地址后面，post放在send()里面</em><br>  <em>2、请求参数格式 ：application/x-www-form-urlencoded（默认）,application/json 传递对象数据类型对于函数的调用者更加友好</em><br>  <em>3、如果请求方式是post，则需要在发送请求之前对请求的参数类型进行设置xhr.setRequestHeader(‘Content-Type’, contentType)  json格式，需要把对象转换为json字符串</em><br>  <em>4、使用Object.assign()对设定默认值进行覆盖</em></p>
+<h3 id="封装代码"><a href="#封装代码" class="headerlink" title="封装代码"></a>封装代码</h3><pre><code>function ajax(options) {
+     //默认值设置
+     let defaults = {
+             type: &apos;get&apos;,
+             url: &apos;&apos;,
+             data: {},
+             header: {
+                 &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos;
+             },
+             success: function() {},
+             error: function() {}
+
+         }
+         //如果使用ajax时没有自定义，就使用默认值，如果使用了options就会覆盖默认值defults
+         //对象覆盖方法
+     Object.assign(defaults, options)
+
+     //创建ajax对象
+     let xhr = new XMLHttpRequest();
+     //拼接请求参数的变量
+     let params = &apos;&apos;;
+     for (let attr in defaults.data) {
+         //将参数转换成字符串
+         params += attr + &apos;=&apos; + defaults.data[attr] + &apos;&amp;&apos;
+     }
+     //截取字符串最后面&amp;
+     params = params.substr(0, params.length - 1)
+         //请求方式判断
+     if (defaults.type == &apos;get&apos;) {
+         defaults.url = defaults.url + &apos;?&apos; + params;
+     }
+     //配置对象
+     xhr.open(defaults.type, defaults.url);
+     //发送请求
+     if (options.type == &apos;post&apos;) {
+         let contentType = defaults.header[&apos;Content-Type&apos;]
+             //请求参数类型设置
+
+         xhr.setRequestHeader(&apos;Content-Type&apos;, contentType);
+         if (contentType == &apos;application/json&apos;) {
+             xhr.send(JSON.stringify(defaults.data))
+         } else {
+             xhr.send(params)
+         }
+     } else {
+         xhr.send();
+     }
+     //当xhr对象接收完响应数据后触发，服务器端传过来的数据
+     xhr.onload = function() {
+         //获取响应头的数据
+         let content = xhr.getResponseHeader(&apos;Content-Type&apos;)
+             //服务器端返回的数据
+         let responseText = xhr.responseText;
+         //判断字符串是否包含某个字符
+         if (content.includes(&apos;application/json&apos;)) {
+             responseText = JSON.parse(responseText)
+         }
+         //请求成功http状态码
+         if (xhr.status == 200) {
+             //请求成功
+             options.sucess(responseText, xhr);
+         } else {
+             //请求失败
+             options.error(responseText, xhr)
+         }
+     }
+   }</code></pre><h4 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h4><pre><code>ajax({
+    type: &apos;get&apos;,
+    url: &apos;http://localhost:3000/&apos;,
+    data: {
+        name: &apos;小敏&apos;,
+        age: 23,
+    },
+    header: {
+        &apos;Content-Type&apos;: &apos;application/json&apos;
+    },
+    sucess: function(data, xhr) {
+        console.log(data + &apos;这是成功的&apos;)
+        console.log(xhr)
+    },
+    error: function(data, xhr) {
+        console.log(data)
+        console.log(xhr)
+    }
+  })</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" data-id="ckhyvemnc0000r8u6ajh5gbfr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-node-js框架初识" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" class="article-date">
@@ -757,101 +886,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
 
 
   
-    <article id="post-axios网络请求" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" class="article-date">
-  <time datetime="2020-07-22T10:46:43.616Z" itemprop="datePublished">2020-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">axios网络请求</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: axios网络请求<br>date: 2020-07-22 18:46:43<br>tags: 基于promise的HTTP库，可以用在浏览器和node.js中；在浏览器中发送XMLHttpReqests请求，在node.js中发送http请求</p>
-<pre><code>### 模块代码封装
-             import axios from &apos;axios&apos;
-       /*export function request(config) {
-     return new Promise((resolve, reject) =&gt; {
-    //创建实例
-    const instance = axios.create({
-            baseURL: 
-            timeout: 5000
-        })
-        //发送请求
-    instance(config)
-        .then(res =&gt; {
-            //console.log(res)
-            // request参数中回调success(res)
-            resolve(res)
-        }).catch(err =&gt; {
-            //console.log(err)
-            // failare(err)
-            reject(err)
-
-        })
-                   })
-                   }*/
-           //简单封装
-        export function request(config) {
-
-             //创建实例
-                const instance = axios.create({
-           baseURL: 
-             timeout: 5000
-                })
-                   //拦截器
-                  //发送请求成功与失败
-              instance.interceptors.request.use(config =&gt; {
-               //若不返回，后面拿不到config
-                  //使用拦截器的场景：信息不符合服务器要求，发送请求时要在界面中显示请求图标，一些网络请求必须请携带一些特殊信息
-             console.log(config)
-                  return config
-               }, err =&gt; {
-                   console.log(err)
-              })
-            //响应数据成功与失败:
-          instance.interceptors.response.use(
-              res =&gt; {
-            console.log(res)
-                //拦截后要返回，不然后面接收不到
-            return res.data
-                   },
-               err =&gt; {
-             console.log(err)
-                   }
-                )
-               //发送请求
-
-                   return instance(config)
-
-
-                       }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-id="ckgp43z8h00009ou6h30y7atl" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -888,6 +922,10 @@ package.json文件找到main选项中的入口文件。</code></pre>
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
           </li>
         
@@ -901,10 +939,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
         
           <li>
             <a href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/">服务端基础</a>
           </li>
         
       </ul>
