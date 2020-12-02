@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript刷题系列一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="article-date">
+  <time datetime="2020-12-02T12:37:58.793Z" itemprop="datePublished">2020-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列一<br>date: 2020-12-02 20:37:58<br>tags: 动态规划解决问题：爬楼梯，最低票价</p>
+<h3 id="什么是动态规划算法"><a href="#什么是动态规划算法" class="headerlink" title="什么是动态规划算法"></a>什么是动态规划算法</h3><p><em>动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往远少于暴力解法。大致上，若要解一个给定问题，我们需要解其不同部分（即子问题），再合并子问题的解以得出原问题的解。通常许多子问题非常相似，为此动态规划法只解决每个子问题一次，从而减少计算量，一旦某个给定子问题的解已经算出，则将其存储，以便下次需要同一个子问题解之时直接查表。</em></p>
+<h3 id="三要素"><a href="#三要素" class="headerlink" title="三要素"></a>三要素</h3><ol>
+<li>最优子结构：子问题的最优解能够决定这个问题的最优解</li>
+<li>边界：问题最小子集的解</li>
+<li>状态转移函数：递推式<h4 id="解决爬楼梯问题"><a href="#解决爬楼梯问题" class="headerlink" title="解决爬楼梯问题"></a>解决爬楼梯问题</h4></li>
+</ol>
+<p><em>问题：一共有n阶楼梯，每次只能爬一阶或两阶，有多少种爬的方法</em><br><em>分析与解决：在这个问题中我首先考虑到当n=1时f(1)=1,当n=2时f(2)=2,但当n&gt;2时发生了变化，f(3)=3,f(4)=5…<br> 由此得出公式：f(n)=f(n-1)+f(n-2) n&gt;2;f(1)与f(2)相当于边界，公式就是状态转移函数，f(n-1)与f(n-2)就是最优子结构</em><br>     function pa(n) {<br>     if(n&lt;1){return 0;}<br>     if (n == 1 || n == 2) {<br>        return n;<br>     }<br>     let w = [];<br>      w[0] = 1;<br>      w[1] = 2;<br>      for (let i = 2; i &lt; n; i++) {<br>        w[i] = w[i - 1] + w[i - 2];<br>     }<br>    return w[n - 1];<br>       }</p>
+<h4 id="解决最低票价问题"><a href="#解决最低票价问题" class="headerlink" title="解决最低票价问题"></a>解决最低票价问题</h4><p> <em>问题：假设旅游时,有三种票价：玩一天costs[0]元，连续玩七天costs[1]元，连续玩三十天costs[2]元，一年365天数组days相当于每天1~365，dyas[]中的天数是有旅游的，自定义函数返回days[]中每一天最低票价。</em><br> <em>问题分析：</em><br>   function mincost(days, costs) {<br>    let dp = new Array(days[days.length - 1] + 1).fill(0); //使用固定值替换数组元素初始化全为0，dp[0]=0没有旅行<br>      let daysIndex = 0;<br>       for (let i = 1; i &lt; dp.length; i++) {<br>        if (i === days[daysIndex]) {<br>            dp[i] = Math.min(<br>                dp[Math.max(0, i - 1)] + costs[0],<br>                //在i-7天买了一张七天票，现在还能用,在i-7这一天只买了还没用<br>                dp[Math.max(0, i - 7)] + costs[1],<br>                dp[Math.max(0, i - 30)] + costs[2],<br>            )<br>            daysIndex++;<br>        } else {<br>            //没有费用<br>            dp[i] = dp[i - 1]<br>          }<br>       }<br>      return parseInt(dp[dp.length - 1]) //完成当天以及之前天，花费最少费用<br>     }<br>        console.log(mincost([1, 4, 6, 7, 8, 20], [2, 7, 15]))//11</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" data-id="cki7gc38m00001ku6dvmz4vnl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ajax封装" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" class="article-date">
@@ -830,62 +876,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
 
 
   
-    <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="article-date">
-  <time datetime="2020-08-16T06:05:42.222Z" itemprop="datePublished">2020-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 希尔排序<br>date: 2020-08-16 14:05:42<br>tags: 插入排序改进，对数组选一个间隔再进行插入排序（多次）</p>
-<h3 id="希尔排序代码封装"><a href="#希尔排序代码封装" class="headerlink" title="希尔排序代码封装"></a>希尔排序代码封装</h3><pre><code>list.prototype.shell = function() {
-             var length = this.array.length
-                 //初始化间隔增量
-             var geg = Math.floor(length / 2)
-                 //geg不断减小
-             while (geg &gt;= 1) {
-                 for (var i = geg; i &lt; length; i++) {
-                     var temp = this.array[i]
-                     var j = i
-                     while (this.array[j - geg] &gt; temp &amp;&amp; j &gt; geg - 1) {
-                         this.array[j] = this.array[j - geg]
-                         j -= geg
-                     }
-                     this.array[j] = temp
-                 }
-                 geg = Math.floor(geg / 2)
-
-             }
-         }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckgp43z9200079ou66lxu3eep" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -909,7 +899,7 @@ package.json文件找到main选项中的入口文件。</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -920,6 +910,10 @@ package.json文件找到main选项中的入口文件。</code></pre>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
@@ -935,10 +929,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
         
           <li>
             <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
           </li>
         
       </ul>
