@@ -64,6 +64,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript刷题系列二" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/" class="article-date">
+  <time datetime="2020-12-12T12:09:03.674Z" itemprop="datePublished">2020-12-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列二<br>date: 2020-12-12 20:09:03<br>tags: 动态规划问题：硬币问题、最大正方形</p>
+<h4 id="硬币问题"><a href="#硬币问题" class="headerlink" title="硬币问题"></a>硬币问题</h4><p><em>问题：给定不同面额硬币（每种面额有无数个），再给一个数，让这些硬币凑成这个数，返回凑成这个数的有几种方法</em><br><em>问题分析：从凑0，1，2…开始凑一直到目标数，硬币面额种类从0，1，2…种累加到给定的种类，当我们需要凑0时，不管有几种<br> 面额硬币都不给他d(0)=1;当所要凑得数小于某种面额硬币时那么这种硬币是不能凑成的，当选择一个硬币时凑数时，<br> 当前所要凑得数=原来要凑的数-所选硬币面额</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>   let change = function(amount, coins) {
+ let dp = [Array(amount + 1).fill(0)];
+ console.log(dp)
+ dp[0][0] = 1;
+ for (let i = 1; i &lt; coins.length + 1; i++) {
+    dp[i] = Array(amount + 1).fill(0);
+    for (let j = 0; j &lt; amount + 1; j++) {
+        dp[i][j] = dp[i - 1][j] + (j &gt;= coins[i - 1] ? dp[i][j - coins[i - 1]] : 0)
+     }
+      }
+return dp[coins.length][amount];
+
+   }</code></pre><h4 id="最大正方形"><a href="#最大正方形" class="headerlink" title="最大正方形"></a>最大正方形</h4><p><em>问题：输入一个0和1组成的二维矩阵，找到只包含1的最大正方形，返回面积</em><br><em>问题分析：当1在边界时，最大正方形面积为1，边长d=1;当所选1的左边，上边，左上边，都不是0，它的<br>边长才能加1，当前边长=上一次最短边长+1</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let maxzheng = function(martix) {
+let maxSidelength = 0; //记录最大边长
+
+ let dp = new Array(martix.length);
+for (let i = 0; i &lt; martix.length; i++) {
+    dp[i] = new Array(martix[i].length).fill(0); //把它变成一个二维数组，初始值为0
+    for (let j = 0; j &lt; martix[i].length; j++) {
+        if (martix[i][j] == &apos;1&apos;) {
+            if (i == 0 || j == 0) { dp[i][j] = 1; } else {
+                dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1 //左边，上边，左上
+            }
+            maxSidelength = Math.max(maxSidelength, dp[i][j])
+
+        }
+          }
+            }
+          return maxSidelength * maxSidelength;
+          }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/" data-id="ckilqjs6y0004xgu67eey60rq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript刷题系列一" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="article-date">
@@ -94,13 +163,44 @@
 <li>边界：问题最小子集的解</li>
 <li>状态转移函数：递推式<h4 id="解决爬楼梯问题"><a href="#解决爬楼梯问题" class="headerlink" title="解决爬楼梯问题"></a>解决爬楼梯问题</h4></li>
 </ol>
-<p><em>问题：一共有n阶楼梯，每次只能爬一阶或两阶，有多少种爬的方法</em><br><em>分析与解决：在这个问题中我首先考虑到当n=1时f(1)=1,当n=2时f(2)=2,但当n&gt;2时发生了变化，f(3)=3,f(4)=5…<br> 由此得出公式：f(n)=f(n-1)+f(n-2) n&gt;2;f(1)与f(2)相当于边界，公式就是状态转移函数，f(n-1)与f(n-2)就是最优子结构</em><br>     function pa(n) {<br>     if(n&lt;1){return 0;}<br>     if (n == 1 || n == 2) {<br>        return n;<br>     }<br>     let w = [];<br>      w[0] = 1;<br>      w[1] = 2;<br>      for (let i = 2; i &lt; n; i++) {<br>        w[i] = w[i - 1] + w[i - 2];<br>     }<br>    return w[n - 1];<br>       }</p>
-<h4 id="解决最低票价问题"><a href="#解决最低票价问题" class="headerlink" title="解决最低票价问题"></a>解决最低票价问题</h4><p> <em>问题：假设旅游时,有三种票价：玩一天costs[0]元，连续玩七天costs[1]元，连续玩三十天costs[2]元，一年365天数组days相当于每天1~365，dyas[]中的天数是有旅游的，自定义函数返回days[]中每一天最低票价。</em><br> <em>问题分析：</em><br>   function mincost(days, costs) {<br>    let dp = new Array(days[days.length - 1] + 1).fill(0); //使用固定值替换数组元素初始化全为0，dp[0]=0没有旅行<br>      let daysIndex = 0;<br>       for (let i = 1; i &lt; dp.length; i++) {<br>        if (i === days[daysIndex]) {<br>            dp[i] = Math.min(<br>                dp[Math.max(0, i - 1)] + costs[0],<br>                //在i-7天买了一张七天票，现在还能用,在i-7这一天只买了还没用<br>                dp[Math.max(0, i - 7)] + costs[1],<br>                dp[Math.max(0, i - 30)] + costs[2],<br>            )<br>            daysIndex++;<br>        } else {<br>            //没有费用<br>            dp[i] = dp[i - 1]<br>          }<br>       }<br>      return parseInt(dp[dp.length - 1]) //完成当天以及之前天，花费最少费用<br>     }<br>        console.log(mincost([1, 4, 6, 7, 8, 20], [2, 7, 15]))//11</p>
-
+<p><em>问题：一共有n阶楼梯，每次只能爬一阶或两阶，有多少种爬的方法</em><br><em>分析与解决：在这个问题中我首先考虑到当n=1时f(1)=1,当n=2时f(2)=2,但当n&gt;2时发生了变化，f(3)=3,f(4)=5…<br> 由此得出公式：f(n)=f(n-1)+f(n-2) n&gt;2;f(1)与f(2)相当于边界，公式就是状态转移函数，f(n-1)与f(n-2)就是最优子结构</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>function pa(n) {
+   if(n&lt;1){return 0;}
+    if (n == 1 || n == 2) {
+      return n;
+      }
+     let w = [];
+        w[0] = 1;
+       w[1] = 2;
+        for (let i = 2; i &lt; n; i++) {
+       w[i] = w[i - 1] + w[i - 2];
+      }
+        return w[n - 1];
+       }</code></pre><h4 id="解决最低票价问题"><a href="#解决最低票价问题" class="headerlink" title="解决最低票价问题"></a>解决最低票价问题</h4><p> <em>问题：假设旅游时,有三种票价：玩一天costs[0]元，连续玩七天costs[1]元，连续玩三十天costs[2]元，一年365天数组days相当于每天1~365，dyas[]中的天数是有旅游的，自定义函数返回days[]中每一天最低票价。</em><br> <em>问题分析：</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>function mincost(days, costs) {
+  let dp = new Array(days[days.length - 1] + 1).fill(0); //使用固定值替换数组元素初始化全为0，dp[0]=0没有旅行
+     let daysIndex = 0;
+          for (let i = 1; i &lt; dp.length; i++) {
+             if (i === days[daysIndex]) {
+           dp[i] = Math.min(
+          dp[Math.max(0, i - 1)] + costs[0],
+          //在i-7天买了一张七天票，现在还能用,在i-7这一天只买了还没用
+          dp[Math.max(0, i - 7)] + costs[1],
+          dp[Math.max(0, i - 30)] + costs[2],
+              )
+                 daysIndex++;
+           } else {
+            //没有费用
+              dp[i] = dp[i - 1]
+            }
+             }
+          return parseInt(dp[dp.length - 1]) //完成当天以及之前天，花费最少费用
+             }
+       console.log(mincost([1, 4, 6, 7, 8, 20], [2, 7, 15]))//11</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" data-id="cki7gc38m00001ku6dvmz4vnl" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" data-id="ckilqjs6z0005xgu6hdpo1uwv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -229,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" data-id="ckhyvemnc0000r8u6ajh5gbfr" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" data-id="ckilqjs720007xgu69id31tpf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" data-id="ckhq6vsi40000d0u68eaoaq04" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" data-id="ckilqjs770009xgu6gg6w1vxf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -389,7 +489,7 @@ const views = path.join(__dirname, &apos;views&apos;, &apos;模板文件名&apos
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" data-id="ckhm0108u0000agu65h627g0y" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" data-id="ckilqjs82000fxgu6a8bkeih1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,7 +574,7 @@ title: &apos;荷塘月色 背影&apos;,
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" data-id="ckhhb25wh0000owu6gbewbttx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" data-id="ckilqjs710006xgu6854q5vw4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -530,7 +630,7 @@ net stop mongoDB</code></pre><h4 id="数据库连接与创建"><a href="#数据�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/06/mongoDB/" data-id="ckh69u3ki0000vgu6guf6cjxt" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/06/mongoDB/" data-id="ckilqjs6w0003xgu6hd0520ls" class="article-share-link">Share</a>
       
       
     </footer>
@@ -678,7 +778,7 @@ let postparams = &apos;&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" data-id="ckguuhdwu00014ku653qu2ure" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" data-id="ckilqjs8o000gxgu6hqxif0j0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -720,7 +820,7 @@ package.json文件找到main选项中的入口文件。</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" data-id="ckguuhdtx00004ku65l3lcway" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" data-id="ckilqjs81000exgu6dzekd4qg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -784,89 +884,7 @@ package.json文件找到main选项中的入口文件。</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" data-id="ckgp43z8y00049ou6e1pn7crq" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-date">
-  <time datetime="2020-09-19T12:21:12.962Z" itemprop="datePublished">2020-09-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 快速排序<br>date: 2020-09-19 20:21:12<br>tags: 冒泡排序改进，找到一个枢纽左边放小于它的右边放大于它的（多次）</p>
-<h3 id="代码封装"><a href="#代码封装" class="headerlink" title="代码封装"></a>代码封装</h3><pre><code>//选择枢纽
-      arraylist.prototype.median = function(left, right) {
-              var center = Math.floor((left + right) / 2)
-                  //判断大小进行交换
-              if (this.array[left] &gt; this.array[center]) {
-                  this.swap(left, center)
-              } else if (this.array[center] &gt; this.array[right]) {
-                  this.swap(center, right)
-              }
-              this.swap(center, right - 1)
-              return this.array[right - 1]
-
-          }
-          //快速排序
-      arraylist.prototype.quicks = function() {
-          this.quick(0, this.array.length - 1)
-      }
-      arraylist.prototype.quick = function(left, right) {
-          //结束条件
-          if (left &gt;= right) return
-              //获取枢纽
-          var pivot = this.median(left, right)
-              //定义变量，记录当前找到的位置
-          var i = left
-          var j = right - 1
-              //进行交换
-          while (true) {
-              while (this.array[++i] &lt; pivot) {}
-              while (this.array[--j] &gt; pivot) {}
-              if (i &lt; j) {
-                  this.swap(i, j)
-
-              } else {
-                  break
-              }
-          }
-          //将枢纽放在正确的位置
-          this.swap(i, right - 1)
-              //递归
-          this.quick(left, i - 1)
-          this.quick(i + 1, right)
-      }
-  }
-  //测试
-  var list = new arraylist()</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-id="ckgp43z9d00089ou619ko0r6s" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" data-id="ckilqjs8p000hxgu66e1razgj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -912,6 +930,10 @@ package.json文件找到main选项中的入口文件。</code></pre>
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
           </li>
         
@@ -925,10 +947,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
         
           <li>
             <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
           </li>
         
       </ul>

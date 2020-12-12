@@ -64,6 +64,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-09-19T12:21:12.962Z" itemprop="datePublished">2020-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 快速排序<br>date: 2020-09-19 20:21:12<br>tags: 冒泡排序改进，找到一个枢纽左边放小于它的右边放大于它的（多次）</p>
+<h3 id="代码封装"><a href="#代码封装" class="headerlink" title="代码封装"></a>代码封装</h3><pre><code>//选择枢纽
+      arraylist.prototype.median = function(left, right) {
+              var center = Math.floor((left + right) / 2)
+                  //判断大小进行交换
+              if (this.array[left] &gt; this.array[center]) {
+                  this.swap(left, center)
+              } else if (this.array[center] &gt; this.array[right]) {
+                  this.swap(center, right)
+              }
+              this.swap(center, right - 1)
+              return this.array[right - 1]
+
+          }
+          //快速排序
+      arraylist.prototype.quicks = function() {
+          this.quick(0, this.array.length - 1)
+      }
+      arraylist.prototype.quick = function(left, right) {
+          //结束条件
+          if (left &gt;= right) return
+              //获取枢纽
+          var pivot = this.median(left, right)
+              //定义变量，记录当前找到的位置
+          var i = left
+          var j = right - 1
+              //进行交换
+          while (true) {
+              while (this.array[++i] &lt; pivot) {}
+              while (this.array[--j] &gt; pivot) {}
+              if (i &lt; j) {
+                  this.swap(i, j)
+
+              } else {
+                  break
+              }
+          }
+          //将枢纽放在正确的位置
+          this.swap(i, right - 1)
+              //递归
+          this.quick(left, i - 1)
+          this.quick(i + 1, right)
+      }
+  }
+  //测试
+  var list = new arraylist()</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-id="ckilqjs7y000cxgu67cz787x3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="article-date">
@@ -110,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckgp43z9200079ou66lxu3eep" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckilqjs80000dxgu69xkzgzap" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,7 +287,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-id="ckgp43z8h00009ou6h30y7atl" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-id="ckilqjs6u0002xgu6d35las8p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +349,7 @@ new Vue({
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" data-id="ckgp43z8r00019ou6224z8s75" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" data-id="ckilqjs7d000bxgu6107hepvk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -401,7 +483,7 @@ new Vue({
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" data-id="ckgp43z9000069ou61k0872co" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/06/17/vue-%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/" data-id="ckilqjs79000axgu6639cf8m2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -462,7 +544,7 @@ var btn = document.getElementsByTagName(&quot;button&quot;);
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckgp43z9e00099ou63s6j7lih" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckilqjs750008xgu6bs247l8s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -581,7 +663,7 @@ root(根)→key(键值)
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-id="ckgp43z8w00039ou6bmun5kak" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-id="ckilqjrzy0000xgu6huk473yk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -631,7 +713,7 @@ root(根)→key(键值)
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/javascript/" data-id="ckgp43z8t00029ou64voje327" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/javascript/" data-id="ckilqjs6s0001xgu69h356lbt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -677,6 +759,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
           </li>
         
@@ -690,10 +776,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
           </li>
         
       </ul>
