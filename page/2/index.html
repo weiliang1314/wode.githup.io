@@ -64,6 +64,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-初始node-js" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" class="article-date">
+  <time datetime="2020-10-24T04:50:52.490Z" itemprop="datePublished">2020-10-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/">初始node-js</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 初始node.js<br>date: 2020-10-24 12:50:52<br>tags: node.js中模块的学习理解</p>
+<h3 id="模块化-commonjs规范"><a href="#模块化-commonjs规范" class="headerlink" title="模块化 commonjs规范"></a>模块化 commonjs规范</h3><h4 id="模块导出-module-exports"><a href="#模块导出-module-exports" class="headerlink" title="模块导出 module.exports"></a>模块导出 module.exports</h4><pre><code>module.exports = {
+  name: &apos;wei&apos;,
+  age: 123
+    }     </code></pre><h4 id="模块引入-require"><a href="#模块引入-require" class="headerlink" title="模块引入 require"></a>模块引入 require</h4><pre><code>var varName = require(&apos;模块名&apos;);         </code></pre><h3 id="系统模块"><a href="#系统模块" class="headerlink" title="系统模块"></a>系统模块</h3><h4 id="文件写入-fs模块"><a href="#文件写入-fs模块" class="headerlink" title="文件写入 fs模块"></a>文件写入 fs模块</h4><pre><code>const fs = require(&apos;fs&apos;)
+     const cont = &quot;成为那个&quot;
+   其中demo表示文件路径，cont表示写入的内容,err包含写入失败的信息
+  fs.writeFile(&apos;demo.txt&apos;, cont, err =&gt; {
+ if (err != null) {
+   console.log(err)
+   return;
+    }
+  console.log(&apos;写入成功&apos;)
+      })     </code></pre><h4 id="读取文件-fs模块"><a href="#读取文件-fs模块" class="headerlink" title="读取文件 fs模块"></a>读取文件 fs模块</h4><pre><code> //通过模块名字进行引用
+    const fs = require(&apos;fs&apos;);
+   //通过模块内部函数读取文件内容
+  fs.readFile(&apos;../b.js&apos;, &apos;utf-8&apos;, (err, doc) =&gt; {
+//如果读取时出现错误err包含错误信息，是一个对象
+   //doc是文件读取的结果
+ console.log(err);
+ console.log(doc)
+    })     </code></pre><h4 id="文件路径操作-path模块"><a href="#文件路径操作-path模块" class="headerlink" title="文件路径操作 path模块"></a>文件路径操作 path模块</h4><pre><code>const fs = require(&apos;fs&apos;)
+ const path = require(&apos;path&apos;)
+ 路径拼接
+ const f = path.join(&apos;p&apos;, &apos;u&apos;, &apos;a&apos;)
+ 获取文件绝对路径
+ path.join(__dirname,&apos;文件名&apos;)</code></pre><h3 id="第三方模块"><a href="#第三方模块" class="headerlink" title="第三方模块"></a>第三方模块</h3><pre><code>1、以js文件存在的的提供API接口
+2、以命令行工具形式存在的，用npm命令下载</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" data-id="ckilqjs8p000hxgu66e1razgj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-date">
@@ -759,6 +823,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
           </li>
         
@@ -772,10 +840,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/17/node-js%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">node-js模板引擎</a>
           </li>
         
       </ul>

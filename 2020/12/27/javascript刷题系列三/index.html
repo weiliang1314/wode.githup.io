@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript刷题系列三 | Weiweiliang的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: javascript刷题系列三date: 2020-12-27 12:13:30tags: 螺旋矩阵、加油站问题 螺旋矩阵问题问题：输入一个二维数组，按照从左向右，再向下，再向左，再向上，向右的方式遍历输出问题分析：因为输入二维数组，按照顺时针遍历输出，那么首先就要要考虑边界问题；left最开始0；right为m0.length-1(m为输入的二维数组)，top为0，bottom为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript刷题系列三">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/index.html">
+<meta property="og:site_name" content="Weiweiliang的博客">
+<meta property="og:description" content="title: javascript刷题系列三date: 2020-12-27 12:13:30tags: 螺旋矩阵、加油站问题 螺旋矩阵问题问题：输入一个二维数组，按照从左向右，再向下，再向左，再向上，向右的方式遍历输出问题分析：因为输入二维数组，按照顺时针遍历输出，那么首先就要要考虑边界问题；left最开始0；right为m0.length-1(m为输入的二维数组)，top为0，bottom为">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-12-27T04:13:30.551Z">
+<meta property="article:modified_time" content="2020-12-27T09:41:46.998Z">
+<meta property="article:author" content="weiliang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/wode.githup.io/atom.xml" title="Weiweiliang的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/wode.githup.io/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/wode.githup.io/" id="logo">Weiweiliang的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/">Home</a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/wode.githup.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/weiliang1314/wode.githup.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript刷题系列三" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" class="article-date">
+  <time datetime="2020-12-27T04:13:30.551Z" itemprop="datePublished">2020-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript刷题系列三
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列三<br>date: 2020-12-27 12:13:30<br>tags: 螺旋矩阵、加油站问题</p>
+<h4 id="螺旋矩阵问题"><a href="#螺旋矩阵问题" class="headerlink" title="螺旋矩阵问题"></a>螺旋矩阵问题</h4><p><em>问题：输入一个二维数组，按照从左向右，再向下，再向左，再向上，向右的方式遍历输出</em><br><em>问题分析：因为输入二维数组，按照顺时针遍历输出，那么首先就要要考虑边界问题；left最开始0；right为m0.length-1(m为输入的二维数组)，top为0，bottom为m.length-1;从左向右遍历不能超过右边界，从上到下不能超过下边界</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>   let spiralOrder = function(matrix) {
+  if (matrix.length == 0) {
+    return [];
+  }
+  let left = 0;
+  let right = matrix[0].length - 1;
+ let top = 0;
+  let bottom = matrix.length - 1;
+  let dir = &quot;right&quot;;
+  let result = [];
+  while (left &lt;= right &amp;&amp; top &lt;= bottom) {
+    if (dir == &quot;right&quot;) {
+        for (let i = left; i &lt;= right; i++) {
+            result.push(matrix[top][i])
+        }
+        top++;
+        dir = &quot;down&quot;
+    } else if (dir == &quot;down&quot;) {
+        for (let i = top; i &lt;= bottom; i++) {
+            result.push(matrix[i][right])
+        }
+        right--;
+        dir = &apos;left&apos;;
+    } else if (dir == &quot;left&quot;) {
+        for (let i = right; i &gt;= left; i--) {
+            result.push(matrix[bottom][i])
+        }
+        bottom--;
+        dir = &quot;top&quot;
+    } else if (dir == &quot;top&quot;) {
+        for (let i = bottom; i &gt;= top; i--) {
+            result.push(matrix[i][left])
+        }
+        left++;
+        dir = &quot;right&quot;
+    }
+}
+return result;</code></pre><p>}</p>
+<h4 id="加油站问题（贪心）"><a href="#加油站问题（贪心）" class="headerlink" title="加油站问题（贪心）"></a>加油站问题（贪心）</h4><p><em>贪心算法：从某一个初始状态出发，每次通过选取局部最优解向目标前进，并最终期望取得整体最优解的一种算法。由这个定义可知，贪心选择标准就是选择“当前最好”的决策，贪心算法根据这个标准进行决策，将原问题变成一个相似但规模更小的子问题，而后每一步选出来的一定是原问题整体最优解的一部分。如果一个问题贪心后只剩下一个子问题且有最优子结构，那么该问题就可以使用贪心算法。当一个问题的整体最优解包含其子问题的最优解时，我们称次问题具有最优子结构性质。</em><br><em>问题：环形路上有n个加油站，其中第i个加油站有get[i]升油， 有一辆无限容量油箱的车，从i加油站到i+1需要消耗cos[i]升油从其中一个加油站出发，开始时油箱没油，环形一周，返回出发时加油站编号</em><br><em>问题分析：首先要考虑所有加油站的油量是否多于或等于整个路程所消耗的油量；在此问题中假设汽车开始位置s,当前油量c，汽车开始时油量<br> 为0；判断从i加油站到i+1加油站汽车油量是否足够，行驶后油量：c=c+get[i]-cos[i]</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let canComolete = function(gas, cost) {
+let total = 0; //加油站总油
+let totalcost = 0; //消耗总油
+for (let i = 0; i &lt; gas.length; i++) {
+    total += gas[i];
+    totalcost += cost[i]
+}
+if (total &lt; totalcost) {
+    return -1
+}
+let current = 0;
+let start = 0; //假设的初始加油站
+for (let i = 0; i &lt; gas.length; i++) {
+    //当前油量
+    current = current - cost[i] + gas[i];
+    if (current &lt; 0) {
+        current = 0;
+        start = i + 1;
+    }
+}
+return start; //出发时加油站编号
+   }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" data-id="ckj6y43tu00002gu6co3e48ns" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javascript刷题系列二</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 weiliang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/wode.githup.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/wode.githup.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/wode.githup.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/wode.githup.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/wode.githup.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
