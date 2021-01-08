@@ -64,6 +64,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-node模块加载机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2020-10-29T12:20:02.380Z" itemprop="datePublished">2020-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: node模块加载机制<br>date: 2020-10-29 20:20:02<br>tags: node.js在加载模块时通过require在有无路径情况下的查找顺序</p>
+<h3 id="rquuire-在有路径的情况下的加载机制"><a href="#rquuire-在有路径的情况下的加载机制" class="headerlink" title="rquuire()在有路径的情况下的加载机制"></a>rquuire()在有路径的情况下的加载机制</h3><pre><code>若在require()中有完整的路径则按照路径顺序查找，若require中文件无后缀名先找在js文件；
+再找js文件夹，找到文件夹后再找index.js文件，若煤油index.js文件就去当前文件夹中找到
+package.json文件找到main选项中的入口文件。</code></pre><h3 id="require-在没有路径且没有后缀名情况下加载机制"><a href="#require-在没有路径且没有后缀名情况下加载机制" class="headerlink" title="require()在没有路径且没有后缀名情况下加载机制"></a>require()在没有路径且没有后缀名情况下加载机制</h3><pre><code>node会假设他是系统模块，去node_modules文件夹中找是否有该名字js文件，再看有无该名字文
+件 夹，如果没有该文件有文件夹则在文件夹中找index.js文件，如果没有index.js看文件夹中的 
+package.json文件找到main选项中的入口文件。</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" data-id="ckilqjs81000exgu6dzekd4qg" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-初始node-js" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/10/24/%E5%88%9D%E5%A7%8Bnode-js/" class="article-date">
@@ -823,6 +865,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
           </li>
         
@@ -838,10 +884,6 @@ root(根)→key(键值)
             <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
           </li>
         
-          <li>
-            <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -854,7 +896,7 @@ root(根)→key(键值)
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 weiliang<br>
+      &copy; 2021 weiliang<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
