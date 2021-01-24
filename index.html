@@ -64,6 +64,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript刷题系列五" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/" class="article-date">
+  <time datetime="2021-01-24T03:25:09.902Z" itemprop="datePublished">2021-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列五<br>date: 2021-01-24 11:25:09<br>tags: 防抖函数与节流函数</p>
+<h4 id="防抖函数"><a href="#防抖函数" class="headerlink" title="防抖函数"></a>防抖函数</h4><p><em>描述：当持续触发事件时，n秒内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时。</em><br><em>用途：搜索联想，用户在不断输入值时，用防抖来节约请求资源。</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let input = document.querySelector(&apos;input&apos;);
+
+function debounce(func, delay) {
+let timer = null;
+
+ return function(...args) {
+    if (timer) clearTimeout(timer);
+
+    timer = setTimeout(() =&gt; {
+        //有参数时
+        func.apply(this, args); //func();
+           }, delay)
+        }
+   }</code></pre><h4 id="节流函数"><a href="#节流函数" class="headerlink" title="节流函数"></a>节流函数</h4><p><em>描述：连续触发事件但是在n秒中只执行一次函数。</em><br><em>用途：鼠标连续不断地触发某事件，只在单位时间内只触发一次；在页面的无限加载场景下，需要用户在滚动页面时，每隔一段时间发一次请求，而不是在用户停下滚动页面操作时才去请求数据。</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>function throttle(fn, delay) {
+let timer;
+return function(...args) {
+    if (timer) {
+        return;
+       }
+    timer = setTimeout(() =&gt; {
+        // fn.apply(this, arguments);或
+        //三点运算符，代替arguments:传递给函数的隐式参数，调用传递给函数fn实参
+        fn(...args);
+
+        timer = null;
+           }, delay)
+         }
+
+     }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/" data-id="ckkalwryl000098u6ehy14xij" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript刷题系列四" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" class="article-date">
@@ -106,18 +174,30 @@
     }
     return memo[nums.length - 1];
 }</code></pre><h4 id="岛屿数量问题（dfs）"><a href="#岛屿数量问题（dfs）" class="headerlink" title="岛屿数量问题（dfs）"></a>岛屿数量问题（dfs）</h4><p><em>深度优先搜索算法：一种用于遍历或搜索树或图的算法。 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所在边都己被探寻过或者在搜寻时结点不满足条件，搜索将回溯到发现节点v的那条边的起始节点。整个进程反复进行直到所有节点都被访问为止。</em><br><em>问题：1为陆地，0为水，二维网格，计算岛屿数量，岛屿只能由水平方向和\或垂直方向上相邻的陆地连接形成，边界外都是水</em><br><em>问题分析：先遍历找到二位数组中为1的点，再对其四个方向进行判断，其中需要注意已经判定过得点置为0；每找到为1的点就进行判断，直到遍历完所有</em></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let num = function(grid) {<br>    let count = 0; //记录数量<br>    for (let i = 0; i &lt; grid.length; i++) {<br>        for (let j = 0; j &lt; grid[i].length; j++) {<br>            if (grid[i][j] == ‘1’) {<br>                count++;<br>                turn(i, j, grid)<br>            }<br>        }<br>    }<br>    return count;<br>    }</p>
-<pre><code> function turn(i, j, grid) {
-//边界判断
-if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
-    return;
- }
- grid[i][j] = &apos;0&apos;;
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let num = function(grid) {
+ let count = 0; //记录数量
+   for (let i = 0; i &lt; grid.length; i++) {
+  for (let j = 0; j &lt; grid[i].length; j++) {
+      if (grid[i][j] == &apos;1&apos;) {
+          count++;
+          turn(i, j, grid)
+      }
+    }
+    }
+  return count;
+        }
+
+   function turn(i, j, grid) {
+  //边界判断
+  if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
+  return;
+}
+grid[i][j] = &apos;0&apos;;
 turn(i + 1, j, grid)
-turn(i - 1, j, grid)
-turn(i, j + 1, grid)
+   turn(i - 1, j, grid)
+ turn(i, j + 1, grid)
 turn(i, j - 1, grid)
- }</code></pre>
+   }</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -806,159 +886,11 @@ net stop mongoDB</code></pre><h4 id="数据库连接与创建"><a href="#数据�
 
 
   
-    <article id="post-服务端基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2020-10-29T12:23:58.048Z" itemprop="datePublished">2020-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/">服务端基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 服务端基础<br>date: 2020-10-29 20:23:58<br>tags: 总结学习node.js中所需的一些服务端知识url及http</p>
-<h3 id="统一资源定位符URL"><a href="#统一资源定位符URL" class="headerlink" title="统一资源定位符URL"></a>统一资源定位符URL</h3><h6 id="组成：传输协议：-服务器IP：端口-资源所在位置"><a href="#组成：传输协议：-服务器IP：端口-资源所在位置" class="headerlink" title="组成：传输协议：//服务器IP：端口/资源所在位置"></a>组成：传输协议：//服务器IP：端口/资源所在位置</h6><h3 id="node创建web服务器"><a href="#node创建web服务器" class="headerlink" title="node创建web服务器"></a>node创建web服务器</h3><pre><code>//引用系统模块
-  const http = require(&apos;http&apos;)
-//创建web服务器
- const app = http.createServer()
- //当客户发送请求监听
-  app.on(&apos;request&apos;, (req, res) =&gt; {
-  //响应报文状态码
-   res.writeHead(200, {
-         //内容形式：文本，Html等,charset中文编码
-        &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
-        &apos;hello&apos;: &apos;world&apos;
-    })
-
-      //响应
-      res.end(&apos;&lt;h2&gt;user&lt;/h2&gt;&apos;)
-    })
-   //监听端口
-    app.listen(3000)
-    console.log(&apos;访问localhost:3000&apos;)</code></pre><h3 id="http请求与相应处理"><a href="#http请求与相应处理" class="headerlink" title="http请求与相应处理"></a>http请求与相应处理</h3><h4 id="get请求参数解析-url-parse-及路由访问"><a href="#get请求参数解析-url-parse-及路由访问" class="headerlink" title="get请求参数解析 url.parse()及路由访问"></a>get请求参数解析 url.parse()及路由访问</h4><pre><code> //引用系统模块
-  const http = require(&apos;http&apos;)
-
-  //创建web服务器
-const app = http.createServer()
- const url = require(&apos;url&apos;)
-
- //当客户发送请求监听
- app.on(&apos;request&apos;, (req, res) =&gt; {
-    res.writeHead(200, {
-        //内容形式：文本，Html等,charset中文编码
-        &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
-        &apos;hello&apos;: &apos;world&apos;
-    })
-    //获取请求地址,转成小写
-   const method = req.method.toLowerCase()
-    //获取地址，解析路径
-  const { pathname } = url.parse(req.url, true)
- if (method == &apos;get&apos;) {
-    if (pathname == &apos;/&apos; || pathname == &quot;/index&quot;) {
-        res.end(&apos;欢迎来到首页&apos;)
-    } else if (pathname == &apos;/list&apos;) {
-        res.end(&apos;欢迎来到列表&apos;)
-    } else(res.end(&apos;页面不存在的&apos;))
-       } else if (method == &apos;post&apos;) {
-
-      }</code></pre><h4 id="post参数-，参数通过事件的方式接受"><a href="#post参数-，参数通过事件的方式接受" class="headerlink" title="post参数 ，参数通过事件的方式接受"></a>post参数 ，参数通过事件的方式接受</h4><pre><code>  //引用系统模块
- const http = require(&apos;http&apos;)
- //用于处理请求参数
-
-const querystring = require(&apos;querystring&apos;)
-  //创建web服务器
-      const app = http.createServer()
-
- //当客户发送请求监听
- app.on(&apos;request&apos;, (req, res) =&gt; {
-  //post参数通过事件的方式接受
- //data当请求参数传递的时候发出data事件
-  //end当参数传递完成的时候发出end事件
-let postparams = &apos;&apos;
-  req.on(&apos;data&apos;, (params) =&gt; {
-   postparams += params
-
-     })
-  req.on(&apos;end&apos;, () =&gt; {
-   //把参数转化成对象形式
-    let post = querystring.parse(postparams)
-    console.log(post)
-
-      })
-       res.end(&apos;ok&apos;)
-
-    })
-  //监听端口
-  app.listen(4000)
-  console.log(&apos;访问localhost:4000&apos;)</code></pre><h4 id="静态资源获取，服务器端不需要处理，可以直接给客户端的资源"><a href="#静态资源获取，服务器端不需要处理，可以直接给客户端的资源" class="headerlink" title="静态资源获取，服务器端不需要处理，可以直接给客户端的资源"></a>静态资源获取，服务器端不需要处理，可以直接给客户端的资源</h4><pre><code> //引用系统模块
-    const http = require(&apos;http&apos;)
-  const url = require(&apos;url&apos;)
-   const path = require(&apos;path&apos;)
- const fs = require(&apos;fs&apos;)
-   const mime = require(&apos;mime&apos;)
-    //创建web服务器
- const app = http.createServer()
-//当客户发送请求监听
-     app.on(&apos;request&apos;, (req, res) =&gt; {
-    let pathname = url.parse(req.url).pathname
-       pathname = pathname == &apos;/&apos; ? &apos;/form.html&apos; : pathname
-       //将用户的请求路径转化为实际硬盘路径
-        let paths = path.join(__dirname, pathname)
-       //返回资源类型
-        let types = mime.getType(paths)
-       //读取文件
-      fs.readFile(paths, (error, result) =&gt; {
-       if (error != null) {
-           //状态码，内容形式：文本，Html等,charset中文编码
-           res.writeHead(404, {
-               &apos;content-type&apos;: &apos;text/html;charset=utf8&apos;,
-
-              })
-           res.end(&apos;文件读取失败&apos;)
-           return;
-                }
-            res.writeHead(200, {
-           &apos;content-type&apos;: types
-
-                 })
-         res.end(result)
-           })
-
-          })
-     //监听端口
-          app.listen(8080)
-           console.log(&apos;访问localhost:8080&apos;)</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" data-id="ckilqjs8o000gxgu6hqxif0j0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/wode.githup.io/page/2/">2</a><a class="extend next" rel="next" href="/wode.githup.io/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/wode.githup.io/page/2/">2</a><a class="page-number" href="/wode.githup.io/page/3/">3</a><a class="extend next" rel="next" href="/wode.githup.io/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -977,7 +909,7 @@ let postparams = &apos;&apos;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -988,6 +920,10 @@ let postparams = &apos;&apos;
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
@@ -1003,10 +939,6 @@ let postparams = &apos;&apos;
         
           <li>
             <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
           </li>
         
       </ul>

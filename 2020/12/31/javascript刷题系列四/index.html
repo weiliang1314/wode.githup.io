@@ -15,7 +15,7 @@
 <meta property="og:description" content="title: javascript刷题系列四date: 2020-12-31 11:15:06tags: 打家劫舍问题，岛屿数量 打家劫舍问题（动态规划）问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数&#x3D;正在取+之前取,所取得">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-12-31T03:15:06.424Z">
-<meta property="article:modified_time" content="2021-01-08T06:42:47.192Z">
+<meta property="article:modified_time" content="2021-01-08T06:47:51.613Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -108,18 +108,30 @@
     }
     return memo[nums.length - 1];
 }</code></pre><h4 id="岛屿数量问题（dfs）"><a href="#岛屿数量问题（dfs）" class="headerlink" title="岛屿数量问题（dfs）"></a>岛屿数量问题（dfs）</h4><p><em>深度优先搜索算法：一种用于遍历或搜索树或图的算法。 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所在边都己被探寻过或者在搜寻时结点不满足条件，搜索将回溯到发现节点v的那条边的起始节点。整个进程反复进行直到所有节点都被访问为止。</em><br><em>问题：1为陆地，0为水，二维网格，计算岛屿数量，岛屿只能由水平方向和\或垂直方向上相邻的陆地连接形成，边界外都是水</em><br><em>问题分析：先遍历找到二位数组中为1的点，再对其四个方向进行判断，其中需要注意已经判定过得点置为0；每找到为1的点就进行判断，直到遍历完所有</em></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let num = function(grid) {<br>    let count = 0; //记录数量<br>    for (let i = 0; i &lt; grid.length; i++) {<br>        for (let j = 0; j &lt; grid[i].length; j++) {<br>            if (grid[i][j] == ‘1’) {<br>                count++;<br>                turn(i, j, grid)<br>            }<br>        }<br>    }<br>    return count;<br>    }</p>
-<pre><code> function turn(i, j, grid) {
-//边界判断
-if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
-    return;
- }
- grid[i][j] = &apos;0&apos;;
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let num = function(grid) {
+ let count = 0; //记录数量
+   for (let i = 0; i &lt; grid.length; i++) {
+  for (let j = 0; j &lt; grid[i].length; j++) {
+      if (grid[i][j] == &apos;1&apos;) {
+          count++;
+          turn(i, j, grid)
+      }
+    }
+    }
+  return count;
+        }
+
+   function turn(i, j, grid) {
+  //边界判断
+  if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
+  return;
+}
+grid[i][j] = &apos;0&apos;;
 turn(i + 1, j, grid)
-turn(i - 1, j, grid)
-turn(i, j + 1, grid)
+   turn(i - 1, j, grid)
+ turn(i, j + 1, grid)
 turn(i, j - 1, grid)
- }</code></pre>
+   }</code></pre>
       
     </div>
     <footer class="article-footer">
@@ -131,6 +143,15 @@ turn(i, j - 1, grid)
   
     
 <nav id="article-nav">
+  
+    <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          javascript刷题系列五
+        
+      </div>
+    </a>
   
   
     <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" id="article-nav-older" class="article-nav-link-wrap">
@@ -159,7 +180,7 @@ turn(i, j - 1, grid)
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -170,6 +191,10 @@ turn(i, j - 1, grid)
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
@@ -185,10 +210,6 @@ turn(i, j - 1, grid)
         
           <li>
             <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/">ajax封装</a>
           </li>
         
       </ul>

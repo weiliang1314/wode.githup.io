@@ -5,11 +5,11 @@
   
 
   
-  <title>Archives: 2020/5 | Weiweiliang的博客</title>
+  <title>Weiweiliang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Weiweiliang的博客">
-<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/archives/2020/05/index.html">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/page/3/index.html">
 <meta property="og:site_name" content="Weiweiliang的博客">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="weiliang">
@@ -64,76 +64,62 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/wode.githup.io/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="archive-article-date">
-  <time datetime="2020-05-23T04:16:41.696Z" itemprop="datePublished">May 23</time>
+    <article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/05/17/javascript/" class="article-date">
+  <time datetime="2020-05-17T07:35:54.334Z" itemprop="datePublished">2020-05-17</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">javascript中for的作用域</a>
+      <a class="article-title" href="/wode.githup.io/2020/05/17/javascript/">javascript</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="archive-article-date">
-  <time datetime="2020-05-19T08:43:17.697Z" itemprop="datePublished">May 19</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">javascript-二叉搜索树</a>
-    </h1>
-  
+        <hr>
+<p>title: javascript<br>date: 2020-05-17 15:35:54<br>tags: 闭包导致的内存溢出</p>
+<pre><code>函数执行完后，函数内的局部变量没有释放，占用内存时间变长，容易照成内存泄漏
+解决：尽量不用闭包，及时释放
+ function fn1() {
+     var arr = new Array[1000]
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/wode.githup.io/2020/05/17/javascript/" class="archive-article-date">
-  <time datetime="2020-05-17T07:35:54.334Z" itemprop="datePublished">May 17</time>
-</a>
+     function fn2() {
+         console.log(arr.length)
+     }
+     return fn2
+ }
+ var f = fn1()
+ f()
+     //f=null及时释放</code></pre>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/wode.githup.io/2020/05/17/javascript/">javascript</a>
-    </h1>
-  
-
-    </header>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/17/javascript/" data-id="ckilqjs6s0001xgu69h356lbt" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
 </article>
-  
-  
-    </div></section>
+
+
   
 
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/wode.githup.io/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/wode.githup.io/">1</a><a class="page-number" href="/wode.githup.io/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 </section>
         
