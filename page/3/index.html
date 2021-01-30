@@ -64,6 +64,186 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript中for的作用域" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
+  <time datetime="2020-05-23T04:16:41.696Z" itemprop="datePublished">2020-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">javascript中for的作用域</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: ‘’javascript中for的作用域’’<br>date: 2020-05-23 12:16:41<br>tags: 在ES5前if与for没有块级作用域的概念，在ES6中添加let这一定义变量的关键字，使其在块级作用域有效</p>
+<h3 id="使用var定义变量"><a href="#使用var定义变量" class="headerlink" title="使用var定义变量"></a>使用var定义变量</h3><pre><code>&lt;button&gt;按钮1&lt;/button&gt;
+&lt;button&gt;按钮2&lt;/button&gt;
+&lt;button&gt;按钮3&lt;/button&gt;
+&lt;button&gt;按钮4&lt;/button&gt;
+&lt;button&gt;按钮5&lt;/button&gt;
+&lt;script&gt;
+因为没有块级作用域，按钮点击后函数执行当i找到是i的值已经被改变
+var btn = document.getElementsByTagName(&quot;button&quot;);
+                  for (var i = 0; i &lt; btn.length; i++) {
+                      btn[i].addEventListener(&apos;click&apos;, function() {
+                          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
+                      })&lt;/script&gt;</code></pre><h3 id="使用闭包解决"><a href="#使用闭包解决" class="headerlink" title="使用闭包解决"></a>使用闭包解决</h3><pre><code>当匿名函数执行时，函数中有块级作用域，每次i就会被传入，但外面i的改变不会影响函数里面的i
+var btn = document.getElementsByTagName(&quot;button&quot;);
+     for (var i = 0; i &lt; btn.length; i++) {
+         (function(num) {
+             btn[i].addEventListener(&apos;click&apos;, function() {
+                 console.log(&quot;第&quot; + num + &quot;个按钮点击&quot;)
+             })
+         })(i)</code></pre><h3 id="使用ES6中let解决"><a href="#使用ES6中let解决" class="headerlink" title="使用ES6中let解决"></a>使用ES6中let解决</h3><pre><code>const btn = document.getElementsByTagName(&quot;button&quot;);
+  for (let i = 0; i &lt; btn.length; i++) {
+      btn[i].addEventListener(&apos;click&apos;, function() {
+          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
+      })
+  }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckilqjs750008xgu6bs247l8s" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-javascript-二叉搜索树" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="article-date">
+  <time datetime="2020-05-19T08:43:17.697Z" itemprop="datePublished">2020-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">javascript-二叉搜索树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript-二叉搜索树<br>date: 2020-05-19 16:43:17<br>tags: 利用javascript实现数据结构中的二叉搜索树，左边存较小的值，右边存较大的值,查找效率较高。          </p>
+<h2 id="封装它的基本结构"><a href="#封装它的基本结构" class="headerlink" title="封装它的基本结构"></a>封装它的基本结构</h2><pre><code>         right
+root(根)→key(键值)
+          left
+ 代码封装：function binarserach(){
+    function Node(key){
+      this.key=key
+      this.left=null
+      this.right=null
+    }
+    this.root=null
+      }</code></pre><h3 id="插入操作的函数封装"><a href="#插入操作的函数封装" class="headerlink" title="插入操作的函数封装"></a>插入操作的函数封装</h3><pre><code>binarserach.prototype.insert = function(key) {
+        //创建节点
+        var newnode = new Node(key)
+            //判断根节点是否空
+        if (this.root == null) {
+            this.root = newnode
+        } else {
+            this.insertNode(this.root, newnode)
+        }
+    }
+   insertNode函数进行查找并判断插入左子树还是右子树，其中用到递归调用
+    binarserach.prototype.insertNode = function(node, newnode) {
+        if (newnode.key &lt; node.key) {
+            //向左查找
+            if (node.left == null) {
+                node.left = newnode
+            } else { //递归
+                this.insertNode(node.left, newnode)
+            }
+        } else {
+            //向右查找
+            if (node.right == null) {
+                node.right = newnode
+            } else {
+                this.insertNode(node.right, newnode)
+            }
+        }
+    }
+}</code></pre><h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><pre><code>           //前序遍历
+           binarserach.prototype.preorder = function(hander) {
+           this.preordernode(this.root, hander)
+
+    }
+    binarserach.prototype.preordernode = function(node, hander) {
+            if (node !== null) {
+                //处理经过的节点
+                hander(node.key) //在下面测试打印时进行处理
+                    //处理经过的节点的子节点
+                this.preordernode(node.left, hander)
+                this.preordernode(node.right, hander)
+
+
+            }
+
+        }
+        //中序遍历
+    binarserach.prototype.midorder = function(hander) {
+        this.midordernode(this.root, hander)
+    }
+    binarserach.prototype.midordernode = function(node, hander) {
+
+            if (node != null) {
+                this.midordernode(node.left, hander)
+                hander(node.key)
+                this.midordernode(node.right, hander)
+            }
+        }
+        //后序遍历
+    binarserach.prototype.houorder = function(hander) {
+        this.houordernode(this.root, hander)
+    }
+    binarserach.prototype.houordernode = function(node, hander) {
+
+        if (node != null) {
+            this.houordernode(node.left, hander)
+
+            this.houordernode(node.right, hander)
+            hander(node.key)
+        }
+    }
+
+}</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-id="ckilqjrzy0000xgu6huk473yk" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/05/17/javascript/" class="article-date">
@@ -150,6 +330,14 @@
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
           </li>
         
@@ -159,14 +347,6 @@
         
           <li>
             <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
           </li>
         
       </ul>

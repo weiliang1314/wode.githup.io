@@ -64,6 +64,147 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mongoDB操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2020-11-13T12:16:28.256Z" itemprop="datePublished">2020-11-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/">mongoDB操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: mongoDB操作<br>date: 2020-11-13 20:16:28<br>tags: 使用node.js对mongoDB实现增、删、改、插操作</p>
+<h3 id="对创建的集合进行插入数据"><a href="#对创建的集合进行插入数据" class="headerlink" title="对创建的集合进行插入数据"></a>对创建的集合进行插入数据</h3><h5 id="1、普通方法"><a href="#1、普通方法" class="headerlink" title="1、普通方法"></a>1、普通方法</h5><pre><code>//创建集合,名字首字母大写，应用相应属性规则
+ const Course = mongoose.model(&apos;Course&apos;, course)
+  //插入数据
+ const cour = new Course({
+  name: &apos;小辣椒&apos;,
+  author: &apos;你写&apos;,
+  ispub: true
+
+   })
+  //保存到数据库
+  cour.save()</code></pre><h5 id="2、create-方法，返回promise对象"><a href="#2、create-方法，返回promise对象" class="headerlink" title="2、create()方法，返回promise对象"></a>2、create()方法，返回promise对象</h5><pre><code>Course.create({
+ name: &apos;javascript&apos;,
+ author: &apos;hahaha&apos;,
+ ispub: true
+   }, (err, doc) =&gt; {
+  //错误信息
+  console.log(err)
+     //插入的信息
+  console.log(doc)
+  })</code></pre><h3 id="对集合中的数据进行删除"><a href="#对集合中的数据进行删除" class="headerlink" title="对集合中的数据进行删除"></a>对集合中的数据进行删除</h3><h5 id="1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据"><a href="#1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据" class="headerlink" title="1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据"></a>1、根据条件删除单条数据，如果有多条数据符合条件则按顺序删除第一条，返回删除的数据</h5><pre><code>Course.findOneAndDelete({ 条件}).then(res =&gt; { console.log(res) })</code></pre><h5 id="2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据"><a href="#2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据" class="headerlink" title="2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据"></a>2、根据条件删除多条条数据，如果不写条件就全部删除，返回删除的数据</h5><pre><code>Course.deleteMany({}).then(res =&gt; { console.log(res)})</code></pre><h3 id="对集合中数据进行修改"><a href="#对集合中数据进行修改" class="headerlink" title="对集合中数据进行修改"></a>对集合中数据进行修改</h3><h5 id="1、修改单条数据"><a href="#1、修改单条数据" class="headerlink" title="1、修改单条数据"></a>1、修改单条数据</h5><pre><code>Course.updateOne({ 条件}, { 要修改的数据}).then(res =&gt; { console.log(res) })</code></pre><h5 id="2、修改多条数据，若没有条件就是修改所有"><a href="#2、修改多条数据，若没有条件就是修改所有" class="headerlink" title="2、修改多条数据，若没有条件就是修改所有"></a>2、修改多条数据，若没有条件就是修改所有</h5><pre><code>Course.updateMany({}, {要修改的数据}).then(res =&gt; { console.log(res) })</code></pre><h3 id="对集合中的数据进行查询"><a href="#对集合中的数据进行查询" class="headerlink" title="对集合中的数据进行查询"></a>对集合中的数据进行查询</h3><h5 id="1、查询所有数据"><a href="#1、查询所有数据" class="headerlink" title="1、查询所有数据"></a>1、查询所有数据</h5><pre><code>Course.find().then(res =&gt; console.log(res))</code></pre><h5 id="2、按条件查询多条数据"><a href="#2、按条件查询多条数据" class="headerlink" title="2、按条件查询多条数据"></a>2、按条件查询多条数据</h5><pre><code>Course.find({条件}).then(res =&gt; console.log(res))</code></pre><h5 id="3、按条件查询单条数据"><a href="#3、按条件查询单条数据" class="headerlink" title="3、按条件查询单条数据"></a>3、按条件查询单条数据</h5><pre><code>Course.findOne({ 条件}).then(res =&gt; console.log(res))</code></pre><h5 id="4、按字段查询数据"><a href="#4、按字段查询数据" class="headerlink" title="4、按字段查询数据"></a>4、按字段查询数据</h5><pre><code>Course.find().select(&apos;字段1 字段2...&apos;).then(res =&gt; console.log(res))</code></pre><h5 id="5、skip-跳过多少条数据，limit-限制查询数据的数量"><a href="#5、skip-跳过多少条数据，limit-限制查询数据的数量" class="headerlink" title="5、skip()跳过多少条数据，limit()限制查询数据的数量"></a>5、skip()跳过多少条数据，limit()限制查询数据的数量</h5><pre><code> //跳过前两条数据，查询两条数据
+Course.find().skip(2).limit(2).then(res =&gt; console.log(res))</code></pre><h3 id="同一个数据库对两个数据集合进行关联"><a href="#同一个数据库对两个数据集合进行关联" class="headerlink" title="同一个数据库对两个数据集合进行关联"></a>同一个数据库对两个数据集合进行关联</h3><h4 id="连接好数据库后，建立两个数据集合及其规则"><a href="#连接好数据库后，建立两个数据集合及其规则" class="headerlink" title="连接好数据库后，建立两个数据集合及其规则"></a>连接好数据库后，建立两个数据集合及其规则</h4><pre><code>const user = new mongoose.Schema({
+ name: {
+    type: String,
+    required: true
+}
+   })
+ const post = new mongoose.Schema({
+    title: {
+       type: String
+     },
+  //对两个表进行关联
+      author: {
+    type: mongoose.Schema.Types.ObjectId,
+   ref: &apos;Users&apos;
+     }
+    })
+ const Users = mongoose.model(&apos;Users&apos;, user)
+ const Posts = mongoose.model(&apos;Posts&apos;, post)</code></pre><h4 id="插入数据时把关联的字段上写被关联字段数据的id"><a href="#插入数据时把关联的字段上写被关联字段数据的id" class="headerlink" title="插入数据时把关联的字段上写被关联字段数据的id"></a>插入数据时把关联的字段上写被关联字段数据的id</h4><pre><code>Users.create({
+ name: &apos;朱自清&apos;
+  }, ).then(doc =&gt; console.log(doc)).catch(err =&gt; {
+ console.log(err)
+})
+Posts.create({
+title: &apos;荷塘月色 背影&apos;,
+ author: &apos;5fa698057b04462b6031e4f7&apos;//name的id
+  }, ).then(doc =&gt; console.log(doc)).catch(err =&gt; {
+  console.log(err)
+   })</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/13/mongoDB%E6%93%8D%E4%BD%9C/" data-id="ckilqjs710006xgu6854q5vw4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mongoDB" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/11/06/mongoDB/" class="article-date">
+  <time datetime="2020-11-06T12:50:16.131Z" itemprop="datePublished">2020-11-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/11/06/mongoDB/">mongoDB</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: mongoDB<br>date: 2020-11-06 20:50:16<br>tags: mongodb数据库的介绍与使用</p>
+<h3 id="mongoDB介绍"><a href="#mongoDB介绍" class="headerlink" title="mongoDB介绍"></a>mongoDB介绍</h3><h5 id="MongoDB-是由C-语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能，为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB-将数据存储为一个文档，数据结构由键值-key-gt-value-对组成。MongoDB-文档类似于JSON-对象。字段值可以包含其他文档，数组及文档数组。"><a href="#MongoDB-是由C-语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能，为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB-将数据存储为一个文档，数据结构由键值-key-gt-value-对组成。MongoDB-文档类似于JSON-对象。字段值可以包含其他文档，数组及文档数组。" class="headerlink" title="MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能，为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于JSON 对象。字段值可以包含其他文档，数组及文档数组。"></a>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能，为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于JSON 对象。字段值可以包含其他文档，数组及文档数组。</h5><h3 id="mongoDB下载"><a href="#mongoDB下载" class="headerlink" title="mongoDB下载"></a>mongoDB下载</h3><h5 id="地址https-www-mongodb-com-try-download-community"><a href="#地址https-www-mongodb-com-try-download-community" class="headerlink" title="地址https://www.mongodb.com/try/download/community"></a>地址<a href="https://www.mongodb.com/try/download/community" target="_blank" rel="noopener">https://www.mongodb.com/try/download/community</a></h5><h5 id="可视化工具下载mongodb-compass"><a href="#可视化工具下载mongodb-compass" class="headerlink" title="可视化工具下载mongodb-compass"></a>可视化工具下载mongodb-compass</h5><h3 id="mongoDB使用"><a href="#mongoDB使用" class="headerlink" title="mongoDB使用"></a>mongoDB使用</h3><h4 id="管理员启动与关闭数据库"><a href="#管理员启动与关闭数据库" class="headerlink" title="管理员启动与关闭数据库"></a>管理员启动与关闭数据库</h4><pre><code>启动
+net start mongoDB
+关闭
+net stop mongoDB</code></pre><h4 id="数据库连接与创建"><a href="#数据库连接与创建" class="headerlink" title="数据库连接与创建"></a>数据库连接与创建</h4><pre><code> const mongoose = require(&apos;mongoose&apos;)
+//连接具体数据库
+ mongoose.connect(&apos;mongodb://localhost/&apos;, { useNewUrlParser: true, useUnifiedTopology: true }, )
+.then(() =&gt; { console.log(&apos;数据库连接成功&apos;) }).catch((err) =&gt; {
+    console.log(err, &apos;数据库连接失败&apos;)
+  })     
+   //定义集合各个属性
+ const course = new mongoose.Schema({
+ name: String,
+ author: String,
+ ispub: Boolean
+
+   })
+
+    //创建集合,名字首字母大写，应用相应属性规则
+      const Course = mongoose.model(&apos;Course&apos;, course)</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/06/mongoDB/" data-id="ckilqjs6w0003xgu6hd0520ls" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-服务端基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/10/29/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%9F%BA%E7%A1%80/" class="article-date">
@@ -747,186 +888,6 @@ new Vue({
 
 
   
-    <article id="post-javascript中for的作用域" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="article-date">
-  <time datetime="2020-05-23T04:16:41.696Z" itemprop="datePublished">2020-05-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/">javascript中for的作用域</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: ‘’javascript中for的作用域’’<br>date: 2020-05-23 12:16:41<br>tags: 在ES5前if与for没有块级作用域的概念，在ES6中添加let这一定义变量的关键字，使其在块级作用域有效</p>
-<h3 id="使用var定义变量"><a href="#使用var定义变量" class="headerlink" title="使用var定义变量"></a>使用var定义变量</h3><pre><code>&lt;button&gt;按钮1&lt;/button&gt;
-&lt;button&gt;按钮2&lt;/button&gt;
-&lt;button&gt;按钮3&lt;/button&gt;
-&lt;button&gt;按钮4&lt;/button&gt;
-&lt;button&gt;按钮5&lt;/button&gt;
-&lt;script&gt;
-因为没有块级作用域，按钮点击后函数执行当i找到是i的值已经被改变
-var btn = document.getElementsByTagName(&quot;button&quot;);
-                  for (var i = 0; i &lt; btn.length; i++) {
-                      btn[i].addEventListener(&apos;click&apos;, function() {
-                          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
-                      })&lt;/script&gt;</code></pre><h3 id="使用闭包解决"><a href="#使用闭包解决" class="headerlink" title="使用闭包解决"></a>使用闭包解决</h3><pre><code>当匿名函数执行时，函数中有块级作用域，每次i就会被传入，但外面i的改变不会影响函数里面的i
-var btn = document.getElementsByTagName(&quot;button&quot;);
-     for (var i = 0; i &lt; btn.length; i++) {
-         (function(num) {
-             btn[i].addEventListener(&apos;click&apos;, function() {
-                 console.log(&quot;第&quot; + num + &quot;个按钮点击&quot;)
-             })
-         })(i)</code></pre><h3 id="使用ES6中let解决"><a href="#使用ES6中let解决" class="headerlink" title="使用ES6中let解决"></a>使用ES6中let解决</h3><pre><code>const btn = document.getElementsByTagName(&quot;button&quot;);
-  for (let i = 0; i &lt; btn.length; i++) {
-      btn[i].addEventListener(&apos;click&apos;, function() {
-          console.log(&quot;第&quot; + i + &quot;个按钮点击&quot;)
-      })
-  }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/23/javascript%E4%B8%ADfor%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/" data-id="ckilqjs750008xgu6bs247l8s" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-javascript-二叉搜索树" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" class="article-date">
-  <time datetime="2020-05-19T08:43:17.697Z" itemprop="datePublished">2020-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">javascript-二叉搜索树</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: javascript-二叉搜索树<br>date: 2020-05-19 16:43:17<br>tags: 利用javascript实现数据结构中的二叉搜索树，左边存较小的值，右边存较大的值,查找效率较高。          </p>
-<h2 id="封装它的基本结构"><a href="#封装它的基本结构" class="headerlink" title="封装它的基本结构"></a>封装它的基本结构</h2><pre><code>         right
-root(根)→key(键值)
-          left
- 代码封装：function binarserach(){
-    function Node(key){
-      this.key=key
-      this.left=null
-      this.right=null
-    }
-    this.root=null
-      }</code></pre><h3 id="插入操作的函数封装"><a href="#插入操作的函数封装" class="headerlink" title="插入操作的函数封装"></a>插入操作的函数封装</h3><pre><code>binarserach.prototype.insert = function(key) {
-        //创建节点
-        var newnode = new Node(key)
-            //判断根节点是否空
-        if (this.root == null) {
-            this.root = newnode
-        } else {
-            this.insertNode(this.root, newnode)
-        }
-    }
-   insertNode函数进行查找并判断插入左子树还是右子树，其中用到递归调用
-    binarserach.prototype.insertNode = function(node, newnode) {
-        if (newnode.key &lt; node.key) {
-            //向左查找
-            if (node.left == null) {
-                node.left = newnode
-            } else { //递归
-                this.insertNode(node.left, newnode)
-            }
-        } else {
-            //向右查找
-            if (node.right == null) {
-                node.right = newnode
-            } else {
-                this.insertNode(node.right, newnode)
-            }
-        }
-    }
-}</code></pre><h3 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h3><pre><code>           //前序遍历
-           binarserach.prototype.preorder = function(hander) {
-           this.preordernode(this.root, hander)
-
-    }
-    binarserach.prototype.preordernode = function(node, hander) {
-            if (node !== null) {
-                //处理经过的节点
-                hander(node.key) //在下面测试打印时进行处理
-                    //处理经过的节点的子节点
-                this.preordernode(node.left, hander)
-                this.preordernode(node.right, hander)
-
-
-            }
-
-        }
-        //中序遍历
-    binarserach.prototype.midorder = function(hander) {
-        this.midordernode(this.root, hander)
-    }
-    binarserach.prototype.midordernode = function(node, hander) {
-
-            if (node != null) {
-                this.midordernode(node.left, hander)
-                hander(node.key)
-                this.midordernode(node.right, hander)
-            }
-        }
-        //后序遍历
-    binarserach.prototype.houorder = function(hander) {
-        this.houordernode(this.root, hander)
-    }
-    binarserach.prototype.houordernode = function(node, hander) {
-
-        if (node != null) {
-            this.houordernode(node.left, hander)
-
-            this.houordernode(node.right, hander)
-            hander(node.key)
-        }
-    }
-
-}</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/05/19/javascript-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-id="ckilqjrzy0000xgu6huk473yk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -963,6 +924,14 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
           </li>
         
@@ -972,14 +941,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/12/12/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%8C/">javascript刷题系列二</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
           </li>
         
       </ul>
