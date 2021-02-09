@@ -5,17 +5,17 @@
   
 
   
-  <title>javascript刷题系列四 | Weiweiliang的博客</title>
+  <title>javascript刷题系列七 | Weiweiliang的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: javascript刷题系列四date: 2020-12-31 11:15:06tags: 打家劫舍问题，岛屿数量 打家劫舍问题（动态规划）问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数&#x3D;正在取+之前取,所取得">
+  <meta name="description" content="title: javascript刷题系列七date: 2021-02-09 17:00:11tags: 矩形重叠问题、矩阵置零问题 图像渲染问题：矩形以列表[x1,y1,x2,y2],其中（x1,y1）为左下角的坐标，（x2,y2）为右上角的坐标，如果两个矩形相交的面积为正   则两个矩形重叠，只在角或边接触的两个矩形不构成重叠,判断是否有相交的面积，返回布尔值问题分析：根据问题当其中一个矩形">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript刷题系列四">
-<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/index.html">
+<meta property="og:title" content="javascript刷题系列七">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/index.html">
 <meta property="og:site_name" content="Weiweiliang的博客">
-<meta property="og:description" content="title: javascript刷题系列四date: 2020-12-31 11:15:06tags: 打家劫舍问题，岛屿数量 打家劫舍问题（动态规划）问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数&#x3D;正在取+之前取,所取得">
+<meta property="og:description" content="title: javascript刷题系列七date: 2021-02-09 17:00:11tags: 矩形重叠问题、矩阵置零问题 图像渲染问题：矩形以列表[x1,y1,x2,y2],其中（x1,y1）为左下角的坐标，（x2,y2）为右上角的坐标，如果两个矩形相交的面积为正   则两个矩形重叠，只在角或边接触的两个矩形不构成重叠,判断是否有相交的面积，返回布尔值问题分析：根据问题当其中一个矩形">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-12-31T03:15:06.424Z">
-<meta property="article:modified_time" content="2021-01-08T06:47:51.613Z">
+<meta property="article:published_time" content="2021-02-09T09:00:11.454Z">
+<meta property="article:modified_time" content="2021-02-09T09:41:53.346Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-javascript刷题系列四" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-javascript刷题系列七" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" class="article-date">
-  <time datetime="2020-12-31T03:15:06.424Z" itemprop="datePublished">2020-12-31</time>
+    <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/" class="article-date">
+  <time datetime="2021-02-09T09:00:11.454Z" itemprop="datePublished">2021-02-09</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      javascript刷题系列四
+      javascript刷题系列七
     </h1>
   
 
@@ -89,53 +89,69 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<p>title: javascript刷题系列四<br>date: 2020-12-31 11:15:06<br>tags: 打家劫舍问题，岛屿数量</p>
-<h4 id="打家劫舍问题（动态规划）"><a href="#打家劫舍问题（动态规划）" class="headerlink" title="打家劫舍问题（动态规划）"></a>打家劫舍问题（动态规划）</h4><p><em>问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额</em><br><em>问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数=正在取+之前取,所取得金额总数最大;m[i]=n[i]+m[i-2]或m[i]=m<a href="m用于保存当前所取金额总数，n为正在取的金额">i-1</a></em></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>  let rob = function(nums) {
-    //边界
-    if (nums.length === 0) {
-        return 0
-    }
-    if (nums.length === 1) {
-        return nums[0]
-    }
-    const memo = [];
-    memo[0] = nums[0];
-    memo[1] = Math.max(nums[0], nums[1]);
-    for (let i = 2; i &lt;= nums.length; i++) {
-        memo[i] = Math.max(nums[i] + memo[i - 2], memo[i - 1]);
+<p>title: javascript刷题系列七<br>date: 2021-02-09 17:00:11<br>tags: 矩形重叠问题、矩阵置零问题</p>
+<h4 id="图像渲染"><a href="#图像渲染" class="headerlink" title="图像渲染"></a>图像渲染</h4><p><em>问题：矩形以列表[x1,y1,x2,y2],其中（x1,y1）为左下角的坐标，（x2,y2）为右上角的坐标，如果两个矩形相交的面积为正<br>   则两个矩形重叠，只在角或边接触的两个矩形不构成重叠,判断是否有相交的面积，返回布尔值</em><br><em>问题分析：根据问题当其中一个矩形在另一个矩形四周时它们不重叠，判断在四周的四种情况：rec1右&lt;rec2左，rec1左&gt;rec2右，rec1下&gt;rec2上，rec1上&lt;rec2下</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let isRectanglevoverlap = function(rec1, rec2) {
+  if (rec1[2] &lt;= rec2[0] || rec1[0] &gt;= rec2[2] || rec1[1] &gt;= rec2[3] || rec1[3] &lt;= rec2[1]) {
+   return false
+ } else {
+   return true
+ }
 
+ }
+
+       }</code></pre><h4 id="矩阵置为零"><a href="#矩阵置为零" class="headerlink" title="矩阵置为零"></a>矩阵置为零</h4><p><em>问题：二维数组由0，1组成，把有0的整行，整列都变为0</em><br><em>问题分析：首先我们要考虑第一行，第一列是否有0，若有0则就要把其所在行或列都置为0；判断其余行列是否有0，若有则要把其所在行和列的第一个都置为0，再把第一行和第一列有0的都置为0</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code> let setZero = function(matrix) {
+//检查第一行，第一列是否有0，
+let firstCol = false; //列
+let firstRow = false;
+for (let i = 0; i &lt; matrix.length; i++) {
+    if (matrix[i][0] === 0) {
+        firstCol = true
     }
-    return memo[nums.length - 1];
-}</code></pre><h4 id="岛屿数量问题（dfs）"><a href="#岛屿数量问题（dfs）" class="headerlink" title="岛屿数量问题（dfs）"></a>岛屿数量问题（dfs）</h4><p><em>深度优先搜索算法：一种用于遍历或搜索树或图的算法。 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所在边都己被探寻过或者在搜寻时结点不满足条件，搜索将回溯到发现节点v的那条边的起始节点。整个进程反复进行直到所有节点都被访问为止。</em><br><em>问题：1为陆地，0为水，二维网格，计算岛屿数量，岛屿只能由水平方向和\或垂直方向上相邻的陆地连接形成，边界外都是水</em><br><em>问题分析：先遍历找到二位数组中为1的点，再对其四个方向进行判断，其中需要注意已经判定过得点置为0；每找到为1的点就进行判断，直到遍历完所有</em></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let num = function(grid) {
- let count = 0; //记录数量
-   for (let i = 0; i &lt; grid.length; i++) {
-  for (let j = 0; j &lt; grid[i].length; j++) {
-      if (grid[i][j] == &apos;1&apos;) {
-          count++;
-          turn(i, j, grid)
-      }
+   }
+   for (let i = 0; i &lt; matrix[0].length; i++) {
+    if (matrix[0][i] === 0) {
+        firstRow = true
     }
-    }
-  return count;
+     }
+   //第一行与第一列标记其余行列的0
+      for (let row = 1; row &lt; matrix.length; row++) {
+    for (let col = 1; col &lt; matrix[0].length; col++) {
+        if (matrix[row][col] === 0) {
+            matrix[row][0] = 0;
+            matrix[0][col] = 0;
+
         }
+         }
+       }
+      for (let row = 1; row &lt; matrix.length; row++) {
+      for (let col = 1; col &lt; matrix[0].length; col++) {
+        if (matrix[row][0] === 0 || matrix[0][col] === 0) {
+            matrix[row][col] = 0;
 
-   function turn(i, j, grid) {
-  //边界判断
-  if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
-  return;
-}
-grid[i][j] = &apos;0&apos;;
-turn(i + 1, j, grid)
-   turn(i - 1, j, grid)
- turn(i, j + 1, grid)
-turn(i, j - 1, grid)
-   }</code></pre>
+
+        }
+       }
+     }
+    //处理第一行，第一列有0的情况
+     if (firstCol === true) {
+    for (let i = 0; i &lt; matrix.length; i++) {
+        matrix[i][0] = 0;
+    }
+    }
+     if (firstRow === true) {
+    for (let i = 0; i &lt; matrix[0].length; i++) {
+        matrix[0][i] = 0;
+    }
+   }
+    return matrix;
+
+  }</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" data-id="ckjnwzker0000rcu62zvwhcyx" class="article-share-link">Share</a>
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/" data-id="ckkxtgfgg0000xwu60n5wdn3i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -144,19 +160,10 @@ turn(i, j - 1, grid)
     
 <nav id="article-nav">
   
-    <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          javascript刷题系列五
-        
-      </div>
-    </a>
   
-  
-    <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">javascript刷题系列三</div>
+      <div class="article-nav-title">初识设计模式</div>
     </a>
   
 </nav>
