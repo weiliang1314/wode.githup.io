@@ -64,6 +64,141 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript设计模式一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/" class="article-date">
+  <time datetime="2021-03-01T06:35:30.997Z" itemprop="datePublished">2021-03-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript设计模式一<br>date: 2021-03-01 14:35:30<br>tags: 结构型————代理模式、组合模式</p>
+<h3 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h3><p> <em>定义：给某对象提供一个代理以控制对该对象的访问，访问对象不适合或者不能直接引用目标对象，代理对象作为访问对象和目标对象之间的中介。</em><br> <em>特点：在客户端与目标对象之间起到一个中介作用和保护目标对象的作用；可以扩展目标对象的功能；将客户端与目标对象分离，降低系统的耦合度，增加了程序的可扩展；会造成请求处理速度变慢</em></p>
+<h3 id="代码示例——为每个li标签绑定事件"><a href="#代码示例——为每个li标签绑定事件" class="headerlink" title="代码示例——为每个li标签绑定事件"></a>代码示例——为每个li标签绑定事件</h3><pre><code>  let ul = document.querySelector(&apos;ul&apos;);
+ ul.onclick = function(e) {
+ let e = e || window.event,
+  target = e.target || e.srcElement;
+//获取节点名称并转化为小写
+  if (target.nodeName.toLowerCase() === &apos;li&apos;) {
+  console.log(target.innerHTML);
+}
+ }</code></pre><h3 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h3><p> <em>定义：将对象组合成树状的层次结构的模式，用来表示“整体-部分”的关系，使用户对单个对象和组合对象具有一致的访问性</em><br> <em>特点：客户端代码可以一致地处理单个对象和组合对象，无须关心自己处理的是单个对象，还是组合对象；容易在组合体内加入新的对象</em></p>
+<h3 id="代码示例————根据不同需求组成不同表单"><a href="#代码示例————根据不同需求组成不同表单" class="headerlink" title="代码示例————根据不同需求组成不同表单"></a>代码示例————根据不同需求组成不同表单</h3><pre><code>   window.onload = function() {
+  //寄生组合继承
+    function inheritPrototype(subClass, superClass) {
+    function F() {};
+    F.prototype = superClass.prototype;
+    subClass.prototype = new F();
+    subClass.prototype.constructor = subClass;
+   }
+    //基类
+
+   function container() {
+    this.children = [];
+    this.element = null;
+    }
+     container.prototype = {
+        init: function() {
+            throw new Error(&apos;重写init方法&apos;)
+        },
+        add: function(child) {
+            this.children.push(child);
+            this.element.appendChild(child.element);
+            return this
+        }
+       }
+     //基于基类创建表单容器
+     function createform(id, method, action, parent) {
+    container.call(this);
+    this.id = id || &apos;&apos;;
+    this.method = method || &apos;get&apos;;
+    this.action = action || &apos;&apos;;
+    this.parent = parent;
+    this.init();
+
+
+    }
+    inheritPrototype(createform, container);
+   createform.prototype.init = function() {
+    this.element = document.createElement(&apos;form&apos;);
+    this.element.id = this.id;
+    this.element.method = this.method;
+    this.element.action = this.action;
+   }
+     createform.prototype.show = function() {
+        this.parent.appendChild(this.element);
+    }
+    //行容器组件
+     function createline(className) {
+     container.call(this);
+     this.className = className === undefined ? &apos;form-line&apos; : &apos;form-line&apos; + className;
+     this.init();
+      }
+      inheritPrototype(createline, container);
+       createline.prototype.init = function() {
+        this.element = document.createElement(&apos;div&apos;);
+        this.element.className = this.className;
+      }
+      //label,已经是最下面的叶子子节点，不会再包含其他元素不继承基类
+      function createlabel(text, forName) {
+      this.text = text || &apos;&apos;;
+      this.forName = forName || &apos;&apos;;
+      this.init();
+       }
+        createlabel.prototype.init = function() {
+        this.element = document.createElement(&apos;label&apos;)
+        this.element.setAttribute(&apos;for&apos;, this.forName);
+        this.element.innerHTML = this.text
+    }
+    //input
+    function createinput(type, id, name, defaultvalue) {
+    this.type = type || &apos;&apos;;
+    this.id = id || &apos;&apos;;
+    this.name = name || &apos;&apos;;
+    this.defaultvalue = defaultvalue || &apos;&apos;;
+    this.init();
+   }
+  createinput.prototype.init = function() {
+    this.element = document.createElement(&apos;input&apos;);
+    this.element.type = this.type;
+    this.element.id = this.id;
+    this.element.name = this.name;
+    this.element.value = this.defaultvalue;
+   }
+   //实例化
+let form = new createform(&apos;own&apos;, &apos;GET&apos;, &apos;/aa.html&apos;, document.body);
+let line = new createline().add(new createlabel(&apos;用户名&apos;, &apos;user&apos;)).add(new createinput(&apos;text&apos;, &apos;usname&apos;, &apos;user&apos;))
+let line1 = new createline().add(new createlabel(&apos;密码&apos;, &apos;pwd&apos;)).add(new createinput(&apos;password&apos;, &apos;pwdname&apos;, &apos;pwd&apos;))
+form.add(line).add(line1).show()
+   }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/" data-id="cklq9dw1y000014u6fhd31x8k" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript刷题系列七" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/" class="article-date">
@@ -88,7 +223,7 @@
       
         <hr>
 <p>title: javascript刷题系列七<br>date: 2021-02-09 17:00:11<br>tags: 矩形重叠问题、矩阵置零问题</p>
-<h4 id="图像渲染"><a href="#图像渲染" class="headerlink" title="图像渲染"></a>图像渲染</h4><p><em>问题：矩形以列表[x1,y1,x2,y2],其中（x1,y1）为左下角的坐标，（x2,y2）为右上角的坐标，如果两个矩形相交的面积为正<br>   则两个矩形重叠，只在角或边接触的两个矩形不构成重叠,判断是否有相交的面积，返回布尔值</em><br><em>问题分析：根据问题当其中一个矩形在另一个矩形四周时它们不重叠，判断在四周的四种情况：rec1右&lt;rec2左，rec1左&gt;rec2右，rec1下&gt;rec2上，rec1上&lt;rec2下</em></p>
+<h4 id="矩形重叠"><a href="#矩形重叠" class="headerlink" title="矩形重叠"></a>矩形重叠</h4><p><em>问题：矩形以列表[x1,y1,x2,y2],其中（x1,y1）为左下角的坐标，（x2,y2）为右上角的坐标，如果两个矩形相交的面积为正<br>   则两个矩形重叠，只在角或边接触的两个矩形不构成重叠,判断是否有相交的面积，返回布尔值</em><br><em>问题分析：根据问题当其中一个矩形在另一个矩形四周时它们不重叠，判断在四周的四种情况：rec1右&lt;rec2左，rec1左&gt;rec2右，rec1下&gt;rec2上，rec1上&lt;rec2下</em></p>
 <h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let isRectanglevoverlap = function(rec1, rec2) {
   if (rec1[2] &lt;= rec2[0] || rec1[0] &gt;= rec2[2] || rec1[1] &gt;= rec2[3] || rec1[3] &lt;= rec2[1]) {
    return false
@@ -815,107 +950,6 @@ for (let i = 0; i &lt; martix.length; i++) {
 
 
   
-    <article id="post-node-js框架初识" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" class="article-date">
-  <time datetime="2020-11-20T10:18:38.590Z" itemprop="datePublished">2020-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/">node-js框架初识</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: node.js框架初识<br>date: 2020-11-20 18:18:38<br>tags: exoress框架基本使用及特点介绍</p>
-<h3 id="express介绍"><a href="#express介绍" class="headerlink" title="express介绍"></a>express介绍</h3><p>  <em>Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。<br>   使用 Express 可以快速地搭建一个完整功能的网站。</em></p>
-<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><ul>
-<li>设置中间件来响应 HTTP 请求。</li>
-<li>定义路由表用于执行不同的 HTTP 请求动作。</li>
-<li>通过向模板传递参数来动态渲染 HTML 页面。</li>
-</ul>
-<h3 id="express使用"><a href="#express使用" class="headerlink" title="express使用"></a>express使用</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>  <code>npm install express</code></p>
-<h4 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h4><p>  (<code>)
-  const express = require(&#39;express&#39;)
-  const app = express();
-  (</code>)</p>
-<h4 id="中间件简单使用"><a href="#中间件简单使用" class="headerlink" title="中间件简单使用"></a>中间件简单使用</h4><p> <em>1、app.use放在首位,接收所有请求中间件,匹配所有路径，其中next()为继续向下执行。</em><br> (<code>)
-   app.use((req, res, next) =&gt; {
-        console.log(&#39;请求走了app.use中间件&#39;)
-        next()})
- (</code>)<br> <em>2、匹配指定的路径，当访问jun,走当前中间件。</em><br> (<code>)
-  app.use(&#39;/jun&#39;, (req, res, next) =&gt; {
-        console.log(&#39;请求走了app.use中间件，/jun&#39;)
-        next()   })
- (</code>)<br> <em>3、定义访问错误信息。</em><br> (<code>)
-  app.use((req, res, next) =&gt; {
-    //定义状态码
-    res.status(404)
-    res.send(&#39;当前页面内容不存在&#39;)})
- (</code>)<br> <em>4、登录路由保护，判断登录状态。</em><br> (<code>)
-   app.use(&#39;/admin&#39;, (req, res, next) =&gt; {
-    let lis = false;//true
-    if (lis) {
-        //请求继续向下
-        next()  } else {
-        res.send(&#39;没有登录不能访问&#39;) })
-   app.get(&#39;admin&#39;, (req, res) =&gt; {
-        res.send(&#39;已经登录可以看了&#39;) })
- (</code>)</p>
-<h4 id="捕获错误信息"><a href="#捕获错误信息" class="headerlink" title="捕获错误信息"></a>捕获错误信息</h4><p> <em>1、</em><br> (<code>)
-  app.get(&#39;/index&#39;, (req, res, next) =&gt; {
-            //抛出一个错误
-            throw new Error(&#39;未知错误&#39;) })
-        //错误处理信息
-    app.use((err, req, res, next) =&gt; {
-        //收到上面的错误信息
-        res.status(500).send(err.message) })
- (</code>)<br> <em>2、捕获异步函数及同步代码在执行过程中的错误。</em><br> (<code>)
- app.get(&#39;/index&#39;, async(req, res, next) =&gt; {
-    try { await readFile(&#39;错误的文件&#39;) } catch (ex) {
-        //传递错误信息到终端
-        next(ex)  } })
- (</code>)</p>
-<h4 id="模块化路由的构建"><a href="#模块化路由的构建" class="headerlink" title="模块化路由的构建"></a>模块化路由的构建</h4><p> <em>导入</em><br> (<code>)
- const admin = require(&#39;./routes&#39;)
- const home = express.Router()
- (</code>)<br> <em>构建路由</em><br> (<code>)
- app.use(&#39;/home&#39;, home)
-   //创建二级路由
- home.get(&#39;/index&#39;, (req, res) =&gt; {
-    res.send(&#39;欢迎访问&#39;) })
-  (</code>)</p>
-<h4 id="express模板引擎-express-art-template"><a href="#express模板引擎-express-art-template" class="headerlink" title="express模板引擎 express-art-template"></a>express模板引擎 express-art-template</h4><p>  <em>第三方模块下载</em><br>  <code>npm install art-template express-art-template</code><br>  <em>导入</em><br>  <code>const expressArtTemplate = require(&#39;express-art-template&#39;)</code><br>  <em>使用express-art-template渲染后缀为art文件模板</em><br>  <code>app.engine(&#39;art&#39;, expressArtTemplate)</code><br>  <em>模板存放位置,第一个views告诉模板引擎模板位置，第二个是文件夹的位置</em><br>  <code>app.set(&#39;views&#39;, path.join(__dirname, &#39;views&#39;))</code><br>  <em>告诉框架模板默认后缀</em><br>  <code>app.set(&#39;view engine&#39;, &#39;art&#39;)</code><br>  <em>模板拼接</em><br>  (<code>)
-   app.get(&#39;/index&#39;, (req, res) =&gt; {
-    //要拼接的模板文件名，数据
-     res.render(&#39;index&#39;, {
-        数据})})
-  (</code>)</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/11/20/node-js%E6%A1%86%E6%9E%B6%E5%88%9D%E8%AF%86/" data-id="ckilqjs770009xgu6gg6w1vxf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -939,7 +973,7 @@ for (let i = 0; i &lt; martix.length; i++) {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -950,6 +984,10 @@ for (let i = 0; i &lt; martix.length; i++) {
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/">javascript刷题系列七</a>
@@ -965,10 +1003,6 @@ for (let i = 0; i &lt; martix.length; i++) {
         
           <li>
             <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
           </li>
         
       </ul>
