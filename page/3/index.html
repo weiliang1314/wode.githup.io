@@ -64,6 +64,101 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-axios网络请求" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" class="article-date">
+  <time datetime="2020-07-22T10:46:43.616Z" itemprop="datePublished">2020-07-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/">axios网络请求</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: axios网络请求<br>date: 2020-07-22 18:46:43<br>tags: 基于promise的HTTP库，可以用在浏览器和node.js中；在浏览器中发送XMLHttpReqests请求，在node.js中发送http请求</p>
+<pre><code>### 模块代码封装
+             import axios from &apos;axios&apos;
+       /*export function request(config) {
+     return new Promise((resolve, reject) =&gt; {
+    //创建实例
+    const instance = axios.create({
+            baseURL: 
+            timeout: 5000
+        })
+        //发送请求
+    instance(config)
+        .then(res =&gt; {
+            //console.log(res)
+            // request参数中回调success(res)
+            resolve(res)
+        }).catch(err =&gt; {
+            //console.log(err)
+            // failare(err)
+            reject(err)
+
+        })
+                   })
+                   }*/
+           //简单封装
+        export function request(config) {
+
+             //创建实例
+                const instance = axios.create({
+           baseURL: 
+             timeout: 5000
+                })
+                   //拦截器
+                  //发送请求成功与失败
+              instance.interceptors.request.use(config =&gt; {
+               //若不返回，后面拿不到config
+                  //使用拦截器的场景：信息不符合服务器要求，发送请求时要在界面中显示请求图标，一些网络请求必须请携带一些特殊信息
+             console.log(config)
+                  return config
+               }, err =&gt; {
+                   console.log(err)
+              })
+            //响应数据成功与失败:
+          instance.interceptors.response.use(
+              res =&gt; {
+            console.log(res)
+                //拦截后要返回，不然后面接收不到
+            return res.data
+                   },
+               err =&gt; {
+             console.log(err)
+                   }
+                )
+               //发送请求
+
+                   return instance(config)
+
+
+                       }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/07/22/axios%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/" data-id="ckilqjs6u0002xgu6d35las8p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-vue-cli使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/07/14/vue-cli%E4%BD%BF%E7%94%A8/" class="article-date">
@@ -526,6 +621,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
           </li>
         
@@ -539,10 +638,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/01/24/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%BA%94/">javascript刷题系列五</a>
           </li>
         
       </ul>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript刷题系列八 | Weiweiliang的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title: javascript刷题系列八date: 2021-03-05 11:05:04tags: 递归——穷举，全排列，组合 穷举问题——求出{a,b,c}的所有子集什么是穷举 根据所列出的问题逐一列举问题所涉及的所有情形，并根据问题提出的条件排查哪些是问题的解，哪些应予排除。 问题分析 根据数学推理可以得出有2的3次方个解集，但根据问题我们要把每种情况都列举出来，那么就需要对每一个元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript刷题系列八">
+<meta property="og:url" content="https://github.com/weiliang1314/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/index.html">
+<meta property="og:site_name" content="Weiweiliang的博客">
+<meta property="og:description" content="title: javascript刷题系列八date: 2021-03-05 11:05:04tags: 递归——穷举，全排列，组合 穷举问题——求出{a,b,c}的所有子集什么是穷举 根据所列出的问题逐一列举问题所涉及的所有情形，并根据问题提出的条件排查哪些是问题的解，哪些应予排除。 问题分析 根据数学推理可以得出有2的3次方个解集，但根据问题我们要把每种情况都列举出来，那么就需要对每一个元素">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-05T03:05:04.849Z">
+<meta property="article:modified_time" content="2021-03-05T04:09:57.623Z">
+<meta property="article:author" content="weiliang">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/wode.githup.io/atom.xml" title="Weiweiliang的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/wode.githup.io/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/wode.githup.io/" id="logo">Weiweiliang的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/">Home</a>
+        
+          <a class="main-nav-link" href="/wode.githup.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/wode.githup.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/weiliang1314/wode.githup.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-javascript刷题系列八" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/" class="article-date">
+  <time datetime="2021-03-05T03:05:04.849Z" itemprop="datePublished">2021-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript刷题系列八
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列八<br>date: 2021-03-05 11:05:04<br>tags: 递归——穷举，全排列，组合</p>
+<h3 id="穷举问题——求出-a-b-c-的所有子集"><a href="#穷举问题——求出-a-b-c-的所有子集" class="headerlink" title="穷举问题——求出{a,b,c}的所有子集"></a>穷举问题——求出{a,b,c}的所有子集</h3><h4 id="什么是穷举"><a href="#什么是穷举" class="headerlink" title="什么是穷举"></a>什么是穷举</h4><p> <em>根据所列出的问题逐一列举问题所涉及的所有情形，并根据问题提出的条件排查哪些是问题的解，哪些应予排除。</em></p>
+<h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul>
+<li><p>根据数学推理可以得出有2的3次方个解集，但根据问题我们要把每种情况都列举出来，那么就需要对每一个元素是否取出进行决策，就需要使用递归去重复决策每种情况*</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>  let find = function(a, decisions) {<br>   if (a.length === decisions.length) {</p>
+<pre><code> let dec = [];
+ for (let i = 0; i &lt; a.length; i++) {
+     //根据决策是true或false拿出
+     if (decisions[i]) {
+         dec.push(a[i])
+     }
+
+   }
+ return dec.join(&apos;&apos;)
+}
+//递归进行决策
+ let r = [];
+ r = r.concat(find(a, decisions.concat(true)))
+ r = r.concat(find(a, decisions.concat(false)))
+return r;
+ }</code></pre><h3 id="全排列问题——求出’abc’的全排列"><a href="#全排列问题——求出’abc’的全排列" class="headerlink" title="全排列问题——求出’abc’的全排列"></a>全排列问题——求出’abc’的全排列</h3><h4 id="什么是全排列"><a href="#什么是全排列" class="headerlink" title="什么是全排列"></a>什么是全排列</h4></li>
+<li><p>从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列；当m=n时所有的排列情况叫全排列。*</p>
+<h4 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h4></li>
+<li><p>由数学推理可知共有3的阶乘排列可能，根据问题我们需要对abc都做出决策，且不能取之前已经取过的 *</p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let permutation = function(s, decisions) {<br>  if (s.length === decisions.length) {</p>
+<pre><code>return decisions</code></pre><p>  }<br>  let r = []</p>
+<pre><code>//判断是否包含指定的子字符串</code></pre><p>  for (let i of s.split(‘’).filter(x =&gt; !(decisions.includes(x)))) {</p>
+<pre><code>r = r.concat(permutation(s, decisions + i))</code></pre><p>  }<br>  return r;<br> }</p>
+<h3 id="组合问题——求出从’abc’中取出k个元素的所有组合"><a href="#组合问题——求出从’abc’中取出k个元素的所有组合" class="headerlink" title="组合问题——求出从’abc’中取出k个元素的所有组合"></a>组合问题——求出从’abc’中取出k个元素的所有组合</h3><h4 id="什么是组合"><a href="#什么是组合" class="headerlink" title="什么是组合"></a>什么是组合</h4></li>
+<li><p>从n个不同元素中，任取m(m≤n）个元素并成一组，叫做从n个不同元素中取出m个元素的一个组合；从n个不同元素中取出m(m≤n）个元素的所有组合的个数，叫做从n个不同元素中取出m个元素的组合数*</p>
+<h4 id="问题分析-2"><a href="#问题分析-2" class="headerlink" title="问题分析"></a>问题分析</h4></li>
+<li><p>由数学推理可知共有C(3,k),（k&lt;=3）种情况；根据问题所取得元素如果为0或与所提供的元素个数相同那么就只有一种情况；我们可以先从提供的元素中取一个再从剩下取k-1个，第一个元素的情况取完后，从第二个元素开始又往后取…*</p>
+<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let combination = function(str, k) {<br>  if (k === 0 || k === str.length) {</p>
+<pre><code>return [str.slice(0, k)]</code></pre><p>  }<br>  let r = []<br>  const [first, …other] = str;<br>  r = r.concat(combination(other, k - 1).map(x =&gt; [first, …x]))<br>  r = r.concat(combination(other, k))<br>  return r</p>
+<p>  }</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/" data-id="cklvs65kp0000d0u64t9g6xmz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">javascript设计模式一</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/">javascript刷题系列七</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
+          </li>
+        
+          <li>
+            <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 weiliang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/wode.githup.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/wode.githup.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/wode.githup.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/wode.githup.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/wode.githup.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
