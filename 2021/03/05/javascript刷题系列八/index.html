@@ -15,7 +15,7 @@
 <meta property="og:description" content="title: javascript刷题系列八date: 2021-03-05 11:05:04tags: 递归——穷举，全排列，组合 穷举问题——求出{a,b,c}的所有子集什么是穷举 根据所列出的问题逐一列举问题所涉及的所有情形，并根据问题提出的条件排查哪些是问题的解，哪些应予排除。 问题分析 根据数学推理可以得出有2的3次方个解集，但根据问题我们要把每种情况都列举出来，那么就需要对每一个元素">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-05T03:05:04.849Z">
-<meta property="article:modified_time" content="2021-03-05T04:09:57.623Z">
+<meta property="article:modified_time" content="2021-03-23T06:47:15.861Z">
 <meta property="article:author" content="weiliang">
 <meta name="twitter:card" content="summary">
   
@@ -93,38 +93,52 @@
 <h3 id="穷举问题——求出-a-b-c-的所有子集"><a href="#穷举问题——求出-a-b-c-的所有子集" class="headerlink" title="穷举问题——求出{a,b,c}的所有子集"></a>穷举问题——求出{a,b,c}的所有子集</h3><h4 id="什么是穷举"><a href="#什么是穷举" class="headerlink" title="什么是穷举"></a>什么是穷举</h4><p> <em>根据所列出的问题逐一列举问题所涉及的所有情形，并根据问题提出的条件排查哪些是问题的解，哪些应予排除。</em></p>
 <h4 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h4><ul>
 <li><p>根据数学推理可以得出有2的3次方个解集，但根据问题我们要把每种情况都列举出来，那么就需要对每一个元素是否取出进行决策，就需要使用递归去重复决策每种情况*</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>  let find = function(a, decisions) {<br>   if (a.length === decisions.length) {</p>
-<pre><code> let dec = [];
- for (let i = 0; i &lt; a.length; i++) {
-     //根据决策是true或false拿出
-     if (decisions[i]) {
-         dec.push(a[i])
-     }
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let find = function(a, decisions) {
+if (a.length === decisions.length) {
+    let dec = [];
+    for (let i = 0; i &lt; a.length; i++) {
+        //根据决策是true或false拿出
+        if (decisions[i]) {
+            dec.push(a[i])
+        }
 
-   }
- return dec.join(&apos;&apos;)
+    }
+    return dec.join(&apos;&apos;)
 }
-//递归进行决策
- let r = [];
- r = r.concat(find(a, decisions.concat(true)))
- r = r.concat(find(a, decisions.concat(false)))
-return r;
- }</code></pre><h3 id="全排列问题——求出’abc’的全排列"><a href="#全排列问题——求出’abc’的全排列" class="headerlink" title="全排列问题——求出’abc’的全排列"></a>全排列问题——求出’abc’的全排列</h3><h4 id="什么是全排列"><a href="#什么是全排列" class="headerlink" title="什么是全排列"></a>什么是全排列</h4></li>
+  //递归进行决策
+    let r = [];
+    r = r.concat(find(a, decisions.concat(true)))
+    r = r.concat(find(a, decisions.concat(false)))
+   return r;
+    }</code></pre><h3 id="全排列问题——求出’abc’的全排列"><a href="#全排列问题——求出’abc’的全排列" class="headerlink" title="全排列问题——求出’abc’的全排列"></a>全排列问题——求出’abc’的全排列</h3><h4 id="什么是全排列"><a href="#什么是全排列" class="headerlink" title="什么是全排列"></a>什么是全排列</h4></li>
 <li><p>从n个不同元素中任取m（m≤n）个元素，按照一定的顺序排列起来，叫做从n个不同元素中取出m个元素的一个排列；当m=n时所有的排列情况叫全排列。*</p>
 <h4 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h4></li>
 <li><p>由数学推理可知共有3的阶乘排列可能，根据问题我们需要对abc都做出决策，且不能取之前已经取过的 *</p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let permutation = function(s, decisions) {<br>  if (s.length === decisions.length) {</p>
-<pre><code>return decisions</code></pre><p>  }<br>  let r = []</p>
-<pre><code>//判断是否包含指定的子字符串</code></pre><p>  for (let i of s.split(‘’).filter(x =&gt; !(decisions.includes(x)))) {</p>
-<pre><code>r = r.concat(permutation(s, decisions + i))</code></pre><p>  }<br>  return r;<br> }</p>
-<h3 id="组合问题——求出从’abc’中取出k个元素的所有组合"><a href="#组合问题——求出从’abc’中取出k个元素的所有组合" class="headerlink" title="组合问题——求出从’abc’中取出k个元素的所有组合"></a>组合问题——求出从’abc’中取出k个元素的所有组合</h3><h4 id="什么是组合"><a href="#什么是组合" class="headerlink" title="什么是组合"></a>什么是组合</h4></li>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>    let permutation = function(s, decisions) {
+    if (s.length === decisions.length) {
+        return decisions
+    }
+    let r = []
+        //判断是否包含指定的子字符串
+    for (let i of s.split(&apos;&apos;).filter(x =&gt; !(decisions.includes(x)))) {
+        r = r.concat(permutation(s, decisions + i))
+    }
+    return r;
+}</code></pre><h3 id="组合问题——求出从’abc’中取出k个元素的所有组合"><a href="#组合问题——求出从’abc’中取出k个元素的所有组合" class="headerlink" title="组合问题——求出从’abc’中取出k个元素的所有组合"></a>组合问题——求出从’abc’中取出k个元素的所有组合</h3><h4 id="什么是组合"><a href="#什么是组合" class="headerlink" title="什么是组合"></a>什么是组合</h4></li>
 <li><p>从n个不同元素中，任取m(m≤n）个元素并成一组，叫做从n个不同元素中取出m个元素的一个组合；从n个不同元素中取出m(m≤n）个元素的所有组合的个数，叫做从n个不同元素中取出m个元素的组合数*</p>
 <h4 id="问题分析-2"><a href="#问题分析-2" class="headerlink" title="问题分析"></a>问题分析</h4></li>
 <li><p>由数学推理可知共有C(3,k),（k&lt;=3）种情况；根据问题所取得元素如果为0或与所提供的元素个数相同那么就只有一种情况；我们可以先从提供的元素中取一个再从剩下取k-1个，第一个元素的情况取完后，从第二个元素开始又往后取…*</p>
-<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><p>   let combination = function(str, k) {<br>  if (k === 0 || k === str.length) {</p>
-<pre><code>return [str.slice(0, k)]</code></pre><p>  }<br>  let r = []<br>  const [first, …other] = str;<br>  r = r.concat(combination(other, k - 1).map(x =&gt; [first, …x]))<br>  r = r.concat(combination(other, k))<br>  return r</p>
-<p>  }</p>
-</li>
+<h4 id="代码实现-2"><a href="#代码实现-2" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let combination = function(str, k) {
+if (k === 0 || k === str.length) {
+    return [str.slice(0, k)]
+}
+let r = []
+const [first, ...other] = str;
+r = r.concat(combination(other, k - 1).map(x =&gt; [first, ...x]))
+r = r.concat(combination(other, k))
+return r
+
+}</code></pre></li>
 </ul>
 
       
@@ -138,6 +152,15 @@ return r;
   
     
 <nav id="article-nav">
+  
+    <a href="/wode.githup.io/2021/03/23/%E9%98%BF%E9%87%8C%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          阿里前端实习面经（一面）
+        
+      </div>
+    </a>
   
   
     <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
@@ -179,6 +202,10 @@ return r;
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/03/23/%E9%98%BF%E9%87%8C%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">阿里前端实习面经（一面）</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
           </li>
         
@@ -192,10 +219,6 @@ return r;
         
           <li>
             <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
           </li>
         
       </ul>

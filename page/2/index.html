@@ -64,6 +64,83 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript刷题系列一" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" class="article-date">
+  <time datetime="2020-12-02T12:37:58.793Z" itemprop="datePublished">2020-12-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/">javascript刷题系列一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列一<br>date: 2020-12-02 20:37:58<br>tags: 动态规划解决问题：爬楼梯，最低票价</p>
+<h3 id="什么是动态规划算法"><a href="#什么是动态规划算法" class="headerlink" title="什么是动态规划算法"></a>什么是动态规划算法</h3><p><em>动态规划常常适用于有重叠子问题和最优子结构性质的问题，动态规划方法所耗时间往往远少于暴力解法。大致上，若要解一个给定问题，我们需要解其不同部分（即子问题），再合并子问题的解以得出原问题的解。通常许多子问题非常相似，为此动态规划法只解决每个子问题一次，从而减少计算量，一旦某个给定子问题的解已经算出，则将其存储，以便下次需要同一个子问题解之时直接查表。</em></p>
+<h3 id="三要素"><a href="#三要素" class="headerlink" title="三要素"></a>三要素</h3><ol>
+<li>最优子结构：子问题的最优解能够决定这个问题的最优解</li>
+<li>边界：问题最小子集的解</li>
+<li>状态转移函数：递推式<h4 id="解决爬楼梯问题"><a href="#解决爬楼梯问题" class="headerlink" title="解决爬楼梯问题"></a>解决爬楼梯问题</h4></li>
+</ol>
+<p><em>问题：一共有n阶楼梯，每次只能爬一阶或两阶，有多少种爬的方法</em><br><em>分析与解决：在这个问题中我首先考虑到当n=1时f(1)=1,当n=2时f(2)=2,但当n&gt;2时发生了变化，f(3)=3,f(4)=5…<br> 由此得出公式：f(n)=f(n-1)+f(n-2) n&gt;2;f(1)与f(2)相当于边界，公式就是状态转移函数，f(n-1)与f(n-2)就是最优子结构</em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>function pa(n) {
+   if(n&lt;1){return 0;}
+    if (n == 1 || n == 2) {
+      return n;
+      }
+     let w = [];
+        w[0] = 1;
+       w[1] = 2;
+        for (let i = 2; i &lt; n; i++) {
+       w[i] = w[i - 1] + w[i - 2];
+      }
+        return w[n - 1];
+       }</code></pre><h4 id="解决最低票价问题"><a href="#解决最低票价问题" class="headerlink" title="解决最低票价问题"></a>解决最低票价问题</h4><p> <em>问题：假设旅游时,有三种票价：玩一天costs[0]元，连续玩七天costs[1]元，连续玩三十天costs[2]元，一年365天数组days相当于每天1~365，dyas[]中的天数是有旅游的，自定义函数返回days[]中每一天最低票价。</em><br> <em>问题分析：</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>function mincost(days, costs) {
+  let dp = new Array(days[days.length - 1] + 1).fill(0); //使用固定值替换数组元素初始化全为0，dp[0]=0没有旅行
+     let daysIndex = 0;
+          for (let i = 1; i &lt; dp.length; i++) {
+             if (i === days[daysIndex]) {
+           dp[i] = Math.min(
+          dp[Math.max(0, i - 1)] + costs[0],
+          //在i-7天买了一张七天票，现在还能用,在i-7这一天只买了还没用
+          dp[Math.max(0, i - 7)] + costs[1],
+          dp[Math.max(0, i - 30)] + costs[2],
+              )
+                 daysIndex++;
+           } else {
+            //没有费用
+              dp[i] = dp[i - 1]
+            }
+             }
+          return parseInt(dp[dp.length - 1]) //完成当天以及之前天，花费最少费用
+             }
+       console.log(mincost([1, 4, 6, 7, 8, 20], [2, 7, 15]))//11</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/02/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%80/" data-id="ckilqjs6z0005xgu6hdpo1uwv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ajax封装" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/11/26/ajax%E5%B0%81%E8%A3%85/" class="article-date">
@@ -830,62 +907,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
 
 
   
-    <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="article-date">
-  <time datetime="2020-08-16T06:05:42.222Z" itemprop="datePublished">2020-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">希尔排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: 希尔排序<br>date: 2020-08-16 14:05:42<br>tags: 插入排序改进，对数组选一个间隔再进行插入排序（多次）</p>
-<h3 id="希尔排序代码封装"><a href="#希尔排序代码封装" class="headerlink" title="希尔排序代码封装"></a>希尔排序代码封装</h3><pre><code>list.prototype.shell = function() {
-             var length = this.array.length
-                 //初始化间隔增量
-             var geg = Math.floor(length / 2)
-                 //geg不断减小
-             while (geg &gt;= 1) {
-                 for (var i = geg; i &lt; length; i++) {
-                     var temp = this.array[i]
-                     var j = i
-                     while (this.array[j - geg] &gt; temp &amp;&amp; j &gt; geg - 1) {
-                         this.array[j] = this.array[j - geg]
-                         j -= geg
-                     }
-                     this.array[j] = temp
-                 }
-                 geg = Math.floor(geg / 2)
-
-             }
-         }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" data-id="ckilqjs80000dxgu69xkzgzap" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -922,6 +943,10 @@ package.json文件找到main选项中的入口文件。</code></pre>
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/03/23/%E9%98%BF%E9%87%8C%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">阿里前端实习面经（一面）</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
           </li>
         
@@ -935,10 +960,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
         
           <li>
             <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/01/29/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AD/">javascript刷题系列六</a>
           </li>
         
       </ul>
