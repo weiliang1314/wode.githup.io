@@ -64,6 +64,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-快速排序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" class="article-date">
+  <time datetime="2020-09-19T12:21:12.962Z" itemprop="datePublished">2020-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">快速排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 快速排序<br>date: 2020-09-19 20:21:12<br>tags: 冒泡排序改进，找到一个枢纽左边放小于它的右边放大于它的（多次）</p>
+<h3 id="代码封装"><a href="#代码封装" class="headerlink" title="代码封装"></a>代码封装</h3><pre><code>//选择枢纽
+      arraylist.prototype.median = function(left, right) {
+              var center = Math.floor((left + right) / 2)
+                  //判断大小进行交换
+              if (this.array[left] &gt; this.array[center]) {
+                  this.swap(left, center)
+              } else if (this.array[center] &gt; this.array[right]) {
+                  this.swap(center, right)
+              }
+              this.swap(center, right - 1)
+              return this.array[right - 1]
+
+          }
+          //快速排序
+      arraylist.prototype.quicks = function() {
+          this.quick(0, this.array.length - 1)
+      }
+      arraylist.prototype.quick = function(left, right) {
+          //结束条件
+          if (left &gt;= right) return
+              //获取枢纽
+          var pivot = this.median(left, right)
+              //定义变量，记录当前找到的位置
+          var i = left
+          var j = right - 1
+              //进行交换
+          while (true) {
+              while (this.array[++i] &lt; pivot) {}
+              while (this.array[--j] &gt; pivot) {}
+              if (i &lt; j) {
+                  this.swap(i, j)
+
+              } else {
+                  break
+              }
+          }
+          //将枢纽放在正确的位置
+          this.swap(i, right - 1)
+              //递归
+          this.quick(left, i - 1)
+          this.quick(i + 1, right)
+      }
+  }
+  //测试
+  var list = new arraylist()</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/09/19/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" data-id="ckilqjs7y000cxgu67cz787x3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-希尔排序" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/08/16/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="article-date">
@@ -677,6 +759,10 @@ root(根)→key(键值)
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/03/24/%E7%BD%91%E6%98%93%E9%9B%B7%E7%81%AB%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">网易雷火前端实习面经（一面）</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/03/23/%E9%98%BF%E9%87%8C%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">阿里前端实习面经（一面）</a>
           </li>
         
@@ -690,10 +776,6 @@ root(根)→key(键值)
         
           <li>
             <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/">javascript刷题系列七</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/01/29/%E5%88%9D%E8%AF%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">初识设计模式</a>
           </li>
         
       </ul>
