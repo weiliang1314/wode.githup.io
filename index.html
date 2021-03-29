@@ -64,6 +64,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-腾讯WXG前端实习面经（一面）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/" class="article-date">
+  <time datetime="2021-03-26T11:45:52.073Z" itemprop="datePublished">2021-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">腾讯WXG前端实习面经（一面）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 腾讯WXG前端实习面经（一面）<br>date: 2021-03-26 19:45:51<br>tags: 记录本人面试过程的一些问题，问题记录不全面，答案为后面补充</p>
+<h4 id="1、运行项目，关于项目的问题"><a href="#1、运行项目，关于项目的问题" class="headerlink" title="1、运行项目，关于项目的问题"></a>1、运行项目，关于项目的问题</h4><ol>
+<li>如何保存登录的信息<br><em>LocalStorage,存储localStorage.setItem(),读取localStorage.getItem(),删除localStorage.removeItem().此外在存储时,它们事以键值对的形式存储的.所以更易于使用.并且localStorge的储存空间大，有5M,并且是永久储存，除非你主动删除;但是localStorage存储的数据容易被XSS攻击获取，所以不宜把身份验证信息或敏感信息用localStorage存储</em></li>
+<li>关于web安全的知识（xss）<ul>
+<li>XSS又称CSS，全称Cross SiteScript，跨站脚本攻击，XSS属于被动式且用于客户端的攻击方式，所以容易被忽略其危害性。其原理是攻击者向有XSS漏洞的网站中输入恶意的HTML代码，当其它用户浏览该网站时，这段HTML代码会自动执行，从而达到攻击的目的。*</li>
+</ul>
+</li>
+<li>xss是如何进行攻击的<br><em>XSS反射型攻击：一般是攻击者通过特定手法（如电子邮件），诱使用户去访问一个包含恶意代码的 URL，当受害者点击这些专门设计的链接的时候，恶意代码会直接在受害者主机上的浏览器执行。反射型XSS通常出现在网站的搜索栏、用户登录口等地方，常用来窃取客户Cookies或进行钓鱼欺骗。<br>存储型XSS攻击也叫持久型XSS，主要将XSS代码提交存储在服务器端（数据库，内存，文件系统等），下次请求目标页面时不用再提交XSS代码。当目标用户访问该页面获取数据时，XSS代码会从服务器解析之后加载出来，返回到浏览器做正常的HTML和JS解析执行，XSS攻击就发生了。存储型 XSS 一般出现在网站留言、评论、博客日志等交互处，恶意脚本存储到客户端或者服务端的数据库中。</em></li>
+<li>如何对注册的信息进行加密</li>
+</ol>
+<h4 id="2、讲一讲async-await，如何把异步变成同步的"><a href="#2、讲一讲async-await，如何把异步变成同步的" class="headerlink" title="2、讲一讲async await，如何把异步变成同步的"></a>2、讲一讲async await，如何把异步变成同步的</h4><h4 id="3、用js原生实现一下typeof"><a href="#3、用js原生实现一下typeof" class="headerlink" title="3、用js原生实现一下typeof"></a>3、用js原生实现一下typeof</h4><p>###<br>                    function f1(left,right){<br>                    let prototype = right.prototype;<br>                    let proto = left.<strong>proto</strong>;<br>                    while(true){<br>                        if(proto === prototype)<br>                        return true;<br>                        if(proto === null)<br>                            return false;<br>                        //若本次查找无结果，则沿着原型链向上查找<br>                        proto = proto.<strong>proto</strong>;<br>                    }<br>                }</p>
+<h4 id="4、防抖与节流"><a href="#4、防抖与节流" class="headerlink" title="4、防抖与节流"></a>4、防抖与节流</h4><pre><code>1. 关于防抖与节流的概念，应用场景
+2. 写一个节流函数</code></pre><h4 id="5-http相关问题"><a href="#5-http相关问题" class="headerlink" title="5.http相关问题"></a>5.http相关问题</h4><pre><code>1. http与https
+2. http1.0,http1.1,http2.0相关及http2.0缺点
+  *http2.0优缺点：
+   多路复用允许同时通过单一的 HTTP2 连接发起多重的请求-响应消息。
+   http2采用二进制进行数据传输，它把原来的header+body的数据格式拆分为一帧帧的二进制数据进行发送，而且收发都是无顺序的，这意味着不会出现堵塞。一帧帧数据上有个标识id,能够区分数据 ，浏览器可以据此组合出数据。
+   header头数据压缩，和同一域名请求，只发送请求头不同的部分，这样就解决了http1中的问题 请求头过大而且重复发送。
+   支持服务器端推送技术。
+   http2不强制加密，但是chrome firefox都公开宣布只支持加密的http2 所以实事上http2是加密的。
+   缺点：
+   tcp 以及tcp+tls建立连接延时，两个握手延时
+   tcp队头阻塞*</code></pre><h4 id="6、css实现图片居中"><a href="#6、css实现图片居中" class="headerlink" title="6、css实现图片居中"></a>6、css实现图片居中</h4><h4 id="7、字体风格（宋体、黑体…）改变会有什么影响"><a href="#7、字体风格（宋体、黑体…）改变会有什么影响" class="headerlink" title="7、字体风格（宋体、黑体…）改变会有什么影响"></a>7、字体风格（宋体、黑体…）改变会有什么影响</h4><h4 id="8、重排与重绘"><a href="#8、重排与重绘" class="headerlink" title="8、重排与重绘"></a>8、重排与重绘</h4><pre><code>1. 重绘
+ *一个元素外观的改变所触发的浏览器行为，浏览器会根据元素的新属性重新绘制，使元素呈现新的外观;重绘的条件：改变元素外观属性如：color，background-color...*
+ 2. 重排
+  *渲染树中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建, 这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。所以，重排必定会引发重绘，但重绘不一定会引发重排。触发重排的条件：任何页面布局和几何属性的改变都会触发重排，比如：页面渲染初始化；添加或删除可见的DOM元素；元素位置的改变，或者使用动画；元素尺寸的改变——大小，外边距，边框；浏览器窗口尺寸的变化；填充内容的改变，比如文本的改变或图片大小改变而引起的计算值宽度和高度的改变；读取某些元素属性：offsetLeft/Top/Height/Width,　clientTop/Left/Width/Height,　scrollTop/Left/Width/Height,　width/height,　getComputedStyle()*
+3. 优化减少重排重绘
+  *浏览器优化：浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。
+  将多次改变样式属性的操作合并为一次操作（适用于单个存在的节点）;
+  批量修改DOM,让该元素脱离文本流,对其进行多重改变,将元素带回文档中:将需要多次重排的元素，position属性设为absolute或fixed，这样此元素就脱离了文档流，它的变化不会影响到其他元素;display属性为none的元素不在渲染树中，对隐藏的元素操作不会引发其他元素的重排;如果要对一个元素进行复杂的操作时，可以先隐藏它，操作完成后再显示。这样只在隐藏和显示时触发2次重排*</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/" data-id="ckmuhwhu90000hsu65avz5vcq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-网易雷火前端实习面经（一面）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2021/03/24/%E7%BD%91%E6%98%93%E9%9B%B7%E7%81%AB%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/" class="article-date">
@@ -841,105 +907,6 @@ turn(i, j - 1, grid)
 
 
   
-    <article id="post-javascript刷题系列三" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" class="article-date">
-  <time datetime="2020-12-27T04:13:30.551Z" itemprop="datePublished">2020-12-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/">javascript刷题系列三</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: javascript刷题系列三<br>date: 2020-12-27 12:13:30<br>tags: 螺旋矩阵、加油站问题</p>
-<h4 id="螺旋矩阵问题"><a href="#螺旋矩阵问题" class="headerlink" title="螺旋矩阵问题"></a>螺旋矩阵问题</h4><p><em>问题：输入一个二维数组，按照从左向右，再向下，再向左，再向上，向右的方式遍历输出</em><br><em>问题分析：因为输入二维数组，按照顺时针遍历输出，那么首先就要要考虑边界问题；left最开始0；right为m0.length-1(m为输入的二维数组)，top为0，bottom为m.length-1;从左向右遍历不能超过右边界，从上到下不能超过下边界</em></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>   let spiralOrder = function(matrix) {
-  if (matrix.length == 0) {
-    return [];
-  }
-  let left = 0;
-  let right = matrix[0].length - 1;
- let top = 0;
-  let bottom = matrix.length - 1;
-  let dir = &quot;right&quot;;
-  let result = [];
-  while (left &lt;= right &amp;&amp; top &lt;= bottom) {
-    if (dir == &quot;right&quot;) {
-        for (let i = left; i &lt;= right; i++) {
-            result.push(matrix[top][i])
-        }
-        top++;
-        dir = &quot;down&quot;
-    } else if (dir == &quot;down&quot;) {
-        for (let i = top; i &lt;= bottom; i++) {
-            result.push(matrix[i][right])
-        }
-        right--;
-        dir = &apos;left&apos;;
-    } else if (dir == &quot;left&quot;) {
-        for (let i = right; i &gt;= left; i--) {
-            result.push(matrix[bottom][i])
-        }
-        bottom--;
-        dir = &quot;top&quot;
-    } else if (dir == &quot;top&quot;) {
-        for (let i = bottom; i &gt;= top; i--) {
-            result.push(matrix[i][left])
-        }
-        left++;
-        dir = &quot;right&quot;
-    }
-}
-return result;</code></pre><p>}</p>
-<h4 id="加油站问题（贪心）"><a href="#加油站问题（贪心）" class="headerlink" title="加油站问题（贪心）"></a>加油站问题（贪心）</h4><p><em>贪心算法：从某一个初始状态出发，每次通过选取局部最优解向目标前进，并最终期望取得整体最优解的一种算法。由这个定义可知，贪心选择标准就是选择“当前最好”的决策，贪心算法根据这个标准进行决策，将原问题变成一个相似但规模更小的子问题，而后每一步选出来的一定是原问题整体最优解的一部分。如果一个问题贪心后只剩下一个子问题且有最优子结构，那么该问题就可以使用贪心算法。当一个问题的整体最优解包含其子问题的最优解时，我们称次问题具有最优子结构性质。</em><br><em>问题：环形路上有n个加油站，其中第i个加油站有get[i]升油， 有一辆无限容量油箱的车，从i加油站到i+1需要消耗cos[i]升油从其中一个加油站出发，开始时油箱没油，环形一周，返回出发时加油站编号</em><br><em>问题分析：首先要考虑所有加油站的油量是否多于或等于整个路程所消耗的油量；在此问题中假设汽车开始位置s,当前油量c，汽车开始时油量<br> 为0；判断从i加油站到i+1加油站汽车油量是否足够，行驶后油量：c=c+get[i]-cos[i]</em></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let canComolete = function(gas, cost) {
-let total = 0; //加油站总油
-let totalcost = 0; //消耗总油
-for (let i = 0; i &lt; gas.length; i++) {
-    total += gas[i];
-    totalcost += cost[i]
-}
-if (total &lt; totalcost) {
-    return -1
-}
-let current = 0;
-let start = 0; //假设的初始加油站
-for (let i = 0; i &lt; gas.length; i++) {
-    //当前油量
-    current = current - cost[i] + gas[i];
-    if (current &lt; 0) {
-        current = 0;
-        start = i + 1;
-    }
-}
-return start; //出发时加油站编号
-   }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" data-id="ckj6y43tu00002gu6co3e48ns" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -976,6 +943,10 @@ return start; //出发时加油站编号
       <ul>
         
           <li>
+            <a href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">腾讯WXG前端实习面经（一面）</a>
+          </li>
+        
+          <li>
             <a href="/wode.githup.io/2021/03/24/%E7%BD%91%E6%98%93%E9%9B%B7%E7%81%AB%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">网易雷火前端实习面经（一面）</a>
           </li>
         
@@ -989,10 +960,6 @@ return start; //出发时加油站编号
         
           <li>
             <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/02/09/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%83/">javascript刷题系列七</a>
           </li>
         
       </ul>
