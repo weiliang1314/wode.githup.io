@@ -64,6 +64,85 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-javascript刷题系列四" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" class="article-date">
+  <time datetime="2020-12-31T03:15:06.424Z" itemprop="datePublished">2020-12-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: javascript刷题系列四<br>date: 2020-12-31 11:15:06<br>tags: 打家劫舍问题，岛屿数量</p>
+<h4 id="打家劫舍问题（动态规划）"><a href="#打家劫舍问题（动态规划）" class="headerlink" title="打家劫舍问题（动态规划）"></a>打家劫舍问题（动态规划）</h4><p><em>问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额</em><br><em>问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数=正在取+之前取,所取得金额总数最大;m[i]=n[i]+m[i-2]或m[i]=m<a href="m用于保存当前所取金额总数，n为正在取的金额">i-1</a></em></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>  let rob = function(nums) {
+    //边界
+    if (nums.length === 0) {
+        return 0
+    }
+    if (nums.length === 1) {
+        return nums[0]
+    }
+    const memo = [];
+    memo[0] = nums[0];
+    memo[1] = Math.max(nums[0], nums[1]);
+    for (let i = 2; i &lt;= nums.length; i++) {
+        memo[i] = Math.max(nums[i] + memo[i - 2], memo[i - 1]);
+
+    }
+    return memo[nums.length - 1];
+}</code></pre><h4 id="岛屿数量问题（dfs）"><a href="#岛屿数量问题（dfs）" class="headerlink" title="岛屿数量问题（dfs）"></a>岛屿数量问题（dfs）</h4><p><em>深度优先搜索算法：一种用于遍历或搜索树或图的算法。 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所在边都己被探寻过或者在搜寻时结点不满足条件，搜索将回溯到发现节点v的那条边的起始节点。整个进程反复进行直到所有节点都被访问为止。</em><br><em>问题：1为陆地，0为水，二维网格，计算岛屿数量，岛屿只能由水平方向和\或垂直方向上相邻的陆地连接形成，边界外都是水</em><br><em>问题分析：先遍历找到二位数组中为1的点，再对其四个方向进行判断，其中需要注意已经判定过得点置为0；每找到为1的点就进行判断，直到遍历完所有</em></p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let num = function(grid) {
+ let count = 0; //记录数量
+   for (let i = 0; i &lt; grid.length; i++) {
+  for (let j = 0; j &lt; grid[i].length; j++) {
+      if (grid[i][j] == &apos;1&apos;) {
+          count++;
+          turn(i, j, grid)
+      }
+    }
+    }
+  return count;
+        }
+
+   function turn(i, j, grid) {
+  //边界判断
+  if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
+  return;
+}
+grid[i][j] = &apos;0&apos;;
+turn(i + 1, j, grid)
+   turn(i - 1, j, grid)
+ turn(i, j + 1, grid)
+turn(i, j - 1, grid)
+   }</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" data-id="ckjnwzker0000rcu62zvwhcyx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-javascript刷题系列三" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2020/12/27/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E4%B8%89/" class="article-date">
@@ -887,48 +966,6 @@ let postparams = &apos;&apos;
 
 
   
-    <article id="post-node模块加载机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" class="article-date">
-  <time datetime="2020-10-29T12:20:02.380Z" itemprop="datePublished">2020-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">node模块加载机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: node模块加载机制<br>date: 2020-10-29 20:20:02<br>tags: node.js在加载模块时通过require在有无路径情况下的查找顺序</p>
-<h3 id="rquuire-在有路径的情况下的加载机制"><a href="#rquuire-在有路径的情况下的加载机制" class="headerlink" title="rquuire()在有路径的情况下的加载机制"></a>rquuire()在有路径的情况下的加载机制</h3><pre><code>若在require()中有完整的路径则按照路径顺序查找，若require中文件无后缀名先找在js文件；
-再找js文件夹，找到文件夹后再找index.js文件，若煤油index.js文件就去当前文件夹中找到
-package.json文件找到main选项中的入口文件。</code></pre><h3 id="require-在没有路径且没有后缀名情况下加载机制"><a href="#require-在没有路径且没有后缀名情况下加载机制" class="headerlink" title="require()在没有路径且没有后缀名情况下加载机制"></a>require()在没有路径且没有后缀名情况下加载机制</h3><pre><code>node会假设他是系统模块，去node_modules文件夹中找是否有该名字js文件，再看有无该名字文
-件 夹，如果没有该文件有文件夹则在文件夹中找index.js文件，如果没有index.js看文件夹中的 
-package.json文件找到main选项中的入口文件。</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/10/29/node%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" data-id="ckilqjs81000exgu6dzekd4qg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -952,7 +989,7 @@ package.json文件找到main选项中的入口文件。</code></pre>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -963,6 +1000,10 @@ package.json文件找到main选项中的入口文件。</code></pre>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/04/18/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/">百度前端实习面经</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">腾讯WXG前端实习面经（一面）</a>
@@ -978,10 +1019,6 @@ package.json文件找到main选项中的入口文件。</code></pre>
         
           <li>
             <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
           </li>
         
       </ul>

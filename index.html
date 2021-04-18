@@ -64,6 +64,95 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-百度前端实习面经" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/wode.githup.io/2021/04/18/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/" class="article-date">
+  <time datetime="2021-04-18T07:16:30.877Z" itemprop="datePublished">2021-04-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wode.githup.io/2021/04/18/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/">百度前端实习面经</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: 百度前端实习面经<br>date: 2021-04-18 15:16:30<br>tags: 只记录了部分问题，答案为后面补充</p>
+<h4 id="1、项目介绍"><a href="#1、项目介绍" class="headerlink" title="1、项目介绍"></a>1、项目介绍</h4><pre><code>1. 单页面应用
+ *指只有一个主页面的应用，浏览器一开始要加载所有必须的 html, js, css。所有的页面内容都包含在这个主页面中，然后在交互的时候由路由程序动态载入，单页面的页面跳转，仅刷新局部资源。*
+ *优点：用户体验好，内容的改变不需要重新加载整个页面*
+ *缺点：导航不可用，如果一定要导航需要自行实现前进、后退；初次加载时耗时多；
+  页面复杂度提高很多*
+2. vue中路由的分类
+   *hash（哈希）路由：监听 url 中 hash 的变化，然后渲染不同的内容，这种路由不向服务器发送请求，不需要服务端的支持；比如在用超链接制作锚点跳转的时候，就会发现，url后面跟了&quot;#id&quot;，hash值就是url中从&quot;#&quot;号开始到结束的部分；hash值变化浏览器不会重新发起请求，但是会触发window.hashChange事件，假如我们在hashChange事件中获取当前的hash值，并根据hash值来修改页面内容，则达到了前端路由的目的。*
+  * history （历史）路由：监听 url 中的路径变化，需要客户端和服务端共同的支持；history模式基于window.history对象的方法：history.forward()在历史记录中前进一步，history.back()在历史记录中后退一步，history.go(n)在历史记录中跳转n步骤，n=0为刷新本页,n=-1为后退一页，history.pushState(data[,title][,url])向历史记录中追加一条记录，history.replaceState(data[,title][,url]);//替换当前页在历史记录中的信息，history.state是一个属性，可以得到当前页的state信息。window.onpopstate：是一个事件，在点击浏览器后退按钮或js调用forward()、back()、go()时触发，监听函数中可传入一个event对象，event.state即为通过pushState()或replaceState()方法传入的data参数*
+  *history模式原理，我们要改造我们的超链接，给每个超链接增加onclick方法，阻止默认的超链接跳转，改用history.pushState或history.replaceState来更改浏览器中的url，并修改页面内容。由于通过history的api调整，并不会向后端发起请求，所以也就达到了前端路由的目的。*
+3. 哈希路由
+4. 如何通过路由判断页面
+   *前端路由实现起来其实很简单，本质就是监听 URL 的变化，然后匹配路由规则，显示相应的页面，并且无须刷新。目前单页面使用的路由就只有两种实现方式: hash 模式 history 模式*</code></pre><h4 id="2、js基础"><a href="#2、js基础" class="headerlink" title="2、js基础"></a>2、js基础</h4><pre><code>1. 对象中key相关
+2. 原型链（什么属性决定）
+3. 原生实现new
+   ###
+         function myNew () {
+         //创建一个新对象
+         var obj = {};
+         //取出参数中的第一个参数，获得构造函数
+         var constructor = Array.prototype.shift.call(arguments);
+         //连接原型，新对象可以访问原型中的属性
+         obj._proto_ = constructor.prototype;
+         // 执行构造函数，即绑定 this，并且为这个新对象添加属性
+         var result = constructor.apply(obj,arguments);
+         return typeof result === &quot;object&quot; ? result :obj ;
+       }
+
+4. 浏览器缓存有哪些内容
+   *定义：利用浏览器存储机制，将一部分数据保存在客户端，从而减少对服务器的请求降低服务器的压力，提升效率。
+   http缓存作用：减少网络请求的数量和体积，让页面加载更在方便,当网络不稳定时，仍可以使用缓存的资源进行展示*
+5. 为什么会有强缓存、协商缓存
+   ##### 强缓存
+   *强制缓存为：请求资源时，不发送请求到服务器，资源从客户端存储中返回，返回的code 为200 from disk cache 或者 200 from memory cache。*
+     *第一次请求过后，浏览器即客户端，已经在本地及内存中存储了一份带有第一次请求资源返回的资源内容，头部信息，请求地址等的一份文件。
+     如果再次请求资源地址时，首先会查询缓存目录下是否有该请求对应的文件，若没有，则直接对服务器发起请求，如有该文件，则说明有缓存，然后判断该文件存储的头部是否命中了某些规则，如果命中了，则会将存储的这份文件中的资源内容从磁盘或者内存中返回到浏览器，继而减少了对服务端的请求，如果没有命中，待会在谈。*
+     *如何判断是否命中强制缓存的规则:
+     expires 字段存在，并且没有过期
+     Cache-Control: max-age/s-maxage 存在，并且没有过期
+     expires和Cache-Control: max-age/s-maxage字段同时存在，并且没有过期
+     页面最终呈现从客户端返回的资源信息。*
+    ##### 协商缓存
+    *协商缓存为：请求发送到服务器，服务器通过携带的请求头来判断缓存的资源是否可用，如果可用，返回 code 304 not modified，然后使用缓存中的资源内容；否则，会从服务器中返回新的资源，code 200。
+    * 命中协商缓存的规则，没有命中强制缓存规则，则自动会走到协商缓存的判定；
+     没有expires字段；或者存在expires字段，但是过期了
+     不存在Cache-Control字段；或者Cache-Control的值不等于max-age/s-maxage；或者存在该字段，但是过期了*
+     *与协商缓存相关的头部信息：
+     Etag: 是一串字符串，作为资源的唯一标识，类似于人类的指纹
+     Last-Modified：资源最后的修改时间*
+     *首先会判定存储的头部信息是否带有Etag字段，如果有该字段，则会在这次的请求头中添加If-None-Match:Etag的值，然后去访问服务器，服务器会判定该值是否和现在文件中的值保持一致，如果是保持一致，则说明客户端的缓存仍然可用；如果不一致，则服务器会重新返回新的资源 code 200。其次判断存储的头部信息是否带有Last-Modified字段,如果有该字段，则会在这次的请求头中添加If-Modified-Since:Last-Modified的值，然后去访问服务器。*
+
+6. 闭包
+7. 双向绑定api</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/weiliang1314/wode.githup.io/2021/04/18/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/" data-id="cknn6zrcp0000ocu64j73adz4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-腾讯WXG前端实习面经（一面）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/" class="article-date">
@@ -828,85 +917,6 @@ return function(...args) {
 
 
   
-    <article id="post-javascript刷题系列四" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" class="article-date">
-  <time datetime="2020-12-31T03:15:06.424Z" itemprop="datePublished">2020-12-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/">javascript刷题系列四</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<p>title: javascript刷题系列四<br>date: 2020-12-31 11:15:06<br>tags: 打家劫舍问题，岛屿数量</p>
-<h4 id="打家劫舍问题（动态规划）"><a href="#打家劫舍问题（动态规划）" class="headerlink" title="打家劫舍问题（动态规划）"></a>打家劫舍问题（动态规划）</h4><p><em>问题：给定一个数组，代表每个房屋存放的金额，当偷相邻两个房屋时就会报警，计算在不触发报警系统的情况下偷盗的最大金额</em><br><em>问题分析：数组中的值为1个或0个则问题不成立，假设数组中有3个以上数值，所取得数不能相邻，当前索取金额总数=正在取+之前取,所取得金额总数最大;m[i]=n[i]+m[i-2]或m[i]=m<a href="m用于保存当前所取金额总数，n为正在取的金额">i-1</a></em></p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>  let rob = function(nums) {
-    //边界
-    if (nums.length === 0) {
-        return 0
-    }
-    if (nums.length === 1) {
-        return nums[0]
-    }
-    const memo = [];
-    memo[0] = nums[0];
-    memo[1] = Math.max(nums[0], nums[1]);
-    for (let i = 2; i &lt;= nums.length; i++) {
-        memo[i] = Math.max(nums[i] + memo[i - 2], memo[i - 1]);
-
-    }
-    return memo[nums.length - 1];
-}</code></pre><h4 id="岛屿数量问题（dfs）"><a href="#岛屿数量问题（dfs）" class="headerlink" title="岛屿数量问题（dfs）"></a>岛屿数量问题（dfs）</h4><p><em>深度优先搜索算法：一种用于遍历或搜索树或图的算法。 沿着树的深度遍历树的节点，尽可能深的搜索树的分支。当节点v的所在边都己被探寻过或者在搜寻时结点不满足条件，搜索将回溯到发现节点v的那条边的起始节点。整个进程反复进行直到所有节点都被访问为止。</em><br><em>问题：1为陆地，0为水，二维网格，计算岛屿数量，岛屿只能由水平方向和\或垂直方向上相邻的陆地连接形成，边界外都是水</em><br><em>问题分析：先遍历找到二位数组中为1的点，再对其四个方向进行判断，其中需要注意已经判定过得点置为0；每找到为1的点就进行判断，直到遍历完所有</em></p>
-<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code>let num = function(grid) {
- let count = 0; //记录数量
-   for (let i = 0; i &lt; grid.length; i++) {
-  for (let j = 0; j &lt; grid[i].length; j++) {
-      if (grid[i][j] == &apos;1&apos;) {
-          count++;
-          turn(i, j, grid)
-      }
-    }
-    }
-  return count;
-        }
-
-   function turn(i, j, grid) {
-  //边界判断
-  if (grid[i] == undefined || grid[i][j] == undefined || grid[i][j] == &apos;0&apos;) {
-  return;
-}
-grid[i][j] = &apos;0&apos;;
-turn(i + 1, j, grid)
-   turn(i - 1, j, grid)
- turn(i, j + 1, grid)
-turn(i, j - 1, grid)
-   }</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://github.com/weiliang1314/wode.githup.io/2020/12/31/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%9B%9B/" data-id="ckjnwzker0000rcu62zvwhcyx" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -930,7 +940,7 @@ turn(i, j - 1, grid)
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/03/">March 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/11/">November 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/wode.githup.io/archives/2020/05/">May 2020</a></li></ul>
     </div>
   </div>
 
@@ -941,6 +951,10 @@ turn(i, j - 1, grid)
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/wode.githup.io/2021/04/18/%E7%99%BE%E5%BA%A6%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F/">百度前端实习面经</a>
+          </li>
         
           <li>
             <a href="/wode.githup.io/2021/03/26/%E8%85%BE%E8%AE%AFWXG%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E9%9D%A2%E7%BB%8F%EF%BC%88%E4%B8%80%E9%9D%A2%EF%BC%89/">腾讯WXG前端实习面经（一面）</a>
@@ -956,10 +970,6 @@ turn(i, j - 1, grid)
         
           <li>
             <a href="/wode.githup.io/2021/03/05/javascript%E5%88%B7%E9%A2%98%E7%B3%BB%E5%88%97%E5%85%AB/">javascript刷题系列八</a>
-          </li>
-        
-          <li>
-            <a href="/wode.githup.io/2021/03/01/javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B8%80/">javascript设计模式一</a>
           </li>
         
       </ul>
